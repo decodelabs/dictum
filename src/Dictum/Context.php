@@ -121,6 +121,18 @@ class Context
     }
 
     /**
+     * Convert to camelCase
+     */
+    public function camel(?string $id, ?string $encoding = null): ?Text
+    {
+        if (null === ($id = $this->id($id, $encoding))) {
+            return null;
+        }
+
+        return $id->firstToLowerCase();
+    }
+
+    /**
      * Format as PHP_CONSTANT
      */
     public function constant(?string $constant, ?string $encoding = null): ?Text
