@@ -708,7 +708,7 @@ class Text implements
         $output = (array)explode($delimiter, $this->text, $limit);
 
         return array_map(function ($part) {
-            return new static($part, $this->encoding);
+            return new static((string)$part, $this->encoding);
         }, $output);
     }
 
