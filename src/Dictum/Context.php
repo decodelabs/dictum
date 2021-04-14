@@ -663,7 +663,7 @@ class Context
     public function isBlank($text): bool
     {
         if (null === ($text = $this->text($text))) {
-            return false;
+            return true;
         }
 
         return $text->isBlank();
