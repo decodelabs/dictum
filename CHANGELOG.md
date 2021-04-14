@@ -1,3 +1,6 @@
+## v0.2.3 (2021-04-14)
+* Removed Locale from Plugin interfaces
+
 ## v0.2.2 (2021-04-14)
 * Added callback support to regexReplace
 * Added Time and Number plugin interfaces
