@@ -1,3 +1,4 @@
+## v0.2.1 (2021-04-14)
 * Simplified label formatter
 * Added comparison helper
 * Added text check / count helpers
