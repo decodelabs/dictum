@@ -695,10 +695,6 @@ class Context
             return 0;
         }
 
-        return $text->trim()
-            ->append(' ')
-            ->regexReplace('[^\w\s]+', '')
-            ->regexReplace('[\s]+', ' ')
-            ->countInstances(' ');
+        return $text->countWords();
     }
 }
