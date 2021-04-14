@@ -220,7 +220,7 @@ class Context
 
         return $label
             ->toUtf8()
-            ->regexReplace('[-_./:]', ' ')
+            ->regexReplace('[-_]', ' ')
             ->regexReplace('([a-z])([A-Z])', '\\1 \\2')
             ->regexReplace('[\s]+', ' ')
             ->toLowerCase()
