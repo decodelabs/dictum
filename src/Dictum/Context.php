@@ -316,22 +316,22 @@ class Context
     /**
      * Remove non-filesystem compatible chars
      */
-    public function filename(?string $filename, bool $allowSpaces = false, ?string $encoding = null): ?Text
+    public function fileName(?string $fileName, bool $allowSpaces = false, ?string $encoding = null): ?Text
     {
-        if (null === ($filename = $this->text($filename, $encoding))) {
+        if (null === ($fileName = $this->text($fileName, $encoding))) {
             return null;
         }
 
-        $filename = $filename
+        $fileName = $fileName
             ->toAscii()
             ->replace('/', '_')
             ->regexReplace('[\/\\?%*:|"<>]', '');
 
         if (!$allowSpaces) {
-            $filename = $filename->replace(' ', '-');
+            $fileName = $fileName->replace(' ', '-');
         }
 
-        return $filename;
+        return $fileName;
     }
 
     /**
