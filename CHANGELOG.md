@@ -1,3 +1,7 @@
+## v0.1.3 (2021-04-14)
+* Added more name formatters
+* Updated slug formatting
+
 ## v0.1.2 (2021-04-14)
 * Removed IteratorAggregate interface from Text
 
