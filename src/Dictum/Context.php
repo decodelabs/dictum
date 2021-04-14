@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum;
 
+use DecodeLabs\Exceptional;
+
 use Stringable;
 
 class Context
@@ -462,6 +464,94 @@ class Context
     }
 
     /**
+     * Convert between any base from 2 to 62
+     *
+     * @param string|Stringable|int|float|null $input
+     */
+    public function baseConvert($input, int $fromBase, int $toBase, int $pad = 1): ?string
+    {
+        if ($input === null) {
+            return null;
+        }
+
+        if (
+            $fromBase < 2 ||
+            $fromBase > 62 ||
+            $toBase < 2 ||
+            $toBase > 62
+        ) {
+            throw Exceptional::Overflow('Base must be between 2 and 62');
+        }
+
+        if (!is_string($input)) {
+            $input = sprintf('%0.0F', $input);
+        }
+
+
+        if (extension_loaded('gmp')) {
+            $output = gmp_strval(gmp_init($input, $fromBase), $toBase);
+
+            if ($pad > 1) {
+                $output = str_pad($output, $pad, '0', STR_PAD_LEFT);
+            }
+
+            return $output;
+        }
+
+
+        $digitChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $inDigits = [];
+        $outChars = '';
+
+        $input = strtolower($input);
+        $length = strlen($input);
+
+
+        for ($i = 0; $i < $length; $i++) {
+            $digit = ord($input[$i]) - 48;
+
+            if ($digit > 9) {
+                $digit -= 39;
+            }
+
+            if ($digit > $fromBase) {
+                throw Exceptional::Overflow('Digit as exceeded base: ' . $fromBase);
+            }
+
+            $inDigits[] = $digit;
+        }
+
+
+        while (!empty($inDigits)) {
+            $work = 0;
+            $workDigits = [];
+
+            foreach ($inDigits as $digit) {
+                $work *= $fromBase;
+                $work += $digit;
+
+
+                if ($work < $toBase) {
+                    if (!empty($workDigits)) {
+                        $workDigits[] = 0;
+                    }
+                } else {
+                    $workDigits[] = (int)($work / $toBase);
+                    $work %= $toBase;
+                }
+            }
+
+            $outChars = $digitChars[$work] . $outChars;
+            $inDigits = $workDigits;
+        }
+
+        return str_pad($outChars, $pad, '0', STR_PAD_LEFT);
+    }
+
+
+
+
+    /**
      * String to boolean
      *
      * @param string|Stringable|int|float|null $text
@@ -505,5 +595,110 @@ class Context
             ->__toString();
 
         return $string1 === $string2;
+    }
+
+
+    /**
+     * Only contains alpha characters
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isAlpha($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isAlpha();
+    }
+
+    /**
+     * Only contains alpha numeric characters
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isAlphaNumeric($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isAlphaNumeric();
+    }
+
+    /**
+     * Only contains digits
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isDigit($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isDigit();
+    }
+
+
+    /**
+     * Only contains whitespace
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isWhitespace($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isWhitespace();
+    }
+
+    /**
+     * Only contains whitespace or empty
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isBlank($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isBlank();
+    }
+
+    /**
+     * Only contains hex
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function isHex($text): bool
+    {
+        if (null === ($text = $this->text($text))) {
+            return false;
+        }
+
+        return $text->isHex();
+    }
+
+
+    /**
+     * Count number of whole words
+     *
+     * @param string|Stringable|int|float|null $text
+     */
+    public function countWords($text): int
+    {
+        if (null === ($text = $this->text($text))) {
+            return 0;
+        }
+
+        return $text->trim()
+            ->append(' ')
+            ->regexReplace('[^\w\s]+', '')
+            ->regexReplace('[\s]+', ' ')
+            ->countInstances(' ');
     }
 }

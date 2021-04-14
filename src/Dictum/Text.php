@@ -793,7 +793,7 @@ class Text implements
      */
     public function isAlpha(): bool
     {
-        return $this->matches('^[[:alpha:]]*$');
+        return $this->matches('^[[:alpha:]]+$');
     }
 
     /**
@@ -801,11 +801,27 @@ class Text implements
      */
     public function isAlphaNumeric(): bool
     {
-        return $this->matches('^[[:alnum:]]*$');
+        return $this->matches('^[[:alnum:]]+$');
+    }
+
+    /**
+     * Only contains digits
+     */
+    public function isDigit(): bool
+    {
+        return $this->matches('^[0-9]+$');
     }
 
     /**
      * Only contains whitespace
+     */
+    public function isWhitespace(): bool
+    {
+        return $this->matches('^[[:space:]]+$');
+    }
+
+    /**
+     * Only contains whitespace or empty
      */
     public function isBlank(): bool
     {
@@ -817,7 +833,7 @@ class Text implements
      */
     public function isHex(): bool
     {
-        return $this->matches('^[[:xdigit:]]*$');
+        return $this->matches('^[[:xdigit:]]+$');
     }
 
     /**

@@ -1,5 +1,7 @@
 * Simplified label formatter
 * Added comparison helper
+* Added text check / count helpers
+* Added baseConvert method
 
 ## v0.2.0 (2021-04-14)
 * Converted formatter methods to return UTF-8 strings
