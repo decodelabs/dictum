@@ -1,3 +1,6 @@
+## v0.1.4 (2021-04-14)
+* Made formatter interface more permissive
+
 ## v0.1.3 (2021-04-14)
 * Added more name formatters
 * Updated slug formatting
