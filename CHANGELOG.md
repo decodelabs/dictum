@@ -1,3 +1,5 @@
+* Added callback support to regexReplace
+
 ## v0.2.1 (2021-04-14)
 * Simplified label formatter
 * Added comparison helper
