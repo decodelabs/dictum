@@ -1,3 +1,6 @@
+## v0.2.0 (2021-04-14)
+* Converted formatter methods to return UTF-8 strings
+
 ## v0.1.4 (2021-04-14)
 * Made formatter interface more permissive
 

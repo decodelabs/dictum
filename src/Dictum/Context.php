@@ -36,17 +36,19 @@ class Context
      *
      * @param string|Stringable|int|float|null $name
      */
-    public function name($name, ?string $encoding = null): ?Text
+    public function name($name, ?string $encoding = null): ?string
     {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
         }
 
         return $name
+            ->toUtf8()
             ->replace(['-', '_'], ' ')
             ->regexReplace('([^ ])([A-Z/])', '\\1 \\2')
             ->regexReplace('([/])([^ ])', '\\1 \\2')
-            ->toTitleCase();
+            ->toTitleCase()
+            ->__toString();
     }
 
     /**
@@ -54,7 +56,7 @@ class Context
      *
      * @param string|Stringable|int|float|null $fullName
      */
-    public function firstName($fullName, ?string $encoding = null): ?Text
+    public function firstName($fullName, ?string $encoding = null): ?string
     {
         if (!strlen($fullName = (string)$fullName)) {
             return null;
@@ -76,7 +78,9 @@ class Context
         }
 
         return (new Text($output, $encoding))
-            ->firstToUpperCase();
+            ->toUtf8()
+            ->firstToUpperCase()
+            ->__toString();
     }
 
     /**
@@ -84,13 +88,14 @@ class Context
      *
      * @param string|Stringable|int|float|null $name
      */
-    public function initials($name, bool $extendShort = true, ?string $encoding = null): ?Text
+    public function initials($name, bool $extendShort = true, ?string $encoding = null): ?string
     {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
         }
 
         $output = $name
+            ->toUtf8()
             ->replace(['-', '_'], ' ')
             ->regexReplace('[^A-Za-z0-9\s]', '')
             ->regexReplace('([^ ])([A-Z])', '\\1 \\2')
@@ -109,7 +114,7 @@ class Context
             );
         }
 
-        return $output;
+        return $output->__toString();
     }
 
     /**
@@ -117,7 +122,7 @@ class Context
      *
      * @param string|Stringable|int|float|null $name
      */
-    public function initialsAndSurname($name, ?string $encoding = null): ?Text
+    public function initialsAndSurname($name, ?string $encoding = null): ?string
     {
         if (!strlen($name = (string)$name)) {
             return null;
@@ -134,12 +139,11 @@ class Context
             return null;
         }
 
-        return $output
-            ->append(' ')
-            ->append(
-                (new Text($surname, $encoding))
-                    ->firstToUpperCase()
-            );
+        return (new Text($surname, $encoding))
+            ->toUtf8()
+            ->firstToUpperCase()
+            ->prepend($output . ' ')
+            ->__toString();
     }
 
     /**
@@ -147,7 +151,7 @@ class Context
      *
      * @param string|Stringable|int|float|null $name
      */
-    public function initialMiddleNames($name, ?string $encoding = null): ?Text
+    public function initialMiddleNames($name, ?string $encoding = null): ?string
     {
         if (!strlen($name = (string)$name)) {
             return null;
@@ -161,6 +165,7 @@ class Context
         }
 
         $output = (new Text((string)array_shift($parts), $encoding))
+            ->toUtf8()
             ->firstToUpperCase();
 
         if (!$output->isEmpty()) {
@@ -175,10 +180,13 @@ class Context
                 ->append(' ');
         }
 
-        return $output->append(
-            (new Text($surname, $encoding))
-                ->firstToUpperCase()
-        );
+        return $output
+            ->append(
+                (new Text($surname, $encoding))
+                    ->toUtf8()
+                    ->firstToUpperCase()
+            )
+            ->__toString();
     }
 
     /**
@@ -186,15 +194,17 @@ class Context
      *
      * @param string|Stringable|int|float|null $text
      */
-    public function consonants($text, ?string $encoding = null): ?Text
+    public function consonants($text, ?string $encoding = null): ?string
     {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
         }
 
         return $text
+            ->toUtf8()
             ->toAscii()
-            ->regexReplace('[aeiou]+', '');
+            ->regexReplace('[aeiou]+', '')
+            ->__toString();
     }
 
     /**
@@ -202,17 +212,19 @@ class Context
      *
      * @param string|Stringable|int|float|null $label
      */
-    public function label($label, ?string $encoding = null): ?Text
+    public function label($label, ?string $encoding = null): ?string
     {
         if (null === ($label = $this->text($label, $encoding))) {
             return null;
         }
 
         return $label
+            ->toUtf8()
             ->regexReplace('[-_./:]', ' ')
             ->regexReplace('([a-z])([A-Z])', '\\1 \\2')
             ->toLowerCase()
-            ->firstToUpperCase();
+            ->firstToUpperCase()
+            ->__toString();
     }
 
     /**
@@ -220,19 +232,21 @@ class Context
      *
      * @param string|Stringable|int|float|null $id
      */
-    public function id($id, ?string $encoding = null): ?Text
+    public function id($id, ?string $encoding = null): ?string
     {
         if (null === ($id = $this->text($id, $encoding))) {
             return null;
         }
 
         return $id
+            ->toUtf8()
             ->toAscii()
             ->regexReplace('([^ ])([A-Z])', '\\1 \\2')
             ->replace(['-', '.', '+'], ' ')
             ->regexReplace('[^a-zA-Z0-9_ ]', '')
             ->toTitleCase()
-            ->replace(' ', '');
+            ->replace(' ', '')
+            ->__toString();
     }
 
     /**
@@ -240,13 +254,22 @@ class Context
      *
      * @param string|Stringable|int|float|null $id
      */
-    public function camel($id, ?string $encoding = null): ?Text
+    public function camel($id, ?string $encoding = null): ?string
     {
-        if (null === ($id = $this->id($id, $encoding))) {
+        if (null === ($id = $this->text($id, $encoding))) {
             return null;
         }
 
-        return $id->firstToLowerCase();
+        return $id
+            ->toUtf8()
+            ->toAscii()
+            ->regexReplace('([^ ])([A-Z])', '\\1 \\2')
+            ->replace(['-', '.', '+'], ' ')
+            ->regexReplace('[^a-zA-Z0-9_ ]', '')
+            ->toTitleCase()
+            ->replace(' ', '')
+            ->firstToLowerCase()
+            ->__toString();
     }
 
     /**
@@ -254,13 +277,14 @@ class Context
      *
      * @param string|Stringable|int|float|null $constant
      */
-    public function constant($constant, ?string $encoding = null): ?Text
+    public function constant($constant, ?string $encoding = null): ?string
     {
         if (null === ($constant = $this->text($constant, $encoding))) {
             return null;
         }
 
         return $constant
+            ->toUtf8()
             ->toAscii()
             ->regexReplace('[^a-zA-Z0-9]', ' ')
             ->regexReplace('([^ ])([A-Z])', '\\1 \\2')
@@ -268,7 +292,8 @@ class Context
             ->trim()
             ->replace(' ', '_')
             ->replace('__', '_')
-            ->toUpperCase();
+            ->toUpperCase()
+            ->__toString();
     }
 
     /**
@@ -276,20 +301,22 @@ class Context
      *
      * @param string|Stringable|int|float|null $slug
      */
-    public function slug($slug, string $allowedChars = '', ?string $encoding = null): ?Text
+    public function slug($slug, string $allowedChars = '', ?string $encoding = null): ?string
     {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
         }
 
         return $slug
+            ->toUtf8()
             ->toAscii()
             ->regexReplace('([a-z][a-z])([A-Z][a-z])', '\\1 \\2')
             ->toLowerCase()
             ->regexReplace('[\s_/]', '-')
             ->regexReplace('[^a-z0-9_\-' . preg_quote($allowedChars) . ']', '')
             ->regexReplace('-+', '-')
-            ->trim(' -');
+            ->trim(' -')
+            ->__toString();
     }
 
     /**
@@ -297,7 +324,7 @@ class Context
      *
      * @param string|Stringable|int|float|null $slug
      */
-    public function pathSlug($slug, string $allowedChars = '', ?string $encoding = null): ?Text
+    public function pathSlug($slug, string $allowedChars = '', ?string $encoding = null): ?string
     {
         if (
             $slug === null ||
@@ -313,7 +340,7 @@ class Context
 
             if (
                 $part === null ||
-                $part->isEmpty()
+                !strlen($part)
             ) {
                 unset($parts[$i]);
                 continue;
@@ -322,7 +349,9 @@ class Context
             $parts[$i] = (string)$part;
         }
 
-        return $this->text(implode('/', $parts), $encoding);
+        return (new Text(implode('/', $parts), $encoding))
+            ->toUtf8()
+            ->__toString();
     }
 
     /**
@@ -330,19 +359,21 @@ class Context
      *
      * @param string|Stringable|int|float|null $slug
      */
-    public function actionSlug($slug, ?string $encoding = null): ?Text
+    public function actionSlug($slug, ?string $encoding = null): ?string
     {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
         }
 
         return $slug
+            ->toUtf8()
             ->toAscii()
             ->regexReplace('([^ ])([A-Z])', '\\1-\\2')
             ->replace(' ', '-')
             ->toLowerCase()
             ->regexReplace('-+', '-')
-            ->trim(' -');
+            ->trim(' -')
+            ->__toString();
     }
 
     /**
@@ -350,13 +381,14 @@ class Context
      *
      * @param string|Stringable|int|float|null $fileName
      */
-    public function fileName($fileName, bool $allowSpaces = false, ?string $encoding = null): ?Text
+    public function fileName($fileName, bool $allowSpaces = false, ?string $encoding = null): ?string
     {
         if (null === ($fileName = $this->text($fileName, $encoding))) {
             return null;
         }
 
         $fileName = $fileName
+            ->toUtf8()
             ->toAscii()
             ->replace('/', '_')
             ->regexReplace('[\/\\?%*:|"<>]', '');
@@ -365,7 +397,8 @@ class Context
             $fileName = $fileName->replace(' ', '-');
         }
 
-        return $fileName;
+        return $fileName
+            ->__toString();
     }
 
     /**
@@ -373,11 +406,13 @@ class Context
      *
      * @param string|Stringable|int|float|null $text
      */
-    public function shorten($text, int $length, bool $rtl = false, ?string $encoding = null): ?Text
+    public function shorten($text, int $length, bool $rtl = false, ?string $encoding = null): ?string
     {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
         }
+
+        $text->toUtf8();
 
         if ($length < 5) {
             $length = 5;
@@ -395,19 +430,20 @@ class Context
             }
         }
 
-        return $text;
+        return $text->__toString();
     }
 
     /**
      * Wrapper around Text::numericToAlpha
      */
-    public function numericToAlpha(?int $number, ?string $encoding = null): ?Text
+    public function numericToAlpha(?int $number, ?string $encoding = null): ?string
     {
         if ($number === null) {
             return null;
         }
 
-        return Text::numericToAlpha($number);
+        return Text::numericToAlpha($number)
+            ->__toString();
     }
 
     /**
