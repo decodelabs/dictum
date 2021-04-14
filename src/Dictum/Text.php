@@ -691,14 +691,24 @@ class Text implements
 
     /**
      * Replace all occurances of $pattern in text
+     *
+     * @param string|callable $replacement
      */
-    public function regexReplace(string $pattern, string $replacement, string $options = 'msr'): Text
+    public function regexReplace(string $pattern, $replacement, string $options = 'msr'): Text
     {
         $encoding = mb_regex_encoding();
         $oldOptions = mb_regex_set_options($options);
         mb_regex_encoding($this->encoding);
 
-        if (false === ($output = mb_ereg_replace($pattern, $replacement, $this->text, $options))) {
+        if (is_string($replacement)) {
+            $output = mb_ereg_replace($pattern, (string)$replacement, $this->text, $options);
+        } elseif (is_callable($replacement)) {
+            $output = mb_ereg_replace_callback($pattern, $replacement, $this->text, $options);
+        } else {
+            throw Exceptional::InvalidArgument('Replacement must be string or callable');
+        }
+
+        if ($output === false) {
             throw Exceptional::Runtime('Unable to complete mb regex');
         }
 
