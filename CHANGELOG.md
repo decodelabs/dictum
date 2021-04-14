@@ -1,3 +1,6 @@
+## v0.1.2 (2021-04-14)
+* Removed IteratorAggregate interface from Text
+
 ## v0.1.1 (2021-04-13)
 * Added camel() to Context
 

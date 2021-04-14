@@ -17,17 +17,14 @@ use DecodeLabs\Fluidity\ThenTrait;
 use DecodeLabs\Glitch\Dumpable;
 
 use Iterator;
-use IteratorAggregate;
 use Stringable;
 
 /**
- * @implements IteratorAggregate<Text>
  * @implements ArrayAccess<int, Text>
  */
 class Text implements
     ArrayAccess,
     Countable,
-    IteratorAggregate,
     Stringable,
     Dumpable
 {
@@ -1151,9 +1148,9 @@ class Text implements
     /**
      * Build a text iterator
      *
-     * @return Iterator<Text>
+     * @return iterable<Text>
      */
-    public function getIterator(): Iterator
+    public function scan(): iterable
     {
         for ($i = 0, $length = $this->getLength(); $i < $length; $i++) {
             yield new static(mb_substr($this->text, $i, 1, $this->encoding), $this->encoding);
@@ -1163,54 +1160,9 @@ class Text implements
     /**
      * Iterate over all split instances
      *
-     * @return iterable<int, array<Text>>
-     */
-    public function searchAll(string $pattern, int $limit = null, string $options = 'msr'): iterable
-    {
-        if ($pattern === '') {
-            return;
-        }
-
-        $encoding = mb_regex_encoding();
-        mb_regex_encoding($this->encoding);
-
-        mb_ereg_search_init($this->text);
-
-        if (!mb_ereg_search($pattern, $options)) {
-            mb_regex_encoding($encoding);
-            return;
-        }
-
-        if (false === ($result = mb_ereg_search_getregs())) {
-            $result = [];
-        }
-
-        $count = 0;
-
-        do {
-            foreach ($result as $key => $value) {
-                $result[$key] = new static($value, $this->encoding);
-            }
-
-            yield $result;
-            $count++;
-
-            if ($limit !== null && $count == $limit) {
-                break;
-            }
-
-            $result = mb_ereg_search_regs();
-        } while ($result);
-
-        mb_regex_encoding($encoding);
-    }
-
-    /**
-     * Iterate over all split instances
-     *
      * @return iterable<int, Text>
      */
-    public function scan(string $pattern, int $limit = null, bool $yieldMatch = false, string $options = 'msr'): iterable
+    public function scanMatches(string $pattern, int $limit = null, bool $yieldMatch = false, string $options = 'msr'): iterable
     {
         if ($pattern === '') {
             return;
@@ -1275,7 +1227,7 @@ class Text implements
      */
     public function scanLines(): iterable
     {
-        return $this->scan('[\r\n]{1,2}');
+        return $this->scanMatches('[\r\n]{1,2}');
     }
 
     /**
@@ -1287,7 +1239,52 @@ class Text implements
     {
         return $this
             ->regexReplace('\p{P}', ' ')
-            ->scan('[[:space:]]+');
+            ->scanMatches('[[:space:]]+');
+    }
+
+    /**
+     * Iterate over all split instances
+     *
+     * @return iterable<int, array<Text>>
+     */
+    public function searchAll(string $pattern, int $limit = null, string $options = 'msr'): iterable
+    {
+        if ($pattern === '') {
+            return;
+        }
+
+        $encoding = mb_regex_encoding();
+        mb_regex_encoding($this->encoding);
+
+        mb_ereg_search_init($this->text);
+
+        if (!mb_ereg_search($pattern, $options)) {
+            mb_regex_encoding($encoding);
+            return;
+        }
+
+        if (false === ($result = mb_ereg_search_getregs())) {
+            $result = [];
+        }
+
+        $count = 0;
+
+        do {
+            foreach ($result as $key => $value) {
+                $result[$key] = new static($value, $this->encoding);
+            }
+
+            yield $result;
+            $count++;
+
+            if ($limit !== null && $count == $limit) {
+                break;
+            }
+
+            $result = mb_ereg_search_regs();
+        } while ($result);
+
+        mb_regex_encoding($encoding);
     }
 
     /**
