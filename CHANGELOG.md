@@ -1,4 +1,6 @@
+## v0.2.2 (2021-04-14)
 * Added callback support to regexReplace
+* Added Time and Number plugin interfaces
 
 ## v0.2.1 (2021-04-14)
 * Simplified label formatter
