@@ -107,10 +107,23 @@ class Text implements
      */
     public function convertEncoding(string $encoding): Text
     {
+        if ($encoding === $this->encoding) {
+            return $this;
+        }
+
         return new static(
             mb_convert_encoding($this->text, $encoding, $this->encoding),
             $encoding
         );
+    }
+
+
+    /**
+     * Convert to UTF-8
+     */
+    public function toUtf8(): Text
+    {
+        return $this->convertEncoding('UTF-8');
     }
 
 
