@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.2|^8.0",
         "symfony/polyfill-php80": "^1.22",
+        "symfony/polyfill-mbstring": "^1.7",
 
         "decodelabs/exceptional": "^0.3",
         "decodelabs/fluidity": "^0.2",

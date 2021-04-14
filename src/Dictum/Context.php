@@ -42,6 +42,34 @@ class Context
     }
 
     /**
+     * Get first name from full name
+     */
+    public function firstName(?string $fullName, ?string $encoding = null): ?Text
+    {
+        if (!strlen((string)$fullName)) {
+            return null;
+        }
+
+        $parts = explode(' ', (string)$fullName);
+        $output = (string)array_shift($parts);
+
+        if (in_array(strtolower($output), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
+            if (isset($parts[1])) {
+                $output = (string)array_shift($parts);
+            } else {
+                $output = (string)$fullName;
+            }
+        }
+
+        if (strlen($output) < 3) {
+            $output .= ' ' . array_pop($parts);
+        }
+
+        return (new Text($output, $encoding))
+            ->firstToUpperCase();
+    }
+
+    /**
      * Initialise name
      */
     public function initials(?string $name, bool $extendShort = true, ?string $encoding = null): ?Text
@@ -70,6 +98,71 @@ class Context
         }
 
         return $output;
+    }
+
+    /**
+     * Get initials and surname
+     */
+    public function initialsAndSurname(?string $name, ?string $encoding = null): ?Text
+    {
+        if (!strlen((string)$name)) {
+            return null;
+        }
+
+        $parts = explode(' ', (string)$name);
+        $surname = array_pop($parts);
+
+        if (in_array(strtolower($parts[0] ?? ''), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
+            array_shift($parts);
+        }
+
+        if (null === ($output = $this->initials(implode(' ', $parts), false))) {
+            return null;
+        }
+
+        return $output
+            ->append(' ')
+            ->append(
+                (new Text($surname, $encoding))
+                    ->firstToUpperCase()
+            );
+    }
+
+    /**
+     * Shorten middle names
+     */
+    public function initialMiddleNames(?string $name, ?string $encoding = null): ?Text
+    {
+        if (!strlen((string)$name)) {
+            return null;
+        }
+
+        $parts = explode(' ', (string)$name);
+        $surname = array_pop($parts);
+
+        if (in_array(strtolower($parts[0] ?? ''), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
+            array_shift($parts);
+        }
+
+        $output = (new Text((string)array_shift($parts), $encoding))
+            ->firstToUpperCase();
+
+        if (!$output->isEmpty()) {
+            $output = $output->append(' ');
+        }
+
+        if (!empty($parts)) {
+            $output = $output
+                ->append(
+                    $this->initials(implode(' ', $parts), false, $encoding)
+                )
+                ->append(' ');
+        }
+
+        return $output->append(
+            (new Text($surname, $encoding))
+                ->firstToUpperCase()
+        );
     }
 
     /**
@@ -165,7 +258,7 @@ class Context
             ->toAscii()
             ->regexReplace('([a-z][a-z])([A-Z][a-z])', '\\1 \\2')
             ->toLowerCase()
-            ->regexReplace('[\s_/.,:]', '-')
+            ->regexReplace('[\s_/]', '-')
             ->regexReplace('[^a-z0-9_\-' . preg_quote($allowedChars) . ']', '')
             ->regexReplace('-+', '-')
             ->trim(' -');
@@ -200,6 +293,24 @@ class Context
         }
 
         return $this->text(implode('/', $parts), $encoding);
+    }
+
+    /**
+     * Convert to URL action slug
+     */
+    public function actionSlug(?string $slug, ?string $encoding = null): ?Text
+    {
+        if (null === ($slug = $this->text($slug, $encoding))) {
+            return null;
+        }
+
+        return $slug
+            ->toAscii()
+            ->regexReplace('([^ ])([A-Z])', '\\1-\\2')
+            ->replace(' ', '-')
+            ->toLowerCase()
+            ->regexReplace('-+', '-')
+            ->trim(' -');
     }
 
     /**
