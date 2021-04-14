@@ -478,4 +478,32 @@ class Context
 
         return $text->toBoolean();
     }
+
+    /**
+     * Compare two strings
+     *
+     * @param string|Stringable|int|float|null $string1
+     * @param string|Stringable|int|float|null $string2
+     */
+    public function compare($string1, $string2): bool
+    {
+        $string1 = $this->text($string1);
+        $string2 = $this->text($string2);
+
+        if ($string1 === null || $string2 === null) {
+            return $string1 === $string2;
+        }
+
+        $string1 = $string1
+            ->toUtf8()
+            ->replace("\r\n", "\n")
+            ->__toString();
+
+        $string2 = $string2
+            ->toUtf8()
+            ->replace("\r\n", "\n")
+            ->__toString();
+
+        return $string1 === $string2;
+    }
 }
