@@ -258,7 +258,7 @@ class Context
             ->toAscii()
             ->regexReplace('([a-z][a-z])([A-Z][a-z])', '\\1 \\2')
             ->toLowerCase()
-            ->regexReplace('[\s_/.,:]', '-')
+            ->regexReplace('[\s_/]', '-')
             ->regexReplace('[^a-z0-9_\-' . preg_quote($allowedChars) . ']', '')
             ->regexReplace('-+', '-')
             ->trim(' -');
@@ -293,6 +293,24 @@ class Context
         }
 
         return $this->text(implode('/', $parts), $encoding);
+    }
+
+    /**
+     * Convert to URL action slug
+     */
+    public function actionSlug(?string $slug, ?string $encoding = null): ?Text
+    {
+        if (null === ($slug = $this->text($slug, $encoding))) {
+            return null;
+        }
+
+        return $slug
+            ->toAscii()
+            ->regexReplace('([^ ])([A-Z])', '\\1-\\2')
+            ->replace(' ', '-')
+            ->toLowerCase()
+            ->regexReplace('-+', '-')
+            ->trim(' -');
     }
 
     /**
