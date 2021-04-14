@@ -222,6 +222,7 @@ class Context
             ->toUtf8()
             ->regexReplace('[-_./:]', ' ')
             ->regexReplace('([a-z])([A-Z])', '\\1 \\2')
+            ->regexReplace('[\s]+', ' ')
             ->toLowerCase()
             ->firstToUpperCase()
             ->__toString();
