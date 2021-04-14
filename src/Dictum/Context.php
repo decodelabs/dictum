@@ -9,26 +9,34 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum;
 
+use Stringable;
+
 class Context
 {
     /**
      * Create Text buffer
+     *
+     * @param string|Stringable|int|float|null $text
      */
-    public function text(?string $text, ?string $encoding = null): ?Text
+    public function text($text, ?string $encoding = null): ?Text
     {
         if ($text === null) {
             return null;
+        } elseif ($text instanceof Text) {
+            return $text;
         }
 
-        return new Text($text, $encoding);
+        return new Text((string)$text, $encoding);
     }
 
 
 
     /**
      * Normalize words, convert words to upper
+     *
+     * @param string|Stringable|int|float|null $name
      */
-    public function name(?string $name, ?string $encoding = null): ?Text
+    public function name($name, ?string $encoding = null): ?Text
     {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
@@ -43,21 +51,23 @@ class Context
 
     /**
      * Get first name from full name
+     *
+     * @param string|Stringable|int|float|null $fullName
      */
-    public function firstName(?string $fullName, ?string $encoding = null): ?Text
+    public function firstName($fullName, ?string $encoding = null): ?Text
     {
-        if (!strlen((string)$fullName)) {
+        if (!strlen($fullName = (string)$fullName)) {
             return null;
         }
 
-        $parts = explode(' ', (string)$fullName);
+        $parts = explode(' ', $fullName);
         $output = (string)array_shift($parts);
 
         if (in_array(strtolower($output), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
             if (isset($parts[1])) {
                 $output = (string)array_shift($parts);
             } else {
-                $output = (string)$fullName;
+                $output = $fullName;
             }
         }
 
@@ -71,8 +81,10 @@ class Context
 
     /**
      * Initialise name
+     *
+     * @param string|Stringable|int|float|null $name
      */
-    public function initials(?string $name, bool $extendShort = true, ?string $encoding = null): ?Text
+    public function initials($name, bool $extendShort = true, ?string $encoding = null): ?Text
     {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
@@ -102,14 +114,16 @@ class Context
 
     /**
      * Get initials and surname
+     *
+     * @param string|Stringable|int|float|null $name
      */
-    public function initialsAndSurname(?string $name, ?string $encoding = null): ?Text
+    public function initialsAndSurname($name, ?string $encoding = null): ?Text
     {
-        if (!strlen((string)$name)) {
+        if (!strlen($name = (string)$name)) {
             return null;
         }
 
-        $parts = explode(' ', (string)$name);
+        $parts = explode(' ', $name);
         $surname = array_pop($parts);
 
         if (in_array(strtolower($parts[0] ?? ''), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
@@ -130,14 +144,16 @@ class Context
 
     /**
      * Shorten middle names
+     *
+     * @param string|Stringable|int|float|null $name
      */
-    public function initialMiddleNames(?string $name, ?string $encoding = null): ?Text
+    public function initialMiddleNames($name, ?string $encoding = null): ?Text
     {
-        if (!strlen((string)$name)) {
+        if (!strlen($name = (string)$name)) {
             return null;
         }
 
-        $parts = explode(' ', (string)$name);
+        $parts = explode(' ', $name);
         $surname = array_pop($parts);
 
         if (in_array(strtolower($parts[0] ?? ''), ['mr', 'ms', 'mrs', 'miss', 'dr'])) {
@@ -167,8 +183,10 @@ class Context
 
     /**
      * Strip vowels from text
+     *
+     * @param string|Stringable|int|float|null $text
      */
-    public function consonants(?string $text, ?string $encoding = null): ?Text
+    public function consonants($text, ?string $encoding = null): ?Text
     {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
@@ -181,8 +199,10 @@ class Context
 
     /**
      * Uppercase first, to ASCII, strip some chars
+     *
+     * @param string|Stringable|int|float|null $label
      */
-    public function label(?string $label, ?string $encoding = null): ?Text
+    public function label($label, ?string $encoding = null): ?Text
     {
         if (null === ($label = $this->text($label, $encoding))) {
             return null;
@@ -197,8 +217,10 @@ class Context
 
     /**
      * Convert to Id
+     *
+     * @param string|Stringable|int|float|null $id
      */
-    public function id(?string $id, ?string $encoding = null): ?Text
+    public function id($id, ?string $encoding = null): ?Text
     {
         if (null === ($id = $this->text($id, $encoding))) {
             return null;
@@ -215,8 +237,10 @@ class Context
 
     /**
      * Convert to camelCase
+     *
+     * @param string|Stringable|int|float|null $id
      */
-    public function camel(?string $id, ?string $encoding = null): ?Text
+    public function camel($id, ?string $encoding = null): ?Text
     {
         if (null === ($id = $this->id($id, $encoding))) {
             return null;
@@ -227,8 +251,10 @@ class Context
 
     /**
      * Format as PHP_CONSTANT
+     *
+     * @param string|Stringable|int|float|null $constant
      */
-    public function constant(?string $constant, ?string $encoding = null): ?Text
+    public function constant($constant, ?string $encoding = null): ?Text
     {
         if (null === ($constant = $this->text($constant, $encoding))) {
             return null;
@@ -247,8 +273,10 @@ class Context
 
     /**
      * Convert to slug
+     *
+     * @param string|Stringable|int|float|null $slug
      */
-    public function slug(?string $slug, string $allowedChars = '', ?string $encoding = null): ?Text
+    public function slug($slug, string $allowedChars = '', ?string $encoding = null): ?Text
     {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
@@ -266,12 +294,14 @@ class Context
 
     /**
      * Convert to path format slug
+     *
+     * @param string|Stringable|int|float|null $slug
      */
-    public function pathSlug(?string $slug, string $allowedChars = '', ?string $encoding = null): ?Text
+    public function pathSlug($slug, string $allowedChars = '', ?string $encoding = null): ?Text
     {
         if (
             $slug === null ||
-            !strlen($slug)
+            !strlen($slug = (string)$slug)
         ) {
             return null;
         }
@@ -297,8 +327,10 @@ class Context
 
     /**
      * Convert to URL action slug
+     *
+     * @param string|Stringable|int|float|null $slug
      */
-    public function actionSlug(?string $slug, ?string $encoding = null): ?Text
+    public function actionSlug($slug, ?string $encoding = null): ?Text
     {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
@@ -315,8 +347,10 @@ class Context
 
     /**
      * Remove non-filesystem compatible chars
+     *
+     * @param string|Stringable|int|float|null $fileName
      */
-    public function fileName(?string $fileName, bool $allowSpaces = false, ?string $encoding = null): ?Text
+    public function fileName($fileName, bool $allowSpaces = false, ?string $encoding = null): ?Text
     {
         if (null === ($fileName = $this->text($fileName, $encoding))) {
             return null;
@@ -336,8 +370,10 @@ class Context
 
     /**
      * Cap length of string, add ellipsis if needed
+     *
+     * @param string|Stringable|int|float|null $text
      */
-    public function shorten(?string $text, int $length, bool $rtl = false, ?string $encoding = null): ?Text
+    public function shorten($text, int $length, bool $rtl = false, ?string $encoding = null): ?Text
     {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
@@ -376,8 +412,10 @@ class Context
 
     /**
      * Wrapper around alphaToNumeric
+     *
+     * @param string|Stringable|int|float|null $text
      */
-    public function alphaToNumeric(?string $text, ?string $encoding = null): ?int
+    public function alphaToNumeric($text, ?string $encoding = null): ?int
     {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
@@ -388,9 +426,15 @@ class Context
 
     /**
      * String to boolean
+     *
+     * @param string|Stringable|int|float|null $text
      */
-    public function toBoolean(string $text, ?string $encoding = null): bool
+    public function toBoolean($text, ?string $encoding = null): bool
     {
+        if (is_int($text) || is_float($text)) {
+            return (bool)$text;
+        }
+
         if (null === ($text = $this->text($text, $encoding))) {
             return false;
         }
