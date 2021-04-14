@@ -11,8 +11,6 @@ namespace DecodeLabs\Dictum\Plugin;
 
 use DecodeLabs\Veneer\Plugin;
 
-use Locale;
-
 /**
  * @template TReturn
  */
@@ -20,76 +18,65 @@ interface Number extends Plugin
 {
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function format($value, ?string $unit = null, $locale = null);
+    public function format($value, ?string $unit = null, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function pattern($value, string $pattern, $locale = null);
+    public function pattern($value, string $pattern, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function decimal($value, ?int $precision = null, $locale = null);
+    public function decimal($value, ?int $precision = null, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function currency($value, ?string $code, ?bool $rounded = null, $locale = null);
+    public function currency($value, ?string $code, ?bool $rounded = null, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function percent($value, float $total = 100.0, int $decimals = 0, $locale = null);
+    public function percent($value, float $total = 100.0, int $decimals = 0, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function scientific($value, $locale = null);
+    public function scientific($value, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function spellout($value, $locale = null);
+    public function spellout($value, ?string $locale = null);
 
     /**
      * @param int|float|string|null $value
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function ordinal($value, $locale = null);
+    public function ordinal($value, ?string $locale = null);
 
     /**
      * @param int|float|string|null $diff
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function diff($diff, ?bool $invert = false, $locale = null);
+    public function diff($diff, ?bool $invert = false, ?string $locale = null);
 
     /**
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function fileSize(?int $bytes, $locale = null);
+    public function fileSize(?int $bytes, ?string $locale = null);
 
     /**
-     * @param Locale|string|null $locale
      * @return TReturn|null
      */
-    public function fileSizeDec(?int $bytes, $locale = null);
+    public function fileSizeDec(?int $bytes, ?string $locale = null);
 }
