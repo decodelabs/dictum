@@ -183,7 +183,7 @@ trait NumberTrait
     /**
      * Format counter
      */
-    public function counter($counter, bool $allowZero=false, ?string $locale = null)
+    public function counter($counter, bool $allowZero = false, ?string $locale = null)
     {
         if (null === ($counter = $this->normalizeNumeric($counter))) {
             return null;
