@@ -1,3 +1,6 @@
+## v0.2.4 (2021-04-15)
+* Added Time and Number plugins
+
 ## v0.2.3 (2021-04-14)
 * Removed Locale from Plugin interfaces
 
