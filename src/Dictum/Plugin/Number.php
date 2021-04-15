@@ -79,4 +79,10 @@ interface Number extends Plugin
      * @return TReturn|null
      */
     public function fileSizeDec(?int $bytes, ?string $locale = null);
+
+    /**
+     * @param int|float|string|null $counter
+     * @return TReturn|null
+     */
+    public function counter($counter);
 }
