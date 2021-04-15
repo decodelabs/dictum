@@ -84,5 +84,5 @@ interface Number extends Plugin
      * @param int|float|string|null $counter
      * @return TReturn|null
      */
-    public function counter($counter);
+    public function counter($counter, bool $allowZero=false, ?string $locale = null);
 }
