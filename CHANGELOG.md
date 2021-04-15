@@ -1,3 +1,4 @@
+## v0.2.5 (2021-04-15)
 * Added ROUND flag to Carbon forHumans()
 * Added counter() number formatter
 
