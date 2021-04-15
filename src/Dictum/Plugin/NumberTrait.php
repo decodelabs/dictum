@@ -179,6 +179,35 @@ trait NumberTrait
     }
 
 
+
+    /**
+     * Format counter
+     */
+    public function counter($counter, bool $allowZero = false, ?string $locale = null)
+    {
+        if (null === ($counter = $this->normalizeNumeric($counter))) {
+            return null;
+        }
+
+        if ($counter == 0 && !$allowZero) {
+            return null;
+        }
+
+        if ($counter > 999999999) {
+            return $this->format(round($counter / 1000000000, 1), 'b', $locale);
+        } elseif ($counter > 999999) {
+            return $this->format(round($counter / 1000000, 1), 'm', $locale);
+        } elseif ($counter > 9999) {
+            return $this->format(round($counter / 1000), 'k', $locale);
+        } elseif ($counter > 999) {
+            return $this->format(round($counter / 1000, 1), 'k', $locale);
+        } else {
+            return $this->format($counter, null, $locale);
+        }
+    }
+
+
+
     /**
      * Normalize numeric value
      *

@@ -1,3 +1,7 @@
+## v0.2.5 (2021-04-15)
+* Added ROUND flag to Carbon forHumans()
+* Added counter() number formatter
+
 ## v0.2.4 (2021-04-15)
 * Added Time and Number plugins
 
