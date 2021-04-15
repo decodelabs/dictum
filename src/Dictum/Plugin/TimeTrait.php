@@ -356,7 +356,7 @@ trait TimeTrait
                 'short' => $short,
                 'join' => true,
                 'parts' => $parts,
-                'options' => CarbonInterface::JUST_NOW | CarbonInterface::ONE_DAY_WORDS,
+                'options' => CarbonInterface::JUST_NOW | CarbonInterface::ONE_DAY_WORDS | CarbonInterface::ROUND,
                 'syntax' => $absolute ? CarbonInterface::DIFF_ABSOLUTE : CarbonInterface::DIFF_RELATIVE_TO_NOW
             ]);
     }
@@ -431,7 +431,7 @@ trait TimeTrait
                 'short' => $short,
                 'join' => true,
                 'parts' => $parts,
-                'options' => CarbonInterface::JUST_NOW | CarbonInterface::ONE_DAY_WORDS,
+                'options' => CarbonInterface::JUST_NOW | CarbonInterface::ONE_DAY_WORDS | CarbonInterface::ROUND,
                 'syntax' => CarbonInterface::DIFF_ABSOLUTE
             ]);
     }
