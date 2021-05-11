@@ -26,7 +26,10 @@
         "symplify/easy-coding-standard": "^8.3",
 
         "nesbot/carbon": "^2.25",
-        "decodelabs/systemic": "^0.8"
+        "decodelabs/systemic": "^0.8",
+
+        "decodelabs/atlas": "^0.9",
+        "decodelabs/terminus": "^0.7"
     },
     "suggest": {
         "decodelabs/systemic": "Managed locale and timezone info"

@@ -71,7 +71,7 @@ trait TimeTrait
         );
 
         $formatter->setTimezone($date->getTimezone());
-        return $formatter->format($date);
+        return (string)$formatter->format($date);
     }
 
     /**
