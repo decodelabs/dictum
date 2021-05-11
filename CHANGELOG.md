@@ -1,3 +1,6 @@
+## v0.2.6 (2021-05-11)
+* Added Veneer IDE support stub
+
 ## v0.2.5 (2021-04-15)
 * Added ROUND flag to Carbon forHumans()
 * Added counter() number formatter
