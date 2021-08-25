@@ -321,16 +321,22 @@ trait TimeTrait
     {
         $this->checkCarbon();
 
-        if (!$date = $this->normalizeDate($date)) {
-            return null;
-        }
+        if ($date instanceof DateInterval) {
+            $interval = CarbonInterval::instance($date);
+            $interval->invert = (int)!$interval->invert;
+            $date = $this->normalizeDate($date);
+        } else {
+            if (!$date = $this->normalizeDate($date)) {
+                return null;
+            }
 
-        if (null === ($now = $this->normalizeDate('now'))) {
-            throw Exceptional::UnexpectedValue('Unable to create now date');
-        }
+            if (null === ($now = $this->normalizeDate('now'))) {
+                throw Exceptional::UnexpectedValue('Unable to create now date');
+            }
 
-        if (null === ($interval = CarbonInterval::make($date->diff($now)))) {
-            throw Exceptional::UnexpectedValue('Unable to create interval');
+            if (null === ($interval = CarbonInterval::make($date->diff($now)))) {
+                throw Exceptional::UnexpectedValue('Unable to create interval');
+            }
         }
 
         $locale = $this->getLocale($locale);
