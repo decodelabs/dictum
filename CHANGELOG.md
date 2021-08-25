@@ -1,3 +1,6 @@
+## v0.2.7 (2021-08-25)
+* Fixed now time interval calculations
+
 ## v0.2.6 (2021-05-11)
 * Added Veneer IDE support stub
 
