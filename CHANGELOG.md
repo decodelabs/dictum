@@ -1,3 +1,6 @@
+## v0.2.8 (2021-10-20)
+* Updated Veneer dependency
+
 ## v0.2.7 (2021-08-25)
 * Fixed now time interval calculations
 
