@@ -721,6 +721,7 @@ class Text implements
     /**
      * Split by $string
      *
+     * @param non-empty-string $delimiter
      * @return array<Text>
      */
     public function split(string $delimiter, int $limit = PHP_INT_MAX): array
