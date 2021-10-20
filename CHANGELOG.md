@@ -1,3 +1,6 @@
+## v0.2.9 (2021-10-20)
+* Fixed PHPStan non-empty-string issue
+
 ## v0.2.8 (2021-10-20)
 * Updated Veneer dependency
 
