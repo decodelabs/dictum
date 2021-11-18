@@ -3,7 +3,7 @@
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/decodelabs/dictum?style=flat-square)](https://packagist.org/packages/decodelabs/dictum)
 [![Latest Version](https://img.shields.io/packagist/v/decodelabs/dictum.svg?style=flat-square)](https://packagist.org/packages/decodelabs/dictum)
 [![Total Downloads](https://img.shields.io/packagist/dt/decodelabs/dictum.svg?style=flat-square)](https://packagist.org/packages/decodelabs/dictum)
-[![Build Status](https://img.shields.io/travis/com/decodelabs/dictum/main.svg?style=flat-square)](https://travis-ci.com/decodelabs/dictum)
+[![Build Status](https://img.shields.io/travis/com/decodelabs/dictum/main.svg?style=flat-square)](https://app.travis-ci.com/github/decodelabs/dictum)
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat-square)](https://github.com/phpstan/phpstan)
 [![License](https://img.shields.io/packagist/l/decodelabs/dictum?style=flat-square)](https://packagist.org/packages/decodelabs/dictum)
 
