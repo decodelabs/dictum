@@ -1,3 +1,8 @@
+## v0.3.0 (2022-03-10)
+* Added pattern() to Time plugin
+* Transitioned from Travis to GHA
+* Updated PHPStan and ECS dependencies
+
 ## v0.2.9 (2021-10-20)
 * Fixed PHPStan non-empty-string issue
 
