@@ -53,9 +53,9 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function formatIcu(
+    public function pattern(
         $date,
-        string $format,
+        string $pattern,
         $timezone = true,
         ?string $locale = null
     );

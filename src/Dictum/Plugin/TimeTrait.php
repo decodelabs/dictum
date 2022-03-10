@@ -38,7 +38,7 @@ trait TimeTrait
      */
     protected function formatRawIcuDate(
         &$date,
-        string $format,
+        string $pattern,
         $timezone = true,
         ?string $locale = null
     ): ?string {
@@ -52,7 +52,7 @@ trait TimeTrait
             $this->normalizeLocaleSize('full'),
             $date->getTimezone(),
             null,
-            $format
+            $pattern
         );
 
         return (string)$formatter->format($date);

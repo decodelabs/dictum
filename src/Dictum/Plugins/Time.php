@@ -69,13 +69,13 @@ class Time implements TimePlugin
     /**
      * Custom locale format a date with ICU and wrap it
      */
-    public function formatIcu(
+    public function pattern(
         $date,
-        string $format,
+        string $pattern,
         $timezone = true,
         ?string $locale = null
     ): ?string {
-        return $this->formatRawIcuDate($date, $format, $timezone, $locale);
+        return $this->formatRawIcuDate($date, $pattern, $timezone, $locale);
     }
 
     /**
