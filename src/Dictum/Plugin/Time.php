@@ -29,7 +29,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function format($date, string $format, $timezone = true);
+    public function format(
+        $date,
+        string $format,
+        $timezone = true
+    );
 
     /**
      * Custom format a date and wrap it
@@ -37,7 +41,24 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function formatDate($date, string $format);
+    public function formatDate(
+        $date,
+        string $format
+    );
+
+    /**
+     * Custom locale format a date with ICU and wrap it
+     *
+     * @param DateTime|DateInterval|string|Stringable|int|null $date
+     * @param DateTimeZone|string|Stringable|bool|null $timezone
+     * @return TReturn|null
+     */
+    public function formatIcu(
+        $date,
+        string $format,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format date according to locale
@@ -48,7 +69,13 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function locale($date, $dateSize = true, $timeSize = true, $timezone = true, ?string $locale = null);
+    public function locale(
+        $date,
+        $dateSize = true,
+        $timeSize = true,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format full date time
@@ -57,7 +84,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullDateTime($date, $timezone = true, ?string $locale = null);
+    public function fullDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format full date
@@ -66,7 +97,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullDate($date, $timezone = true, ?string $locale = null);
+    public function fullDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format full time
@@ -75,7 +110,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullTime($date, $timezone = true, ?string $locale = null);
+    public function fullTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
 
     /**
@@ -85,7 +124,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longDateTime($date, $timezone = true, ?string $locale = null);
+    public function longDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format long date
@@ -94,7 +137,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longDate($date, $timezone = true, ?string $locale = null);
+    public function longDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format long time
@@ -103,7 +150,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longTime($date, $timezone = true, ?string $locale = null);
+    public function longTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
 
     /**
@@ -113,7 +164,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumDateTime($date, $timezone = true, ?string $locale = null);
+    public function mediumDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format medium date
@@ -122,7 +177,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumDate($date, $timezone = true, ?string $locale = null);
+    public function mediumDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format medium time
@@ -131,7 +190,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumTime($date, $timezone = true, ?string $locale = null);
+    public function mediumTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
 
     /**
@@ -141,7 +204,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortDateTime($date, $timezone = true, ?string $locale = null);
+    public function shortDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format short date
@@ -150,7 +217,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortDate($date, $timezone = true, ?string $locale = null);
+    public function shortDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format short time
@@ -159,7 +230,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortTime($date, $timezone = true, ?string $locale = null);
+    public function shortTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
 
 
@@ -171,7 +246,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function dateTime($date, $timezone = true, ?string $locale = null);
+    public function dateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format default date
@@ -180,7 +259,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function date($date, $timezone = true, ?string $locale = null);
+    public function date(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
     /**
      * Format default time
@@ -189,7 +272,11 @@ interface Time extends Plugin
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function time($date, $timezone = true, ?string $locale = null);
+    public function time(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    );
 
 
 
@@ -200,7 +287,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function since($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function since(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval since date
@@ -208,7 +300,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function sinceAbs($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function sinceAbs(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval since date
@@ -216,7 +313,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function sinceAbbr($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function sinceAbbr(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval until date
@@ -224,7 +326,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function until($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function until(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval until date
@@ -232,7 +339,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function untilAbs($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function untilAbs(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval until date
@@ -240,7 +352,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function untilAbbr($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null);
+    public function untilAbbr(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
 
     /**
@@ -250,7 +367,12 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @return TReturn|null
      */
-    public function between($date1, $date2, ?int $parts = 1, ?string $locale = null);
+    public function between(
+        $date1,
+        $date2,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 
     /**
      * Format interval until date
@@ -259,5 +381,10 @@ interface Time extends Plugin
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @return TReturn|null
      */
-    public function betweenAbbr($date1, $date2, ?int $parts = 1, ?string $locale = null);
+    public function betweenAbbr(
+        $date1,
+        $date2,
+        ?int $parts = 1,
+        ?string $locale = null
+    );
 }

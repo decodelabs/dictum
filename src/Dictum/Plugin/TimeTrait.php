@@ -31,6 +31,35 @@ trait TimeTrait
     use SystemicProxyTrait;
 
     /**
+     * Format raw ICU date
+     *
+     * @param DateTime|DateInterval|string|Stringable|int|null $date
+     * @param DateTimeZone|string|Stringable|bool|null $timezone
+     */
+    protected function formatRawIcuDate(
+        &$date,
+        string $format,
+        $timezone = true,
+        ?string $locale = null
+    ): ?string {
+        if (!$date = $this->prepare($date, $timezone, true)) {
+            return null;
+        }
+
+        $formatter = new IntlDateFormatter(
+            $this->getLocale($locale),
+            $this->normalizeLocaleSize('full'),
+            $this->normalizeLocaleSize('full'),
+            $date->getTimezone(),
+            null,
+            $format
+        );
+
+        return (string)$formatter->format($date);
+    }
+
+
+    /**
      * Format raw locale date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
@@ -38,8 +67,14 @@ trait TimeTrait
      * @param string|int|bool|null $timeSize
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
-    protected function formatRawLocaleDate(&$date, $dateSize = true, $timeSize = true, $timezone = true, ?string &$locale = null, ?string &$wrapFormat = null): ?string
-    {
+    protected function formatRawLocaleDate(
+        &$date,
+        $dateSize = true,
+        $timeSize = true,
+        $timezone = true,
+        ?string &$locale = null,
+        ?string &$wrapFormat = null
+    ): ?string {
         $dateSize = $this->normalizeLocaleSize($dateSize);
         $timeSize = $this->normalizeLocaleSize($timeSize);
 
@@ -67,10 +102,10 @@ trait TimeTrait
         $formatter = new IntlDateFormatter(
             $this->getLocale($locale),
             $dateSize,
-            $timeSize
+            $timeSize,
+            $date->getTimezone()
         );
 
-        $formatter->setTimezone($date->getTimezone());
         return (string)$formatter->format($date);
     }
 
@@ -79,8 +114,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullDateTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function fullDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'full', 'full', $timezone, $locale);
     }
 
@@ -89,8 +127,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullDate($date, $timezone = true, ?string $locale = null)
-    {
+    public function fullDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'full', false, $timezone, $locale);
     }
 
@@ -99,8 +140,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function fullTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function fullTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, false, 'full', $timezone, $locale);
     }
 
@@ -110,8 +154,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longDateTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function longDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'long', 'long', $timezone, $locale);
     }
 
@@ -120,8 +167,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longDate($date, $timezone = true, ?string $locale = null)
-    {
+    public function longDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'long', false, $timezone, $locale);
     }
 
@@ -130,8 +180,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function longTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function longTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, false, 'long', $timezone, $locale);
     }
 
@@ -141,8 +194,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumDateTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function mediumDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'medium', 'medium', $timezone, $locale);
     }
 
@@ -151,8 +207,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumDate($date, $timezone = true, ?string $locale = null)
-    {
+    public function mediumDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'medium', false, $timezone, $locale);
     }
 
@@ -161,8 +220,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function mediumTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function mediumTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, false, 'medium', $timezone, $locale);
     }
 
@@ -172,8 +234,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortDateTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function shortDateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'short', 'short', $timezone, $locale);
     }
 
@@ -182,8 +247,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortDate($date, $timezone = true, ?string $locale = null)
-    {
+    public function shortDate(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'short', false, $timezone, $locale);
     }
 
@@ -192,8 +260,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function shortTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function shortTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, false, 'short', $timezone, $locale);
     }
 
@@ -205,8 +276,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function dateTime($date, $timezone = true, ?string $locale = null)
-    {
+    public function dateTime(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'medium', 'medium', $timezone, $locale);
     }
 
@@ -215,8 +289,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function date($date, $timezone = true, ?string $locale = null)
-    {
+    public function date(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, 'medium', false, $timezone, $locale);
     }
 
@@ -225,8 +302,11 @@ trait TimeTrait
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @return TReturn|null
      */
-    public function time($date, $timezone = true, ?string $locale = null)
-    {
+    public function time(
+        $date,
+        $timezone = true,
+        ?string $locale = null
+    ) {
         return $this->locale($date, false, 'short', $timezone, $locale);
     }
 
@@ -240,8 +320,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function since($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function since(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, false, $parts, false, false, $positive, $locale);
     }
 
@@ -251,8 +335,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function sinceAbs($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function sinceAbs(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, false, $parts, false, true, $positive, $locale);
     }
 
@@ -262,8 +350,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function sinceAbbr($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function sinceAbbr(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, false, $parts, true, true, $positive, $locale);
     }
 
@@ -273,8 +365,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function until($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function until(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, true, $parts, false, false, $positive, $locale);
     }
 
@@ -284,8 +380,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function untilAbs($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function untilAbs(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, true, $parts, false, true, $positive, $locale);
     }
 
@@ -295,8 +395,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    public function untilAbbr($date, ?bool $positive = null, ?int $parts = 1, ?string $locale = null)
-    {
+    public function untilAbbr(
+        $date,
+        ?bool $positive = null,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatNowInterval($date, true, $parts, true, true, $positive, $locale);
     }
 
@@ -307,8 +411,15 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @return TReturn|null
      */
-    protected function formatNowInterval($date, bool $invert, ?int $parts, bool $short = false, bool $absolute = false, ?bool $positive = false, ?string $locale = null)
-    {
+    protected function formatNowInterval(
+        $date,
+        bool $invert,
+        ?int $parts,
+        bool $short = false,
+        bool $absolute = false,
+        ?bool $positive = false,
+        ?string $locale = null
+    ) {
         return $this->formatRawNowInterval($date, $interval, $invert, $parts, $short, $absolute, $positive, $locale);
     }
 
@@ -317,8 +428,16 @@ trait TimeTrait
      * Format interval
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      */
-    protected function formatRawNowInterval(&$date, ?DateInterval &$interval, bool $invert, ?int $parts, bool $short = false, bool $absolute = false, ?bool $positive = false, ?string $locale = null): ?string
-    {
+    protected function formatRawNowInterval(
+        &$date,
+        ?DateInterval &$interval,
+        bool $invert,
+        ?int $parts,
+        bool $short = false,
+        bool $absolute = false,
+        ?bool $positive = false,
+        ?string $locale = null
+    ): ?string {
         $this->checkCarbon();
 
         if ($date instanceof DateInterval) {
@@ -377,8 +496,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @return TReturn|null
      */
-    public function between($date1, $date2, ?int $parts = 1, ?string $locale = null)
-    {
+    public function between(
+        $date1,
+        $date2,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatBetweenInterval($date1, $date2, $parts, false, $locale);
     }
 
@@ -389,8 +512,12 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @return TReturn|null
      */
-    public function betweenAbbr($date1, $date2, ?int $parts = 1, ?string $locale = null)
-    {
+    public function betweenAbbr(
+        $date1,
+        $date2,
+        ?int $parts = 1,
+        ?string $locale = null
+    ) {
         return $this->formatBetweenInterval($date1, $date2, $parts, true, $locale);
     }
 
@@ -401,8 +528,13 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @return TReturn|null
      */
-    protected function formatBetweenInterval($date1, $date2, ?int $parts = 1, bool $short = false, ?string $locale = null)
-    {
+    protected function formatBetweenInterval(
+        $date1,
+        $date2,
+        ?int $parts = 1,
+        bool $short = false,
+        ?string $locale = null
+    ) {
         return $this->formatRawBetweenInterval($date1, $date2, $interval, $parts, $short, $locale);
     }
 
@@ -412,8 +544,14 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date1
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
      */
-    protected function formatRawBetweenInterval(&$date1, &$date2, ?DateInterval &$interval, ?int $parts = 1, bool $short = false, ?string &$locale = null): ?string
-    {
+    protected function formatRawBetweenInterval(
+        &$date1,
+        &$date2,
+        ?DateInterval &$interval,
+        ?int $parts = 1,
+        bool $short = false,
+        ?string &$locale = null
+    ): ?string {
         $this->checkCarbon();
 
         if (!$date1 = $this->normalizeDate($date1)) {
@@ -451,8 +589,11 @@ trait TimeTrait
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
-    protected function prepare($date, $timezone = true, bool $includeTime = true): ?DateTime
-    {
+    protected function prepare(
+        $date,
+        $timezone = true,
+        bool $includeTime = true
+    ): ?DateTime {
         if (null === ($date = $this->normalizeDate($date))) {
             return null;
         }

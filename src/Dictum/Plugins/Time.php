@@ -40,8 +40,11 @@ class Time implements TimePlugin
     /**
      * Custom format a date
      */
-    public function format($date, string $format, $timezone = true): ?string
-    {
+    public function format(
+        $date,
+        string $format,
+        $timezone = true
+    ): ?string {
         if (!$date = $this->prepare($date, $timezone, true)) {
             return null;
         }
@@ -52,8 +55,10 @@ class Time implements TimePlugin
     /**
      * Custom format a date without time
      */
-    public function formatDate($date, string $format): ?string
-    {
+    public function formatDate(
+        $date,
+        string $format
+    ): ?string {
         if (!$date = $this->prepare($date, false, true)) {
             return null;
         }
@@ -62,10 +67,27 @@ class Time implements TimePlugin
     }
 
     /**
+     * Custom locale format a date with ICU and wrap it
+     */
+    public function formatIcu(
+        $date,
+        string $format,
+        $timezone = true,
+        ?string $locale = null
+    ): ?string {
+        return $this->formatRawIcuDate($date, $format, $timezone, $locale);
+    }
+
+    /**
      * Format date according to locale
      */
-    public function locale($date, $dateSize = true, $timeSize = true, $timezone = true, ?string $locale = null): ?string
-    {
+    public function locale(
+        $date,
+        $dateSize = true,
+        $timeSize = true,
+        $timezone = true,
+        ?string $locale = null
+    ): ?string {
         return $this->formatRawLocaleDate($date, $dateSize, $timeSize, $timezone, $locale);
     }
 }
