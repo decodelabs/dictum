@@ -27,7 +27,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function format(
         $date,
@@ -39,7 +39,7 @@ interface Time extends Plugin
      * Custom format a date and wrap it
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function formatDate(
         $date,
@@ -51,7 +51,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function pattern(
         $date,
@@ -67,7 +67,7 @@ interface Time extends Plugin
      * @param string|int|bool|null $dateSize
      * @param string|int|bool|null $timeSize
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function locale(
         $date,
@@ -82,7 +82,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function fullDateTime(
         $date,
@@ -95,7 +95,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function fullDate(
         $date,
@@ -108,7 +108,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function fullTime(
         $date,
@@ -122,7 +122,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function longDateTime(
         $date,
@@ -135,7 +135,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function longDate(
         $date,
@@ -148,7 +148,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function longTime(
         $date,
@@ -162,7 +162,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function mediumDateTime(
         $date,
@@ -175,7 +175,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function mediumDate(
         $date,
@@ -188,7 +188,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function mediumTime(
         $date,
@@ -202,7 +202,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function shortDateTime(
         $date,
@@ -215,7 +215,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function shortDate(
         $date,
@@ -228,7 +228,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function shortTime(
         $date,
@@ -244,7 +244,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function dateTime(
         $date,
@@ -257,7 +257,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function date(
         $date,
@@ -270,7 +270,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @param DateTimeZone|string|Stringable|bool|null $timezone
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function time(
         $date,
@@ -285,7 +285,7 @@ interface Time extends Plugin
      * Format interval since date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function since(
         $date,
@@ -298,7 +298,7 @@ interface Time extends Plugin
      * Format interval since date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function sinceAbs(
         $date,
@@ -311,7 +311,7 @@ interface Time extends Plugin
      * Format interval since date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function sinceAbbr(
         $date,
@@ -324,7 +324,7 @@ interface Time extends Plugin
      * Format interval until date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function until(
         $date,
@@ -337,7 +337,7 @@ interface Time extends Plugin
      * Format interval until date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function untilAbs(
         $date,
@@ -350,7 +350,7 @@ interface Time extends Plugin
      * Format interval until date
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function untilAbbr(
         $date,
@@ -365,7 +365,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date1
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function between(
         $date1,
@@ -379,7 +379,7 @@ interface Time extends Plugin
      *
      * @param DateTime|DateInterval|string|Stringable|int|null $date1
      * @param DateTime|DateInterval|string|Stringable|int|null $date2
-     * @return TReturn|null
+     * @phpstan-return TReturn|null
      */
     public function betweenAbbr(
         $date1,
