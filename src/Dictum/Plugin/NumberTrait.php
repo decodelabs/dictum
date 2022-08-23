@@ -24,8 +24,10 @@ trait NumberTrait
      *
      * @param int|float|string|null $value
      */
-    protected function expandStringUnitValue(&$value, ?string &$unit = null): void
-    {
+    protected function expandStringUnitValue(
+        &$value,
+        ?string &$unit = null
+    ): void {
         if ($unit === null && is_string($value) && false !== strpos($value, ' ')) {
             list($value, $unit) = explode(' ', $value, 2);
         }
@@ -36,15 +38,21 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawDecimal($value, ?int $precision, string $locale): string
-    {
+    protected function formatRawDecimal(
+        $value,
+        ?int $precision,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::DECIMAL);
 
         if ($precision !== null) {
             $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $precision);
         }
 
-        return $formatter->format($value);
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value)
+        );
     }
 
     /**
@@ -52,10 +60,17 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawPatternDecimal($value, string $pattern, string $locale): string
-    {
+    protected function formatRawPatternDecimal(
+        $value,
+        string $pattern,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::PATTERN_DECIMAL, $pattern);
-        return $formatter->format($value);
+
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value)
+        );
     }
 
     /**
@@ -63,8 +78,12 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawCurrency($value, ?string $code, ?bool $rounded, string $locale): string
-    {
+    protected function formatRawCurrency(
+        $value,
+        ?string $code,
+        ?bool $rounded,
+        string $locale
+    ): string {
         $value = (float)$value;
 
         if ($code === null) {
@@ -86,7 +105,10 @@ trait NumberTrait
             $formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, 0);
         }
 
-        return $formatter->formatCurrency($value, $code);
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->formatCurrency($value, $code)
+        );
     }
 
     /**
@@ -94,11 +116,19 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawPercent($value, float $total, int $decimals, string $locale): string
-    {
+    protected function formatRawPercent(
+        $value,
+        float $total,
+        int $decimals,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::PERCENT);
         $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
-        return $formatter->format($value / $total);
+
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value / $total)
+        );
     }
 
     /**
@@ -106,10 +136,16 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawScientific($value, string $locale): string
-    {
+    protected function formatRawScientific(
+        $value,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::SCIENTIFIC);
-        return $formatter->format($value);
+
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value)
+        );
     }
 
     /**
@@ -117,10 +153,16 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawSpellout($value, string $locale): string
-    {
+    protected function formatRawSpellout(
+        $value,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::SPELLOUT);
-        return $formatter->format($value);
+
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value)
+        );
     }
 
     /**
@@ -128,10 +170,16 @@ trait NumberTrait
      *
      * @param int|float $value
      */
-    protected function formatRawOrdinal($value, string $locale): string
-    {
+    protected function formatRawOrdinal(
+        $value,
+        string $locale
+    ): string {
         $formatter = new NumberFormatter($locale, NumberFormatter::ORDINAL);
-        return $formatter->format($value);
+
+        return $this->normalizeFormatterOutput(
+            $formatter,
+            $formatter->format($value)
+        );
     }
 
 
@@ -153,8 +201,10 @@ trait NumberTrait
     /**
      * Format raw filesize
      */
-    protected function formatRawFileSize(int $bytes, string $locale): string
-    {
+    protected function formatRawFileSize(
+        int $bytes,
+        string $locale
+    ): string {
         static $units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
 
         for ($i = 0; $bytes > 1024 && $i < 6; $i++) {
@@ -167,8 +217,10 @@ trait NumberTrait
     /**
      * Format raw decimal filesize
      */
-    protected function formatRawFileSizeDec(int $bytes, string $locale): string
-    {
+    protected function formatRawFileSizeDec(
+        int $bytes,
+        string $locale
+    ): string {
         static $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
 
         for ($i = 0; $bytes > 1000 && $i < 6; $i++) {
@@ -183,8 +235,11 @@ trait NumberTrait
     /**
      * Format counter
      */
-    public function counter($counter, bool $allowZero = false, ?string $locale = null)
-    {
+    public function counter(
+        $counter,
+        bool $allowZero = false,
+        ?string $locale = null
+    ) {
         if (null === ($counter = $this->normalizeNumeric($counter))) {
             return null;
         }
@@ -214,8 +269,10 @@ trait NumberTrait
      * @param int|float|string|null $value
      * @return int|float|null
      */
-    protected function normalizeNumeric($value, bool $checkInt = false)
-    {
+    protected function normalizeNumeric(
+        $value,
+        bool $checkInt = false
+    ) {
         if ($value === null) {
             return null;
         }
@@ -240,5 +297,23 @@ trait NumberTrait
         }
 
         return $value;
+    }
+
+    /**
+     * Normalize formatter output
+     */
+    protected function normalizeFormatterOutput(
+        NumberFormatter $formatter,
+        string|bool $output
+    ): string {
+        if (intl_is_failure($formatter->getErrorCode())) {
+            throw Exceptional::Runtime('INTL failure: ' . $formatter->getErrorMessage(), null, $output);
+        }
+
+        if ($output === false) {
+            throw Exceptional::Runtime('INTL failure: unknown error', null, $output);
+        }
+
+        return (string)$output;
     }
 }

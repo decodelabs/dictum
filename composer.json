@@ -9,27 +9,24 @@
         "email": "tom@inflatablecookie.com"
     }],
     "require": {
-        "php": "^7.2|^8.0",
-        "symfony/polyfill-php80": "^1.22",
+        "php": "^8.0",
         "symfony/polyfill-mbstring": "^1.7",
 
-        "decodelabs/exceptional": "^0.3",
-        "decodelabs/fluidity": "^0.2",
-        "decodelabs/glitch-support": "^0.3",
-        "decodelabs/veneer": "^0.8"
+        "decodelabs/exceptional": "^0.4",
+        "decodelabs/fluidity": "^0.3",
+        "decodelabs/glitch-support": "^0.4",
+        "decodelabs/veneer": "^0.9"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8",
+        "phpunit/phpunit": "^9",
         "phpstan/phpstan": "^1",
         "phpstan/extension-installer": "^1.0",
-        "decodelabs/phpstan-decodelabs": "^0.5",
-        "symplify/easy-coding-standard": "^10",
+        "symplify/easy-coding-standard": "^11",
 
-        "nesbot/carbon": "^2.25",
-        "decodelabs/systemic": "^0.8",
+        "decodelabs/phpstan-decodelabs": "^0.6",
+        "decodelabs/systemic": "^0.9",
 
-        "decodelabs/atlas": "^0.9",
-        "decodelabs/terminus": "^0.7"
+        "nesbot/carbon": "^2.25"
     },
     "suggest": {
         "decodelabs/systemic": "Managed locale and timezone info"
@@ -44,7 +41,12 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.3.x-dev"
+            "dev-develop": "0.4.x-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {

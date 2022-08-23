@@ -54,7 +54,7 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
             throw Exceptional::InvalidArgument($name . ' is not a recognised Veneer plugin');
         }
 
-        /** @var class-string<VeneerPlugin> */
+        /** @phpstan-var class-string<VeneerPlugin> */
         $class = '\\DecodeLabs\\Dictum\\Plugins\\' . ucfirst($name);
         return new $class($this);
     }
