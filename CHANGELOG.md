@@ -1,3 +1,7 @@
+* Removed PHP7 compatibility
+* Updated ECS to v11
+* Updated PHPUnit to v9
+
 ## v0.3.0 (2022-03-10)
 * Added pattern() to Time plugin
 * Transitioned from Travis to GHA
