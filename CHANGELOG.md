@@ -1,6 +1,8 @@
+## v0.4.0 (2022-08-23)
 * Removed PHP7 compatibility
 * Updated ECS to v11
 * Updated PHPUnit to v9
+* Check NumberFormatter output for failure
 
 ## v0.3.0 (2022-03-10)
 * Added pattern() to Time plugin
