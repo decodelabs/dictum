@@ -87,12 +87,10 @@ trait TimeTrait
 
         if ($hasDate && $hasTime) {
             $wrapFormat = DateTime::W3C;
-        } elseif ($hasDate) {
-            $wrapFormat = 'Y-m-d';
         } elseif ($hasTime) {
             $wrapFormat = 'H:i:s';
         } else {
-            $wrapFormat = '';
+            $wrapFormat = 'Y-m-d';
         }
 
         if (!$date = $this->prepare($date, $timezone, $hasTime)) {
