@@ -479,11 +479,11 @@ class Context implements
             if ($rtl) {
                 $text = $text->slice(-($length - 1))
                     ->trimLeft('., ')
-                    ->prepend('…');
+                    ->prepend('…'); // @ignore-non-ascii
             } else {
                 $text = $text->slice(0, $length - 1)
                     ->trimRight('., ')
-                    ->append('…');
+                    ->append('…'); // @ignore-non-ascii
             }
         }
 

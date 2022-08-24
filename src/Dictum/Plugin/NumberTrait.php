@@ -177,11 +177,11 @@ trait NumberTrait
     protected function getDiffArrow(float $diff): string
     {
         if ($diff > 0) {
-            return '⬆';
+            return '⬆'; // @ignore-non-ascii
         } elseif ($diff < 0) {
-            return '⬇';
+            return '⬇'; // @ignore-non-ascii
         } else {
-            return '⬌';
+            return '⬌'; // @ignore-non-ascii
         }
     }
 
