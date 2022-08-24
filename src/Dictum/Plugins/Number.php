@@ -23,10 +23,7 @@ class Number implements NumberPlugin
      */
     use NumberPluginTrait;
 
-    /**
-     * @var Context
-     */
-    protected $context;
+    protected Context $context;
 
     /**
      * Init with parent Context
@@ -39,8 +36,11 @@ class Number implements NumberPlugin
     /**
      * Format a generic number
      */
-    public function format($value, ?string $unit = null, ?string $locale = null): ?string
-    {
+    public function format(
+        int|float|string|null $value,
+        ?string $unit = null,
+        ?string $locale = null
+    ): ?string {
         $this->expandStringUnitValue($value, $unit);
 
         if (null === ($value = $this->normalizeNumeric($value, true))) {
@@ -59,8 +59,11 @@ class Number implements NumberPlugin
     /**
      * Format according to pattern and wrap
      */
-    public function pattern($value, string $pattern, ?string $locale = null): ?string
-    {
+    public function pattern(
+        int|float|string|null $value,
+        string $pattern,
+        ?string $locale = null
+    ): ?string {
         if (null === ($value = $this->normalizeNumeric($value))) {
             return null;
         }
@@ -71,8 +74,11 @@ class Number implements NumberPlugin
     /**
      * Format and render a decimal
      */
-    public function decimal($value, ?int $precision = null, ?string $locale = null): ?string
-    {
+    public function decimal(
+        int|float|string|null $value,
+        ?int $precision = null,
+        ?string $locale = null
+    ): ?string {
         if (null === ($value = $this->normalizeNumeric($value))) {
             return null;
         }
@@ -83,8 +89,12 @@ class Number implements NumberPlugin
     /**
      * Format and wrap currency
      */
-    public function currency($value, ?string $code, ?bool $rounded = null, ?string $locale = null): ?string
-    {
+    public function currency(
+        int|float|string|null $value,
+        ?string $code,
+        ?bool $rounded = null,
+        ?string $locale = null
+    ): ?string {
         if (
             null === ($value = $this->normalizeNumeric($value)) ||
             $code === null
@@ -98,8 +108,12 @@ class Number implements NumberPlugin
     /**
      * Format and render a percentage
      */
-    public function percent($value, float $total = 100.0, int $decimals = 0, ?string $locale = null): ?string
-    {
+    public function percent(
+        int|float|string|null $value,
+        float $total = 100.0,
+        int $decimals = 0,
+        ?string $locale = null
+    ): ?string {
         if (
             null === ($value = $this->normalizeNumeric($value, true)) ||
             $total <= 0
@@ -113,8 +127,10 @@ class Number implements NumberPlugin
     /**
      * Format and render a scientific number
      */
-    public function scientific($value, ?string $locale = null): ?string
-    {
+    public function scientific(
+        int|float|string|null $value,
+        ?string $locale = null
+    ): ?string {
         if (null === ($value = $this->normalizeNumeric($value))) {
             return null;
         }
@@ -125,8 +141,10 @@ class Number implements NumberPlugin
     /**
      * Format and render a number as words
      */
-    public function spellout($value, ?string $locale = null): ?string
-    {
+    public function spellout(
+        int|float|string|null $value,
+        ?string $locale = null
+    ): ?string {
         if (null === ($value = $this->normalizeNumeric($value))) {
             return null;
         }
@@ -137,8 +155,10 @@ class Number implements NumberPlugin
     /**
      * Format and render a number as ordinal
      */
-    public function ordinal($value, ?string $locale = null): ?string
-    {
+    public function ordinal(
+        int|float|string|null $value,
+        ?string $locale = null
+    ): ?string {
         if (null === ($value = $this->normalizeNumeric($value))) {
             return null;
         }
@@ -150,8 +170,11 @@ class Number implements NumberPlugin
     /**
      * Render difference of number from 0
      */
-    public function diff($diff, ?bool $invert = false, ?string $locale = null): ?string
-    {
+    public function diff(
+        int|float|string|null $diff,
+        ?bool $invert = false,
+        ?string $locale = null
+    ): ?string {
         if (null === ($diff = $this->normalizeNumeric($diff))) {
             return null;
         }
@@ -174,8 +197,10 @@ class Number implements NumberPlugin
     /**
      * Format filesize
      */
-    public function fileSize(?int $bytes, ?string $locale = null): ?string
-    {
+    public function fileSize(
+        ?int $bytes,
+        ?string $locale = null
+    ): ?string {
         if ($bytes === null) {
             return null;
         }
@@ -186,8 +211,10 @@ class Number implements NumberPlugin
     /**
      * Format filesize as decimal
      */
-    public function fileSizeDec(?int $bytes, ?string $locale = null): ?string
-    {
+    public function fileSizeDec(
+        ?int $bytes,
+        ?string $locale = null
+    ): ?string {
         if ($bytes === null) {
             return null;
         }

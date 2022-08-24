@@ -9,9 +9,13 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum\Plugins;
 
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use DecodeLabs\Dictum\Context;
 use DecodeLabs\Dictum\Plugin\Time as TimePlugin;
 use DecodeLabs\Dictum\Plugin\TimeTrait as TimePluginTrait;
+use Stringable;
 
 /**
  * @implements TimePlugin<string>
@@ -23,10 +27,7 @@ class Time implements TimePlugin
      */
     use TimePluginTrait;
 
-    /**
-     * @var Context
-     */
-    protected $context;
+    protected Context $context;
 
     /**
      * Init with parent Context
@@ -41,9 +42,9 @@ class Time implements TimePlugin
      * Custom format a date
      */
     public function format(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $format,
-        $timezone = true
+        DateTimeZone|string|Stringable|bool|null $timezone = true
     ): ?string {
         if (!$date = $this->prepare($date, $timezone, true)) {
             return null;
@@ -56,7 +57,7 @@ class Time implements TimePlugin
      * Custom format a date without time
      */
     public function formatDate(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $format
     ): ?string {
         if (!$date = $this->prepare($date, false, true)) {
@@ -70,9 +71,9 @@ class Time implements TimePlugin
      * Custom locale format a date with ICU and wrap it
      */
     public function pattern(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $pattern,
-        $timezone = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
     ): ?string {
         return $this->formatRawIcuDate($date, $pattern, $timezone, $locale);
@@ -82,10 +83,10 @@ class Time implements TimePlugin
      * Format date according to locale
      */
     public function locale(
-        $date,
-        $dateSize = true,
-        $timeSize = true,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        string|int|bool|null $dateSize = true,
+        string|int|bool|null $timeSize = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
     ): ?string {
         return $this->formatRawLocaleDate($date, $dateSize, $timeSize, $timezone, $locale);

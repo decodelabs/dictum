@@ -24,7 +24,9 @@ use Stringable;
  * @property NumberPlugin $number
  * @property TimePlugin $time
  */
-class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
+class Context implements
+    VeneerPluginProvider,
+    VeneerPluginAccessTarget
 {
     use VeneerPluginProviderTrait;
     use VeneerPluginAccessTargetTrait;
@@ -63,11 +65,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Create Text buffer
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function text($text, ?string $encoding = null): ?Text
-    {
+    public function text(
+        string|Stringable|int|float|null $text,
+        ?string $encoding = null
+    ): ?Text {
         if ($text === null) {
             return null;
         } elseif ($text instanceof Text) {
@@ -81,11 +83,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Normalize words, convert words to upper
-     *
-     * @param string|Stringable|int|float|null $name
      */
-    public function name($name, ?string $encoding = null): ?string
-    {
+    public function name(
+        string|Stringable|int|float|null $name,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
         }
@@ -101,11 +103,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Get first name from full name
-     *
-     * @param string|Stringable|int|float|null $fullName
      */
-    public function firstName($fullName, ?string $encoding = null): ?string
-    {
+    public function firstName(
+        string|Stringable|int|float|null $fullName,
+        ?string $encoding = null
+    ): ?string {
         if (!strlen($fullName = (string)$fullName)) {
             return null;
         }
@@ -133,11 +135,12 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Initialise name
-     *
-     * @param string|Stringable|int|float|null $name
      */
-    public function initials($name, bool $extendShort = true, ?string $encoding = null): ?string
-    {
+    public function initials(
+        string|Stringable|int|float|null $name,
+        bool $extendShort = true,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($name = $this->text($name, $encoding))) {
             return null;
         }
@@ -167,11 +170,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Get initials and surname
-     *
-     * @param string|Stringable|int|float|null $name
      */
-    public function initialsAndSurname($name, ?string $encoding = null): ?string
-    {
+    public function initialsAndSurname(
+        string|Stringable|int|float|null $name,
+        ?string $encoding = null
+    ): ?string {
         if (!strlen($name = (string)$name)) {
             return null;
         }
@@ -196,11 +199,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Shorten middle names
-     *
-     * @param string|Stringable|int|float|null $name
      */
-    public function initialMiddleNames($name, ?string $encoding = null): ?string
-    {
+    public function initialMiddleNames(
+        string|Stringable|int|float|null $name,
+        ?string $encoding = null
+    ): ?string {
         if (!strlen($name = (string)$name)) {
             return null;
         }
@@ -239,11 +242,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Strip vowels from text
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function consonants($text, ?string $encoding = null): ?string
-    {
+    public function consonants(
+        string|Stringable|int|float|null $text,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
         }
@@ -257,11 +260,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Uppercase first, to ASCII, strip some chars
-     *
-     * @param string|Stringable|int|float|null $label
      */
-    public function label($label, ?string $encoding = null): ?string
-    {
+    public function label(
+        string|Stringable|int|float|null $label,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($label = $this->text($label, $encoding))) {
             return null;
         }
@@ -278,11 +281,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert to Id
-     *
-     * @param string|Stringable|int|float|null $id
      */
-    public function id($id, ?string $encoding = null): ?string
-    {
+    public function id(
+        string|Stringable|int|float|null $id,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($id = $this->text($id, $encoding))) {
             return null;
         }
@@ -300,11 +303,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert to camelCase
-     *
-     * @param string|Stringable|int|float|null $id
      */
-    public function camel($id, ?string $encoding = null): ?string
-    {
+    public function camel(
+        string|Stringable|int|float|null $id,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($id = $this->text($id, $encoding))) {
             return null;
         }
@@ -323,11 +326,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Format as PHP_CONSTANT
-     *
-     * @param string|Stringable|int|float|null $constant
      */
-    public function constant($constant, ?string $encoding = null): ?string
-    {
+    public function constant(
+        string|Stringable|int|float|null $constant,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($constant = $this->text($constant, $encoding))) {
             return null;
         }
@@ -347,11 +350,12 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert to slug
-     *
-     * @param string|Stringable|int|float|null $slug
      */
-    public function slug($slug, string $allowedChars = '', ?string $encoding = null): ?string
-    {
+    public function slug(
+        string|Stringable|int|float|null $slug,
+        string $allowedChars = '',
+        ?string $encoding = null
+    ): ?string {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
         }
@@ -370,11 +374,12 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert to path format slug
-     *
-     * @param string|Stringable|int|float|null $slug
      */
-    public function pathSlug($slug, string $allowedChars = '', ?string $encoding = null): ?string
-    {
+    public function pathSlug(
+        string|Stringable|int|float|null $slug,
+        string $allowedChars = '',
+        ?string $encoding = null
+    ): ?string {
         if (
             $slug === null ||
             !strlen($slug = (string)$slug)
@@ -405,11 +410,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert to URL action slug
-     *
-     * @param string|Stringable|int|float|null $slug
      */
-    public function actionSlug($slug, ?string $encoding = null): ?string
-    {
+    public function actionSlug(
+        string|Stringable|int|float|null $slug,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($slug = $this->text($slug, $encoding))) {
             return null;
         }
@@ -427,11 +432,12 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Remove non-filesystem compatible chars
-     *
-     * @param string|Stringable|int|float|null $fileName
      */
-    public function fileName($fileName, bool $allowSpaces = false, ?string $encoding = null): ?string
-    {
+    public function fileName(
+        string|Stringable|int|float|null $fileName,
+        bool $allowSpaces = false,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($fileName = $this->text($fileName, $encoding))) {
             return null;
         }
@@ -452,11 +458,13 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Cap length of string, add ellipsis if needed
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function shorten($text, int $length, bool $rtl = false, ?string $encoding = null): ?string
-    {
+    public function shorten(
+        string|Stringable|int|float|null $text,
+        int $length,
+        bool $rtl = false,
+        ?string $encoding = null
+    ): ?string {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
         }
@@ -485,8 +493,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
     /**
      * Wrapper around Text::numericToAlpha
      */
-    public function numericToAlpha(?int $number, ?string $encoding = null): ?string
-    {
+    public function numericToAlpha(
+        ?int $number,
+        ?string $encoding = null
+    ): ?string {
         if ($number === null) {
             return null;
         }
@@ -497,11 +507,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Wrapper around alphaToNumeric
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function alphaToNumeric($text, ?string $encoding = null): ?int
-    {
+    public function alphaToNumeric(
+        string|Stringable|int|float|null $text,
+        ?string $encoding = null
+    ): ?int {
         if (null === ($text = $this->text($text, $encoding))) {
             return null;
         }
@@ -511,11 +521,13 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Convert between any base from 2 to 62
-     *
-     * @param string|Stringable|int|float|null $input
      */
-    public function baseConvert($input, int $fromBase, int $toBase, int $pad = 1): ?string
-    {
+    public function baseConvert(
+        string|Stringable|int|float|null $input,
+        int $fromBase,
+        int $toBase,
+        int $pad = 1
+    ): ?string {
         if ($input === null) {
             return null;
         }
@@ -599,11 +611,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * String to boolean
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function toBoolean($text, ?string $encoding = null): bool
-    {
+    public function toBoolean(
+        string|Stringable|int|float|null $text,
+        ?string $encoding = null
+    ): bool {
         if (is_int($text) || is_float($text)) {
             return (bool)$text;
         }
@@ -617,12 +629,11 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Compare two strings
-     *
-     * @param string|Stringable|int|float|null $string1
-     * @param string|Stringable|int|float|null $string2
      */
-    public function compare($string1, $string2): bool
-    {
+    public function compare(
+        string|Stringable|int|float|null $string1,
+        string|Stringable|int|float|null $string2
+    ): bool {
         $string1 = $this->text($string1);
         $string2 = $this->text($string2);
 
@@ -646,11 +657,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains alpha characters
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isAlpha($text): bool
-    {
+    public function isAlpha(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return false;
         }
@@ -660,11 +670,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains alpha numeric characters
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isAlphaNumeric($text): bool
-    {
+    public function isAlphaNumeric(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return false;
         }
@@ -674,11 +683,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains digits
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isDigit($text): bool
-    {
+    public function isDigit(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return false;
         }
@@ -689,11 +697,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains whitespace
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isWhitespace($text): bool
-    {
+    public function isWhitespace(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return false;
         }
@@ -703,11 +710,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains whitespace or empty
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isBlank($text): bool
-    {
+    public function isBlank(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return true;
         }
@@ -717,11 +723,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Only contains hex
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function isHex($text): bool
-    {
+    public function isHex(
+        string|Stringable|int|float|null $text
+    ): bool {
         if (null === ($text = $this->text($text))) {
             return false;
         }
@@ -732,11 +737,10 @@ class Context implements VeneerPluginProvider, VeneerPluginAccessTarget
 
     /**
      * Count number of whole words
-     *
-     * @param string|Stringable|int|float|null $text
      */
-    public function countWords($text): int
-    {
+    public function countWords(
+        string|Stringable|int|float|null $text
+    ): int {
         if (null === ($text = $this->text($text))) {
             return 0;
         }
