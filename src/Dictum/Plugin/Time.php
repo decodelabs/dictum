@@ -10,11 +10,9 @@ declare(strict_types=1);
 namespace DecodeLabs\Dictum\Plugin;
 
 use DateInterval;
-
 use DateTime;
 use DateTimeZone;
 use DecodeLabs\Veneer\Plugin;
-use Locale;
 use Stringable;
 
 /**
@@ -25,216 +23,183 @@ interface Time extends Plugin
     /**
      * Custom format a date and wrap it
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function format(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $format,
-        $timezone = true
-    );
+        DateTimeZone|string|Stringable|bool|null $timezone = true
+    ): mixed;
 
     /**
      * Custom format a date and wrap it
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function formatDate(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $format
-    );
+    ): mixed;
 
     /**
      * Custom locale format a date with ICU and wrap it
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function pattern(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         string $pattern,
-        $timezone = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format date according to locale
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param string|int|bool|null $dateSize
-     * @param string|int|bool|null $timeSize
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function locale(
-        $date,
-        $dateSize = true,
-        $timeSize = true,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        string|int|bool|null $dateSize = true,
+        string|int|bool|null $timeSize = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format full date time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format full date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format full time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
 
     /**
      * Format long date time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format long date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format long time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
 
     /**
      * Format medium date time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format medium date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format medium time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
 
     /**
      * Format short date time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format short date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format short time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
 
 
@@ -242,41 +207,35 @@ interface Time extends Plugin
     /**
      * Format default date time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function dateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format default date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function date(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format default time
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function time(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    );
+    ): mixed;
 
 
 
@@ -284,107 +243,97 @@ interface Time extends Plugin
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function since(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function sinceAbs(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function sinceAbbr(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function until(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function untilAbs(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function untilAbbr(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @phpstan-return TReturn|null
      */
     public function between(
-        $date1,
-        $date2,
+        DateTime|DateInterval|string|Stringable|int|null $date1,
+        DateTime|DateInterval|string|Stringable|int|null $date2,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @phpstan-return TReturn|null
      */
     public function betweenAbbr(
-        $date1,
-        $date2,
+        DateTime|DateInterval|string|Stringable|int|null $date1,
+        DateTime|DateInterval|string|Stringable|int|null $date2,
         ?int $parts = 1,
         ?string $locale = null
-    );
+    ): mixed;
 }

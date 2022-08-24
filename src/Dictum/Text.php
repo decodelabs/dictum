@@ -20,7 +20,7 @@ use Iterator;
 use Stringable;
 
 /**
- * @implements ArrayAccess<int, Text>
+ * @implements ArrayAccess<int, static>
  */
 class Text implements
     ArrayAccess,
@@ -30,22 +30,17 @@ class Text implements
 {
     use ThenTrait;
 
-    /**
-     * @var string
-     */
-    protected $encoding;
-
-    /**
-     * @var string
-     */
-    protected $text;
+    protected string $encoding;
+    protected string $text;
 
 
     /**
      * Create a new instance
      */
-    public static function create(?string $text = '', ?string $encoding = null): Text
-    {
+    public static function create(
+        ?string $text = '',
+        ?string $encoding = null
+    ): static {
         return new static($text, $encoding);
     }
 
@@ -53,8 +48,10 @@ class Text implements
     /**
      * Create with initial value and encoding, defaults to mb_internal_encoding
      */
-    final public function __construct(?string $text = '', string $encoding = null)
-    {
+    final public function __construct(
+        ?string $text = '',
+        string $encoding = null
+    ) {
         $this->text = (string)$text;
         $this->encoding = $encoding ?: mb_internal_encoding();
     }
@@ -105,7 +102,7 @@ class Text implements
     /**
      * Convert encoding
      */
-    public function convertEncoding(string $encoding): Text
+    public function convertEncoding(string $encoding): static
     {
         if ($encoding === $this->encoding) {
             return $this;
@@ -121,7 +118,7 @@ class Text implements
     /**
      * Convert to UTF-8
      */
-    public function toUtf8(): Text
+    public function toUtf8(): static
     {
         return $this->convertEncoding('UTF-8');
     }
@@ -131,7 +128,7 @@ class Text implements
     /**
      * Get a single char at index
      */
-    public function getChar(int $index): Text
+    public function getChar(int $index): static
     {
         return $this->slice($index, 1);
     }
@@ -139,7 +136,7 @@ class Text implements
     /**
      * Replace a single char
      */
-    public function replaceChar(int $index, string $char): Text
+    public function replaceChar(int $index, string $char): static
     {
         $output = '';
 
@@ -159,7 +156,7 @@ class Text implements
     /**
      * Insert a string into the text
      */
-    public function insert(int $index, string $string): Text
+    public function insert(int $index, string $string): static
     {
         $output = '';
 
@@ -176,7 +173,7 @@ class Text implements
     /**
      * Remove a single char
      */
-    public function removeChar(int $index): Text
+    public function removeChar(int $index): static
     {
         $output = '';
 
@@ -205,7 +202,7 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetGet($index): Text
+    public function offsetGet(mixed $index): static
     {
         return $this->slice($index, 1);
     }
@@ -216,10 +213,12 @@ class Text implements
      * @param int $index
      * @param Text $value
      */
-    public function offsetSet($index, $value): void
-    {
+    public function offsetSet(
+        mixed $index,
+        mixed $value
+    ): void {
         throw Exceptional::Implementation(
-            'Immutable flex\\Text does not support array-access setting'
+            'Immutable DecodeLabs\\Dictum\\Text does not support array-access setting'
         );
     }
 
@@ -228,7 +227,7 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetExists($index): bool
+    public function offsetExists(mixed $index): bool
     {
         return $this->hasCharAt($index);
     }
@@ -238,10 +237,10 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetUnset($index): void
+    public function offsetUnset(mixed $index): void
     {
         throw Exceptional::Implementation(
-            'Immutable flex\\Text does not support array-access unset'
+            'Immutable DecodeLabs\\Dictum\\Text does not support array-access unset'
         );
     }
 
@@ -250,8 +249,10 @@ class Text implements
     /**
      * Get first index of needle
      */
-    public function getIndexOf(string $needle, int $offset = 0): ?int
-    {
+    public function getIndexOf(
+        string $needle,
+        int $offset = 0
+    ): ?int {
         if (false === ($output = mb_strpos($this->text, $needle, $offset, $this->encoding))) {
             $output = null;
         }
@@ -262,8 +263,10 @@ class Text implements
     /**
      * Get first index of needle
      */
-    public function getIndexOfCi(string $needle, int $offset = 0): ?int
-    {
+    public function getIndexOfCi(
+        string $needle,
+        int $offset = 0
+    ): ?int {
         if (false === ($output = mb_stripos($this->text, $needle, $offset, $this->encoding))) {
             $output = null;
         }
@@ -274,8 +277,10 @@ class Text implements
     /**
      * Get last index of needle
      */
-    public function getLastIndexOf(string $needle, int $offset = 0): ?int
-    {
+    public function getLastIndexOf(
+        string $needle,
+        int $offset = 0
+    ): ?int {
         if (false === ($output = mb_strrpos($this->text, $needle, $offset, $this->encoding))) {
             $output = null;
         }
@@ -286,8 +291,10 @@ class Text implements
     /**
      * Get last index of needle
      */
-    public function getLastIndexOfCi(string $needle, int $offset = 0): ?int
-    {
+    public function getLastIndexOfCi(
+        string $needle,
+        int $offset = 0
+    ): ?int {
         if (false === ($output = mb_strripos($this->text, $needle, $offset, $this->encoding))) {
             $output = null;
         }
@@ -443,8 +450,10 @@ class Text implements
     /**
      * Ensure sequence is at least $size long
      */
-    public function padLeft(int $size, string $value = ' '): Text
-    {
+    public function padLeft(
+        int $size,
+        string $value = ' '
+    ): static {
         return new static(
             str_pad($this->text, abs($size), $value, STR_PAD_LEFT),
             $this->encoding
@@ -454,8 +463,10 @@ class Text implements
     /**
      * Ensure sequence is at least $size long
      */
-    public function padRight(int $size, string $value = ' '): Text
-    {
+    public function padRight(
+        int $size,
+        string $value = ' '
+    ): static {
         return new static(
             str_pad($this->text, abs($size), $value, STR_PAD_RIGHT),
             $this->encoding
@@ -465,8 +476,10 @@ class Text implements
     /**
      * Ensure sequence is at least $size long
      */
-    public function padBoth(int $size, string $value = ' '): Text
-    {
+    public function padBoth(
+        int $size,
+        string $value = ' '
+    ): static {
         $length = $this->getLength();
         $output = $this->text;
 
@@ -502,7 +515,8 @@ class Text implements
     {
         return mb_substr_count(
             mb_strtolower($this->text, $this->encoding),
-            mb_strtolower($this->text, $this->encoding)
+            mb_strtolower($string, $this->encoding),
+            $this->encoding
         );
     }
 
@@ -525,8 +539,10 @@ class Text implements
     /**
      * Get a range of characters
      */
-    public function slice(int $start, int $length = null): Text
-    {
+    public function slice(
+        int $start,
+        int $length = null
+    ): static {
         $output = mb_substr($this->text, $start, $length, $this->encoding);
         return new static($output, $this->encoding);
     }
@@ -534,7 +550,7 @@ class Text implements
     /**
      * Get random slice
      */
-    public function sliceRandom(int $length): Text
+    public function sliceRandom(int $length): static
     {
         $total = $this->getLength();
 
@@ -549,8 +565,11 @@ class Text implements
     /**
      * Get first instance of substring between $start and $end
      */
-    public function sliceDelimited(string $start, string $end, int $offset = 0): Text
-    {
+    public function sliceDelimited(
+        string $start,
+        string $end,
+        int $offset = 0
+    ): static {
         if (null === ($startIndex = $this->getIndexOf($start, $offset))) {
             return new static('', $this->encoding);
         }
@@ -569,33 +588,33 @@ class Text implements
 
     /**
      * Add a string to the end
-     *
-     * @param Text|string|Stringable|null $text
      */
-    public function append($text, ?string $encoding = null): Text
-    {
+    public function append(
+        Text|string|Stringable|null $text,
+        ?string $encoding = null
+    ): static {
         $text = (string)$this->normalizeEncoding($text, $encoding);
         return new static($this->text . $text, $this->encoding);
     }
 
     /**
      * Add a string to the start
-     *
-     * @param Text|string|Stringable|null $text
      */
-    public function prepend($text, ?string $encoding = null): Text
-    {
+    public function prepend(
+        Text|string|Stringable|null $text,
+        ?string $encoding = null
+    ): static {
         $text = (string)$this->normalizeEncoding($text, $encoding);
         return new static($text . $this->text, $this->encoding);
     }
 
     /**
      * Add string to start and end
-     *
-     * @param Text|string|Stringable|null $text
      */
-    public function surroundWith($text, ?string $encoding = null): Text
-    {
+    public function surroundWith(
+        Text|string|Stringable|null $text,
+        ?string $encoding = null
+    ): static {
         $text = (string)$this->normalizeEncoding($text, $encoding);
         return new static($text . $this->text . $text, $this->encoding);
     }
@@ -605,8 +624,10 @@ class Text implements
     /**
      * Limit length to $length - length of $cap, adds cap to end
      */
-    public function truncate(int $length, string $cap = null): Text
-    {
+    public function truncate(
+        int $length,
+        string $cap = null
+    ): static {
         if ($length > $this->getLength()) {
             return $this;
         }
@@ -625,7 +646,7 @@ class Text implements
     /**
      * Collapse all whitespace
      */
-    public function collapseWhitespace(): Text
+    public function collapseWhitespace(): static
     {
         return $this->regexReplace('[[:space:]]+', ' ')->trim();
     }
@@ -633,7 +654,7 @@ class Text implements
     /**
      * Remove all whitespace
      */
-    public function stripWhitespace(): Text
+    public function stripWhitespace(): static
     {
         return $this->regexReplace('[[:space:]]+', '');
     }
@@ -642,8 +663,10 @@ class Text implements
     /**
      * Regex match
      */
-    public function matches(string $pattern, string $options = 'msr'): bool
-    {
+    public function matches(
+        string $pattern,
+        string $options = 'msr'
+    ): bool {
         $encoding = mb_regex_encoding();
         $oldOptions = mb_regex_set_options($options);
         mb_regex_encoding($this->encoding);
@@ -660,8 +683,10 @@ class Text implements
      *
      * @return array<string>|null
      */
-    public function match(string $pattern, string $options = 'msr'): ?array
-    {
+    public function match(
+        string $pattern,
+        string $options = 'msr'
+    ): ?array {
         $encoding = mb_regex_encoding();
         $oldOptions = mb_regex_set_options($options);
         mb_regex_encoding($this->encoding);
@@ -681,8 +706,11 @@ class Text implements
      * @param array<string>|string $search
      * @param array<string>|string $replace
      */
-    public function replace($search, $replace, int &$count = 0): Text
-    {
+    public function replace(
+        array|string $search,
+        array|string $replace,
+        int &$count = 0
+    ): static {
         return new static(
             str_replace($search, $replace, $this->text, $count),
             $this->encoding
@@ -691,11 +719,12 @@ class Text implements
 
     /**
      * Replace all occurances of $pattern in text
-     *
-     * @param string|callable $replacement
      */
-    public function regexReplace(string $pattern, $replacement, string $options = 'msr'): Text
-    {
+    public function regexReplace(
+        string $pattern,
+        string|callable $replacement,
+        string $options = 'msr'
+    ): static {
         $encoding = mb_regex_encoding();
         $oldOptions = mb_regex_set_options($options);
         mb_regex_encoding($this->encoding);
@@ -721,11 +750,13 @@ class Text implements
     /**
      * Split by $string
      *
-     * @param non-empty-string $delimiter
-     * @return array<Text>
+     * @phpstan-param non-empty-string $delimiter
+     * @return array<static>
      */
-    public function split(string $delimiter, int $limit = PHP_INT_MAX): array
-    {
+    public function split(
+        string $delimiter,
+        int $limit = PHP_INT_MAX
+    ): array {
         $output = (array)explode($delimiter, $this->text, $limit);
 
         return array_map(function ($part) {
@@ -736,10 +767,12 @@ class Text implements
     /**
      * Split by $pattern
      *
-     * @return array<Text>
+     * @return array<static>
      */
-    public function regexSplit(string $pattern, int $limit = -1): array
-    {
+    public function regexSplit(
+        string $pattern,
+        int $limit = -1
+    ): array {
         if (false === ($parts = mb_split($pattern, $this->text, $limit))) {
             throw Exceptional::Runtime('Unable to split text with: ' . $pattern);
         }
@@ -753,7 +786,7 @@ class Text implements
     /**
      * Replace whitespace with $delimiter, all lowercase
      */
-    public function delimit(string $delimiter): Text
+    public function delimit(string $delimiter): static
     {
         $encoding = mb_regex_encoding();
         mb_regex_encoding($this->encoding);
@@ -773,7 +806,7 @@ class Text implements
     /**
      * Trim left and right
      */
-    public function trim(string $chars = null): Text
+    public function trim(string $chars = null): static
     {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+|[' . $chars . ']+$', '');
@@ -782,7 +815,7 @@ class Text implements
     /**
      * Trim left
      */
-    public function trimLeft(string $chars = null): Text
+    public function trimLeft(string $chars = null): static
     {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+', '');
@@ -791,7 +824,7 @@ class Text implements
     /**
      * Trim right
      */
-    public function trimRight(string $chars = null): Text
+    public function trimRight(string $chars = null): static
     {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('[' . $chars . ']+$', '');
@@ -880,7 +913,7 @@ class Text implements
     /**
      * Convert to lowercase
      */
-    public function toLowerCase(): Text
+    public function toLowerCase(): static
     {
         return new static(
             mb_strtolower($this->text, $this->encoding),
@@ -891,7 +924,7 @@ class Text implements
     /**
      * Convert first character to lowercase
      */
-    public function firstToLowerCase(): Text
+    public function firstToLowerCase(): static
     {
         return new static(
             mb_strtolower(mb_substr($this->text, 0, 1, $this->encoding)) .
@@ -920,7 +953,7 @@ class Text implements
     /**
      * Convert to uppercase
      */
-    public function toUpperCase(): Text
+    public function toUpperCase(): static
     {
         return new static(
             mb_strtoupper($this->text, $this->encoding),
@@ -931,7 +964,7 @@ class Text implements
     /**
      * Convert first character to uppercase
      */
-    public function firstToUpperCase(): Text
+    public function firstToUpperCase(): static
     {
         return new static(
             mb_strtoupper(mb_substr($this->text, 0, 1, $this->encoding)) .
@@ -943,7 +976,7 @@ class Text implements
     /**
      * Convert words first character to uppercase
      */
-    public function toTitleCase(): Text
+    public function toTitleCase(): static
     {
         return new static(
             mb_convert_case($this->text, MB_CASE_TITLE, $this->encoding),
@@ -956,7 +989,7 @@ class Text implements
     /**
      * Swap case of all characters
      */
-    public function swapCase(): Text
+    public function swapCase(): static
     {
         $output = '';
 
@@ -985,8 +1018,10 @@ class Text implements
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
      */
-    public function toAscii(string $language = 'en', bool $removeUnsupported = true): Text
-    {
+    public function toAscii(
+        string $language = 'en',
+        bool $removeUnsupported = true
+    ): static {
         $output = $this->text;
 
         if (isset(static::LANGUAGE_ASCII_CHARS[$language])) {
@@ -1046,7 +1081,7 @@ class Text implements
     /**
      * Convert tabs to spaces
      */
-    public function tabsToSpaces(int $tabLength = 4): Text
+    public function tabsToSpaces(int $tabLength = 4): static
     {
         return new static(
             str_replace("\t", str_repeat(' ', $tabLength), $this->text),
@@ -1057,7 +1092,7 @@ class Text implements
     /**
      * Convert spaces to tabs
      */
-    public function spacesToTabs(int $tabLength): Text
+    public function spacesToTabs(int $tabLength): static
     {
         return new static(
             str_replace(str_repeat(' ', $tabLength), "\t", $this->text),
@@ -1069,7 +1104,7 @@ class Text implements
     /**
      * Convert numerics to alpha characters
      */
-    public static function numericToAlpha(int $number): Text
+    public static function numericToAlpha(int $number): static
     {
         static $alphabet = 'abcdefghijklmnopqrstuvwxyz';
         $output = '';
@@ -1119,7 +1154,7 @@ class Text implements
     /**
      * Encode for HTML
      */
-    public function htmlEncode(int $flags = ENT_COMPAT): Text
+    public function htmlEncode(int $flags = ENT_COMPAT): static
     {
         return new static(
             htmlentities($this->text, $flags, $this->encoding),
@@ -1130,7 +1165,7 @@ class Text implements
     /**
      * Decode from HTML
      */
-    public function htmlDecode(int $flags = ENT_COMPAT): Text
+    public function htmlDecode(int $flags = ENT_COMPAT): static
     {
         return new static(
             html_entity_decode($this->text, $flags, $this->encoding),
@@ -1142,7 +1177,7 @@ class Text implements
     /**
      * Remove html tags
      */
-    public function stripTags(string $allowableTags = null): Text
+    public function stripTags(string $allowableTags = null): static
     {
         if ($allowableTags !== null) {
             $output = strip_tags($this->text, $allowableTags);
@@ -1161,7 +1196,7 @@ class Text implements
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
      */
-    public function tidyMsWord(): Text
+    public function tidyMsWord(): static
     {
         return new static(
             preg_replace(
@@ -1188,7 +1223,7 @@ class Text implements
     /**
      * Build a text iterator
      *
-     * @return iterable<Text>
+     * @return iterable<static>
      */
     public function scan(): iterable
     {
@@ -1200,10 +1235,14 @@ class Text implements
     /**
      * Iterate over all split instances
      *
-     * @return iterable<int, Text>
+     * @return iterable<int, static>
      */
-    public function scanMatches(string $pattern, int $limit = null, bool $yieldMatch = false, string $options = 'msr'): iterable
-    {
+    public function scanMatches(
+        string $pattern,
+        int $limit = null,
+        bool $yieldMatch = false,
+        string $options = 'msr'
+    ): iterable {
         if ($pattern === '') {
             return;
         }
@@ -1263,7 +1302,7 @@ class Text implements
     /**
      * Iterate over lines
      *
-     * @return iterable<int, Text>
+     * @return iterable<int, static>
      */
     public function scanLines(): iterable
     {
@@ -1273,7 +1312,7 @@ class Text implements
     /**
      * Iterate over all words
      *
-     * @return iterable<int, Text>
+     * @return iterable<int, static>
      */
     public function scanWords(): iterable
     {
@@ -1285,10 +1324,13 @@ class Text implements
     /**
      * Iterate over all split instances
      *
-     * @return iterable<int, array<Text>>
+     * @return iterable<int, array<static>>
      */
-    public function searchAll(string $pattern, int $limit = null, string $options = 'msr'): iterable
-    {
+    public function searchAll(
+        string $pattern,
+        int $limit = null,
+        string $options = 'msr'
+    ): iterable {
         if ($pattern === '') {
             return;
         }
@@ -1551,11 +1593,11 @@ class Text implements
 
     /**
      * Normalize encoding
-     *
-     * @param Text|string|Stringable|null $text
      */
-    protected function normalizeEncoding($text, ?string $encoding): ?string
-    {
+    protected function normalizeEncoding(
+        Text|string|Stringable|null $text,
+        ?string $encoding
+    ): ?string {
         if ($text === null) {
             return null;
         }

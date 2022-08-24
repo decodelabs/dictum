@@ -32,14 +32,11 @@ trait TimeTrait
 
     /**
      * Format raw ICU date
-     *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
     protected function formatRawIcuDate(
-        &$date,
+        DateTime|DateInterval|string|Stringable|int|null &$date,
         string $pattern,
-        $timezone = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
     ): ?string {
         if (!$date = $this->prepare($date, $timezone, true)) {
@@ -61,17 +58,12 @@ trait TimeTrait
 
     /**
      * Format raw locale date
-     *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param string|int|bool|null $dateSize
-     * @param string|int|bool|null $timeSize
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
     protected function formatRawLocaleDate(
-        &$date,
-        $dateSize = true,
-        $timeSize = true,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null &$date,
+        string|int|bool|null $dateSize = true,
+        string|int|bool|null $timeSize = true,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string &$locale = null,
         ?string &$wrapFormat = null
     ): ?string {
@@ -108,161 +100,137 @@ trait TimeTrait
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'full', 'full', $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'full', false, $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function fullTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, false, 'full', $timezone, $locale);
     }
 
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'long', 'long', $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'long', false, $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function longTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, false, 'long', $timezone, $locale);
     }
 
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'medium', 'medium', $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'medium', false, $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function mediumTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, false, 'medium', $timezone, $locale);
     }
 
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortDateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'short', 'short', $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortDate(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'short', false, $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function shortTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, false, 'short', $timezone, $locale);
     }
 
@@ -270,41 +238,35 @@ trait TimeTrait
 
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function dateTime(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'medium', 'medium', $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function date(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, 'medium', false, $timezone, $locale);
     }
 
     /**
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      * @phpstan-return TReturn|null
      */
     public function time(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->locale($date, false, 'short', $timezone, $locale);
     }
 
@@ -315,90 +277,84 @@ trait TimeTrait
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function since(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, false, $parts, false, false, $positive, $locale);
     }
 
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function sinceAbs(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, false, $parts, false, true, $positive, $locale);
     }
 
     /**
      * Format interval since date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function sinceAbbr(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, false, $parts, true, true, $positive, $locale);
     }
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function until(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, true, $parts, false, false, $positive, $locale);
     }
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function untilAbs(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, true, $parts, false, true, $positive, $locale);
     }
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      * @phpstan-return TReturn|null
      */
     public function untilAbbr(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         ?bool $positive = null,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatNowInterval($date, true, $parts, true, true, $positive, $locale);
     }
 
@@ -406,28 +362,27 @@ trait TimeTrait
 
     /**
      * Format interval
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
+     *
      * @phpstan-return TReturn|null
      */
     protected function formatNowInterval(
-        $date,
+        DateTime|DateInterval|string|Stringable|int|null $date,
         bool $invert,
         ?int $parts,
         bool $short = false,
         bool $absolute = false,
         ?bool $positive = false,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatRawNowInterval($date, $interval, $invert, $parts, $short, $absolute, $positive, $locale);
     }
 
 
     /**
      * Format interval
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      */
     protected function formatRawNowInterval(
-        &$date,
+        DateTime|DateInterval|string|Stringable|int|null &$date,
         ?DateInterval &$interval,
         bool $invert,
         ?int $parts,
@@ -490,61 +445,52 @@ trait TimeTrait
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @phpstan-return TReturn|null
      */
     public function between(
-        $date1,
-        $date2,
+        DateTime|DateInterval|string|Stringable|int|null $date1,
+        DateTime|DateInterval|string|Stringable|int|null $date2,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatBetweenInterval($date1, $date2, $parts, false, $locale);
     }
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @phpstan-return TReturn|null
      */
     public function betweenAbbr(
-        $date1,
-        $date2,
+        DateTime|DateInterval|string|Stringable|int|null $date1,
+        DateTime|DateInterval|string|Stringable|int|null $date2,
         ?int $parts = 1,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatBetweenInterval($date1, $date2, $parts, true, $locale);
     }
 
     /**
      * Format interval until date
      *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      * @phpstan-return TReturn|null
      */
     protected function formatBetweenInterval(
-        $date1,
-        $date2,
+        DateTime|DateInterval|string|Stringable|int|null $date1,
+        DateTime|DateInterval|string|Stringable|int|null $date2,
         ?int $parts = 1,
         bool $short = false,
         ?string $locale = null
-    ) {
+    ): mixed {
         return $this->formatRawBetweenInterval($date1, $date2, $interval, $parts, $short, $locale);
     }
 
     /**
      * Format interval until date
-     *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date1
-     * @param DateTime|DateInterval|string|Stringable|int|null $date2
      */
     protected function formatRawBetweenInterval(
-        &$date1,
-        &$date2,
+        DateTime|DateInterval|string|Stringable|int|null &$date1,
+        DateTime|DateInterval|string|Stringable|int|null &$date2,
         ?DateInterval &$interval,
         ?int $parts = 1,
         bool $short = false,
@@ -583,13 +529,10 @@ trait TimeTrait
 
     /**
      * Prepare date for formatting
-     *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
     protected function prepare(
-        $date,
-        $timezone = true,
+        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeZone|string|Stringable|bool|null $timezone = true,
         bool $includeTime = true
     ): ?DateTime {
         if (null === ($date = $this->normalizeDate($date))) {
@@ -615,11 +558,10 @@ trait TimeTrait
 
     /**
      * Normalize a date input
-     *
-     * @param DateTime|DateInterval|string|Stringable|int|null $date
      */
-    protected function normalizeDate($date): ?DateTime
-    {
+    protected function normalizeDate(
+        DateTime|DateInterval|string|Stringable|int|null $date
+    ): ?DateTime {
         if ($date === null) {
             return null;
         } elseif ($date instanceof DateTime) {
@@ -654,11 +596,10 @@ trait TimeTrait
 
     /**
      * Normalize timezone
-     *
-     * @param DateTimeZone|string|Stringable|bool|null $timezone
      */
-    protected function normalizeTimezone($timezone): ?DateTimeZone
-    {
+    protected function normalizeTimezone(
+        DateTimeZone|string|Stringable|bool|null $timezone
+    ): ?DateTimeZone {
         if ($timezone === false || $timezone === null) {
             return null;
         }
@@ -676,11 +617,10 @@ trait TimeTrait
 
     /**
      * Normalize locale format size
-     *
-     * @param string|int|bool|null $size
      */
-    protected function normalizeLocaleSize($size): int
-    {
+    protected function normalizeLocaleSize(
+        string|int|bool|null $size
+    ): int {
         if ($size === false || $size === null) {
             return IntlDateFormatter::NONE;
         }
