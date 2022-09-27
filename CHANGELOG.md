@@ -1,3 +1,7 @@
+## v0.4.3 (2022-09-27)
+* Updated Veneer stub
+* Updated composer check script
+
 ## v0.4.2 (2022-09-27)
 * Converted Veneer plugins to load with Attributes
 * Updated CI environment
