@@ -9,12 +9,10 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum\Plugin;
 
-use DecodeLabs\Veneer\Plugin;
-
 /**
  * @template TReturn
  */
-interface Number extends Plugin
+interface Number
 {
     /**
      * @phpstan-return TReturn|null

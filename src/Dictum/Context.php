@@ -11,55 +11,23 @@ namespace DecodeLabs\Dictum;
 
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
+
 use DecodeLabs\Exceptional;
-use DecodeLabs\Veneer\Plugin\AccessTarget as VeneerPluginAccessTarget;
-use DecodeLabs\Veneer\Plugin\AccessTargetTrait as VeneerPluginAccessTargetTrait;
-use DecodeLabs\Veneer\Plugin as VeneerPlugin;
-use DecodeLabs\Veneer\Plugin\Provider as VeneerPluginProvider;
-use DecodeLabs\Veneer\Plugin\ProviderTrait as VeneerPluginProviderTrait;
+
+use DecodeLabs\Veneer\LazyLoad;
+use DecodeLabs\Veneer\Plugin;
 
 use Stringable;
 
-/**
- * @property NumberPlugin $number
- * @property TimePlugin $time
- */
-class Context implements
-    VeneerPluginProvider,
-    VeneerPluginAccessTarget
+class Context
 {
-    use VeneerPluginProviderTrait;
-    use VeneerPluginAccessTargetTrait;
+    #[Plugin]
+    #[LazyLoad]
+    public NumberPlugin $number;
 
-    public const PLUGINS = [
-        'number',
-        'time',
-    ];
-
-
-    /**
-     * Get list of Veneer plugin names
-     *
-     * @return array<string>
-     */
-    public function getVeneerPluginNames(): array
-    {
-        return static::PLUGINS;
-    }
-
-    /**
-     * Load factory plugins
-     */
-    public function loadVeneerPlugin(string $name): VeneerPlugin
-    {
-        if (!in_array($name, self::PLUGINS)) {
-            throw Exceptional::InvalidArgument($name . ' is not a recognised Veneer plugin');
-        }
-
-        /** @phpstan-var class-string<VeneerPlugin> */
-        $class = '\\DecodeLabs\\Dictum\\Plugins\\' . ucfirst($name);
-        return new $class($this);
-    }
+    #[Plugin]
+    #[LazyLoad]
+    public TimePlugin $time;
 
 
 
