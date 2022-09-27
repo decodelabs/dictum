@@ -7,7 +7,7 @@ namespace DecodeLabs;
 use DecodeLabs\Veneer\Proxy;
 use DecodeLabs\Veneer\ProxyTrait;
 use DecodeLabs\Dictum\Context as Inst;
-class Dictum implements Proxy { use ProxyTrait; 
+class Dictum implements Proxy { use ProxyTrait;
 const VENEER = 'Dictum';
 const VENEER_TARGET = Inst::class;
 const PLUGINS = Inst::PLUGINS;

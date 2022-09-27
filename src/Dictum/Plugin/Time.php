@@ -12,13 +12,12 @@ namespace DecodeLabs\Dictum\Plugin;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
-use DecodeLabs\Veneer\Plugin;
 use Stringable;
 
 /**
  * @template TReturn
  */
-interface Time extends Plugin
+interface Time
 {
     /**
      * Custom format a date and wrap it
