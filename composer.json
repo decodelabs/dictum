@@ -26,8 +26,6 @@
 
         "decodelabs/phpstan-decodelabs": "^0.6",
         "decodelabs/systemic": "^0.9.3",
-        "decodelabs/atlas": "^0.10.4",
-        "decodelabs/terminus": "^0.8.4",
 
         "nesbot/carbon": "^2.25"
     },
