@@ -7,7 +7,7 @@
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat)](https://github.com/phpstan/phpstan)
 [![License](https://img.shields.io/packagist/l/decodelabs/dictum?style=flat)](https://packagist.org/packages/decodelabs/dictum)
 
-# Text formatting tools for PHP
+### Text formatting tools for PHP
 
 Dictum provides a collection of commonly required text parsing and processing features.
 
