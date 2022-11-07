@@ -22,7 +22,7 @@ interface Time
     /**
      * Custom format a date and wrap it
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function format(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -33,7 +33,7 @@ interface Time
     /**
      * Custom format a date and wrap it
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function formatDate(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -43,7 +43,7 @@ interface Time
     /**
      * Custom locale format a date with ICU and wrap it
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function pattern(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -55,7 +55,7 @@ interface Time
     /**
      * Format date according to locale
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function locale(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -68,7 +68,7 @@ interface Time
     /**
      * Format full date time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function fullDateTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -79,7 +79,7 @@ interface Time
     /**
      * Format full date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function fullDate(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -90,7 +90,7 @@ interface Time
     /**
      * Format full time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function fullTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -102,7 +102,7 @@ interface Time
     /**
      * Format long date time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function longDateTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -113,7 +113,7 @@ interface Time
     /**
      * Format long date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function longDate(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -124,7 +124,7 @@ interface Time
     /**
      * Format long time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function longTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -136,7 +136,7 @@ interface Time
     /**
      * Format medium date time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function mediumDateTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -147,7 +147,7 @@ interface Time
     /**
      * Format medium date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function mediumDate(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -158,7 +158,7 @@ interface Time
     /**
      * Format medium time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function mediumTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -170,7 +170,7 @@ interface Time
     /**
      * Format short date time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function shortDateTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -181,7 +181,7 @@ interface Time
     /**
      * Format short date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function shortDate(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -192,7 +192,7 @@ interface Time
     /**
      * Format short time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function shortTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -206,7 +206,7 @@ interface Time
     /**
      * Format default date time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function dateTime(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -217,7 +217,7 @@ interface Time
     /**
      * Format default date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function date(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -228,7 +228,7 @@ interface Time
     /**
      * Format default time
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function time(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -242,7 +242,7 @@ interface Time
     /**
      * Format interval since date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function since(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -254,7 +254,7 @@ interface Time
     /**
      * Format interval since date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function sinceAbs(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -266,7 +266,7 @@ interface Time
     /**
      * Format interval since date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function sinceAbbr(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -278,7 +278,7 @@ interface Time
     /**
      * Format interval until date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function until(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -290,7 +290,7 @@ interface Time
     /**
      * Format interval until date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function untilAbs(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -302,7 +302,7 @@ interface Time
     /**
      * Format interval until date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date is null ? null : TReturn)
      */
     public function untilAbbr(
         DateTime|DateInterval|string|Stringable|int|null $date,
@@ -315,7 +315,7 @@ interface Time
     /**
      * Format interval until date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date1 is null ? null : ($date2 is null ? null : TReturn))
      */
     public function between(
         DateTime|DateInterval|string|Stringable|int|null $date1,
@@ -327,7 +327,7 @@ interface Time
     /**
      * Format interval until date
      *
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($date1 is null ? null : ($date2 is null ? null : TReturn))
      */
     public function betweenAbbr(
         DateTime|DateInterval|string|Stringable|int|null $date1,

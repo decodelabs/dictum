@@ -1,3 +1,7 @@
+## v0.4.4 (2022-11-07)
+* Added conditional returns to interfaces
+* Fixed PHP8.1 testing
+
 ## v0.4.3 (2022-09-27)
 * Updated Veneer stub
 * Updated composer check script

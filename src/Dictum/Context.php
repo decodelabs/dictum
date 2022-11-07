@@ -33,6 +33,8 @@ class Context
 
     /**
      * Create Text buffer
+     *
+     * @phpstan-return ($text is null ? null : Text)
      */
     public function text(
         string|Stringable|int|float|null $text,
@@ -51,6 +53,8 @@ class Context
 
     /**
      * Normalize words, convert words to upper
+     *
+     * @phpstan-return ($name is null ? null : string)
      */
     public function name(
         string|Stringable|int|float|null $name,
@@ -71,6 +75,8 @@ class Context
 
     /**
      * Get first name from full name
+     *
+     * @phpstan-return ($fullName is null ? null : string)
      */
     public function firstName(
         string|Stringable|int|float|null $fullName,
@@ -103,6 +109,8 @@ class Context
 
     /**
      * Initialise name
+     *
+     * @phpstan-return ($name is null ? null : string)
      */
     public function initials(
         string|Stringable|int|float|null $name,
@@ -138,6 +146,8 @@ class Context
 
     /**
      * Get initials and surname
+     *
+     * @phpstan-return ($name is null ? null : string)
      */
     public function initialsAndSurname(
         string|Stringable|int|float|null $name,
@@ -154,9 +164,7 @@ class Context
             array_shift($parts);
         }
 
-        if (null === ($output = $this->initials(implode(' ', $parts), false))) {
-            return null;
-        }
+        $output = $this->initials(implode(' ', $parts), false);
 
         return (new Text($surname, $encoding))
             ->toUtf8()
@@ -167,6 +175,8 @@ class Context
 
     /**
      * Shorten middle names
+     *
+     * @phpstan-return ($name is null ? null : string)
      */
     public function initialMiddleNames(
         string|Stringable|int|float|null $name,
@@ -210,6 +220,8 @@ class Context
 
     /**
      * Strip vowels from text
+     *
+     * @phpstan-return ($text is null ? null : string)
      */
     public function consonants(
         string|Stringable|int|float|null $text,
@@ -228,6 +240,8 @@ class Context
 
     /**
      * Uppercase first, to ASCII, strip some chars
+     *
+     * @phpstan-return ($label is null ? null : string)
      */
     public function label(
         string|Stringable|int|float|null $label,
@@ -249,6 +263,8 @@ class Context
 
     /**
      * Convert to Id
+     *
+     * @phpstan-return ($id is null ? null : string)
      */
     public function id(
         string|Stringable|int|float|null $id,
@@ -271,6 +287,8 @@ class Context
 
     /**
      * Convert to camelCase
+     *
+     * @phpstan-return ($id is null ? null : string)
      */
     public function camel(
         string|Stringable|int|float|null $id,
@@ -294,6 +312,8 @@ class Context
 
     /**
      * Format as PHP_CONSTANT
+     *
+     * @phpstan-return ($constant is null ? null : string)
      */
     public function constant(
         string|Stringable|int|float|null $constant,
@@ -318,6 +338,8 @@ class Context
 
     /**
      * Convert to slug
+     *
+     * @phpstan-return ($slug is null ? null : string)
      */
     public function slug(
         string|Stringable|int|float|null $slug,
@@ -342,6 +364,8 @@ class Context
 
     /**
      * Convert to path format slug
+     *
+     * @phpstan-return ($slug is null ? null : string)
      */
     public function pathSlug(
         string|Stringable|int|float|null $slug,
@@ -360,10 +384,7 @@ class Context
         foreach ($parts as $i => $part) {
             $part = $this->slug($part, $allowedChars, $encoding);
 
-            if (
-                $part === null ||
-                !strlen($part)
-            ) {
+            if (!strlen($part)) {
                 unset($parts[$i]);
                 continue;
             }
@@ -378,6 +399,8 @@ class Context
 
     /**
      * Convert to URL action slug
+     *
+     * @phpstan-return ($slug is null ? null : string)
      */
     public function actionSlug(
         string|Stringable|int|float|null $slug,
@@ -400,6 +423,8 @@ class Context
 
     /**
      * Remove non-filesystem compatible chars
+     *
+     * @phpstan-return ($fileName is null ? null : string)
      */
     public function fileName(
         string|Stringable|int|float|null $fileName,
@@ -426,6 +451,8 @@ class Context
 
     /**
      * Cap length of string, add ellipsis if needed
+     *
+     * @phpstan-return ($text is null ? null : string)
      */
     public function shorten(
         string|Stringable|int|float|null $text,
@@ -460,6 +487,8 @@ class Context
 
     /**
      * Wrapper around Text::numericToAlpha
+     *
+     * @phpstan-return ($number is null ? null : string)
      */
     public function numericToAlpha(
         ?int $number,
@@ -475,6 +504,8 @@ class Context
 
     /**
      * Wrapper around alphaToNumeric
+     *
+     * @phpstan-return ($text is null ? null : int)
      */
     public function alphaToNumeric(
         string|Stringable|int|float|null $text,
@@ -489,6 +520,8 @@ class Context
 
     /**
      * Convert between any base from 2 to 62
+     *
+     * @phpstan-return ($input is null ? null : string)
      */
     public function baseConvert(
         string|Stringable|int|float|null $input,
