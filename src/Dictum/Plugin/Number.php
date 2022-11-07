@@ -15,7 +15,7 @@ namespace DecodeLabs\Dictum\Plugin;
 interface Number
 {
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function format(
         int|float|string|null $value,
@@ -24,7 +24,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function pattern(
         int|float|string|null $value,
@@ -33,7 +33,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function decimal(
         int|float|string|null $value,
@@ -42,7 +42,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function currency(
         int|float|string|null $value,
@@ -52,7 +52,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function percent(
         int|float|string|null $value,
@@ -62,7 +62,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function scientific(
         int|float|string|null $value,
@@ -70,7 +70,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function spellout(
         int|float|string|null $value,
@@ -78,7 +78,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($value is null ? null : TReturn)
      */
     public function ordinal(
         int|float|string|null $value,
@@ -86,7 +86,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($diff is null ? null : TReturn)
      */
     public function diff(
         int|float|string|null $diff,
@@ -95,7 +95,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($bytes is null ? null : TReturn)
      */
     public function fileSize(
         ?int $bytes,
@@ -103,7 +103,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($bytes is null ? null : TReturn)
      */
     public function fileSizeDec(
         ?int $bytes,
@@ -111,7 +111,7 @@ interface Number
     ): mixed;
 
     /**
-     * @phpstan-return TReturn|null
+     * @phpstan-return ($counter is null ? null : TReturn)
      */
     public function counter(
         int|float|string|null $counter,
