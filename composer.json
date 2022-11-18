@@ -25,7 +25,7 @@
         "symplify/easy-coding-standard": "^11",
 
         "decodelabs/phpstan-decodelabs": "^0.6",
-        "decodelabs/systemic": "^0.9.3",
+        "decodelabs/systemic": "^0.9.3|^0.10",
 
         "nesbot/carbon": "^2.25"
     },
