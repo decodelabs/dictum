@@ -20,7 +20,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.0"
-          extensions: ${{ env.PHP_EXTENSIONS }}
+          extensions: "${{ env.PHP_EXTENSIONS }}"
           ini-values: "post_max_size=256M"
 
       - name: "Checkout code"
@@ -74,7 +74,7 @@ jobs:
 #        uses: "shivammathur/setup-php@v2"
 #        with:
 #          php-version: "${{ matrix.php-version }}"
-#          extensions: ${{ env.PHP_EXTENSIONS }}
+#          extensions: "${{ env.PHP_EXTENSIONS }}"
 #          ini-values: "post_max_size=256M"
 
 #      - name: "Checkout code"
@@ -114,7 +114,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: ${{ env.PHP_EXTENSIONS }}
+          extensions: "${{ env.PHP_EXTENSIONS }}"
           ini-values: "post_max_size=256M"
 
       - name: "Checkout code"
@@ -147,7 +147,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.0"
-          extensions: ${{ env.PHP_EXTENSIONS }}
+          extensions: "${{ env.PHP_EXTENSIONS }}"
           ini-values: "post_max_size=256M"
 
       - name: "Checkout code"
