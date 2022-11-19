@@ -1,3 +1,5 @@
+* Migrated to use effigy in CI workflow
+
 ## v0.4.4 (2022-11-07)
 * Added conditional returns to interfaces
 * Fixed PHP8.1 testing
