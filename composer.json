@@ -12,7 +12,7 @@
         "php": "^8.0",
         "symfony/polyfill-mbstring": "^1.7",
 
-        "decodelabs/cosmos": "^0.1.1",
+        "decodelabs/cosmos": "^0.1.2",
         "decodelabs/exceptional": "^0.4",
         "decodelabs/fluidity": "^0.3",
         "decodelabs/glitch-support": "^0.4",
