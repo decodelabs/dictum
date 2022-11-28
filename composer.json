@@ -12,25 +12,16 @@
         "php": "^8.0",
         "symfony/polyfill-mbstring": "^1.7",
 
+        "decodelabs/cosmos": "^0.1.2",
         "decodelabs/exceptional": "^0.4",
         "decodelabs/fluidity": "^0.3",
         "decodelabs/glitch-support": "^0.4",
         "decodelabs/veneer": "^0.10.10"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9",
-        "phpstan/phpstan": "^1",
-        "phpstan/extension-installer": "^1.0",
-        "php-parallel-lint/php-parallel-lint": "^1.3",
-        "symplify/easy-coding-standard": "^11",
-
         "decodelabs/phpstan-decodelabs": "^0.6",
-        "decodelabs/systemic": "^0.9.3",
 
         "nesbot/carbon": "^2.25"
-    },
-    "suggest": {
-        "decodelabs/systemic": "Managed locale and timezone info"
     },
     "autoload": {
         "psr-4": {
@@ -42,33 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.4.x-dev"
+            "dev-develop": "0.5.x-dev"
         }
-    },
-    "config": {
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
-    },
-    "scripts": {
-        "analyze": "phpstan analyze --no-progress",
-        "clear-phpstan": "phpstan clear-result-cache",
-        "ecs": "ecs check --no-progress-bar",
-        "ecs-fix": "ecs check --no-progress-bar --fix",
-        "lint": "parallel-lint src/ stubs/ ecs.php",
-        "eclint": "eclint check src/ stubs/ ecs.php",
-        "eclint-fix": "eclint fix src/ stubs/ ecs.php",
-        "non-ascii": "! LC_ALL=C.UTF-8 find src/ -type f -name \"*.php\" -print0 | xargs -0 -- grep -PHn \"[^ -~]\" | grep -v '// @ignore-non-ascii$'",
-        "veneer-stub": "vendor/bin/veneer-stub",
-        "prep": [
-            "@composer update",
-            "@veneer-stub",
-            "@clear-phpstan",
-            "@analyze",
-            "@ecs-fix",
-            "@lint",
-            "@eclint",
-            "@non-ascii"
-        ]
     }
 }

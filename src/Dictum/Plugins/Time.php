@@ -12,9 +12,10 @@ namespace DecodeLabs\Dictum\Plugins;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
+use DecodeLabs\Cosmos\Extension\Time as TimePlugin;
+use DecodeLabs\Cosmos\Extension\TimeTrait as TimePluginTrait;
+use DecodeLabs\Cosmos\Locale;
 use DecodeLabs\Dictum\Context;
-use DecodeLabs\Dictum\Plugin\Time as TimePlugin;
-use DecodeLabs\Dictum\Plugin\TimeTrait as TimePluginTrait;
 use Stringable;
 
 /**
@@ -74,7 +75,7 @@ class Time implements TimePlugin
         DateTime|DateInterval|string|Stringable|int|null $date,
         string $pattern,
         DateTimeZone|string|Stringable|bool|null $timezone = true,
-        ?string $locale = null
+        string|Locale|null $locale = null
     ): ?string {
         return $this->formatRawIcuDate($date, $pattern, $timezone, $locale);
     }
@@ -87,7 +88,7 @@ class Time implements TimePlugin
         string|int|bool|null $dateSize = true,
         string|int|bool|null $timeSize = true,
         DateTimeZone|string|Stringable|bool|null $timezone = true,
-        ?string $locale = null
+        string|Locale|null $locale = null
     ): ?string {
         return $this->formatRawLocaleDate($date, $dateSize, $timeSize, $timezone, $locale);
     }
