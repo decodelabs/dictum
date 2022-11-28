@@ -5,8 +5,8 @@
  */
 namespace DecodeLabs;
 
-use DecodeLabs\Veneer\Proxy;
-use DecodeLabs\Veneer\ProxyTrait;
+use DecodeLabs\Veneer\Proxy as Proxy;
+use DecodeLabs\Veneer\ProxyTrait as ProxyTrait;
 use DecodeLabs\Dictum\Context as Inst;
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
