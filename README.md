@@ -136,7 +136,7 @@ use DecodeLabs\Dictum;
 Dictum::$time->format('now', 'd/m/Y', 'Europe/London');
 
 // Locale format
-// When timezone is true it is fetched from Systemic::$timezone
+// When timezone is true it is fetched from Cosmos::$timezone
 Dictum::$time->locale('now', 'long', 'long', true);
 
 // Locale shortcuts
