@@ -18,7 +18,7 @@ class Dictum implements Proxy
 {
     use ProxyTrait;
 
-    const VENEER = 'DecodeLabs\Dictum';
+    const VENEER = 'DecodeLabs\\Dictum';
     const VENEER_TARGET = Inst::class;
 
     public static Inst $instance;

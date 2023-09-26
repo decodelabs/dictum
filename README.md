@@ -3,7 +3,7 @@
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/decodelabs/dictum?style=flat)](https://packagist.org/packages/decodelabs/dictum)
 [![Latest Version](https://img.shields.io/packagist/v/decodelabs/dictum.svg?style=flat)](https://packagist.org/packages/decodelabs/dictum)
 [![Total Downloads](https://img.shields.io/packagist/dt/decodelabs/dictum.svg?style=flat)](https://packagist.org/packages/decodelabs/dictum)
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/decodelabs/dictum/Integrate)](https://github.com/decodelabs/dictum/actions/workflows/integrate.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/decodelabs/dictum/integrate.yml?branch=develop)](https://github.com/decodelabs/dictum/actions/workflows/integrate.yml)
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat)](https://github.com/phpstan/phpstan)
 [![License](https://img.shields.io/packagist/l/decodelabs/dictum?style=flat)](https://packagist.org/packages/decodelabs/dictum)
 
@@ -136,7 +136,7 @@ use DecodeLabs\Dictum;
 Dictum::$time->format('now', 'd/m/Y', 'Europe/London');
 
 // Locale format
-// When timezone is true it is fetched from Systemic::$timezone
+// When timezone is true it is fetched from Cosmos::$timezone
 Dictum::$time->locale('now', 'long', 'long', true);
 
 // Locale shortcuts

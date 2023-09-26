@@ -750,7 +750,7 @@ class Text implements
     /**
      * Split by $string
      *
-     * @phpstan-param non-empty-string $delimiter
+     * @param non-empty-string $delimiter
      * @return array<static>
      */
     public function split(

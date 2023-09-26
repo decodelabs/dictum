@@ -1,3 +1,6 @@
+## v0.5.1 (2023-09-26)
+* Converted phpstan doc comments to generic
+
 ## v0.5.0 (2022-11-28)
 * Moved Plugin interfaces to Cosmos
 * Migrated to use effigy in CI workflow
