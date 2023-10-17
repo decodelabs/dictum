@@ -9,15 +9,20 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
 
 use DecodeLabs\Exceptional;
 
+use DecodeLabs\Veneer;
 use DecodeLabs\Veneer\LazyLoad;
 use DecodeLabs\Veneer\Plugin;
 
 use Stringable;
+
+// Register the Veneer facade
+Veneer::register(Context::class, Dictum::class);
 
 class Context
 {
