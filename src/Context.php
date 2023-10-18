@@ -21,9 +21,6 @@ use DecodeLabs\Veneer\Plugin;
 
 use Stringable;
 
-// Register the Veneer facade
-Veneer::register(Context::class, Dictum::class);
-
 class Context
 {
     #[Plugin]
@@ -754,3 +751,7 @@ class Context
         return $text->countWords();
     }
 }
+
+
+// Register the Veneer facade
+Veneer::register(Context::class, Dictum::class);
