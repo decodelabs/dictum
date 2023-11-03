@@ -29,8 +29,9 @@ class Number implements NumberPlugin
     /**
      * Init with parent Context
      */
-    public function __construct(Context $context)
-    {
+    public function __construct(
+        Context $context
+    ) {
         $this->context = $context;
     }
 
