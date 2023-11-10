@@ -1,3 +1,4 @@
+* Made PHP8.1 minimum version
 * Refactored package file structure
 
 ## v0.5.1 (2023-09-26)
