@@ -81,9 +81,6 @@ class Dictum implements Proxy
     public static function alphaToNumeric(Ref0|string|int|float|null $text, ?string $encoding = NULL): ?int {
         return static::$instance->alphaToNumeric(...func_get_args());
     }
-    public static function baseConvert(Ref0|string|int|float|null $input, int $fromBase, int $toBase, int $pad = 1): ?string {
-        return static::$instance->baseConvert(...func_get_args());
-    }
     public static function toBoolean(Ref0|string|int|float|null $text, ?string $encoding = NULL): bool {
         return static::$instance->toBoolean(...func_get_args());
     }

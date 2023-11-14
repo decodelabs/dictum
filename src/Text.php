@@ -1317,6 +1317,7 @@ class Text implements
                 break;
             }
 
+            /** @phpstan-ignore-next-line */
             if (false === ($result = mb_ereg_search_getregs())) {
                 throw Exceptional::InvalidArgument('Unable to complete mb regex with: ' . $pattern);
             }
