@@ -91,10 +91,6 @@ echo Dictum::numericToAlpha(23345452);
 echo Dictum::alphaToNumeric('aybfra')
 // 23345452
 
-echo Dictum::baseConvert(23345452, 10, 36);
-// 4J4RS
-
-
 echo Dictum::toBoolean('yes') ? 'true' : 'false';
 // true
 ```

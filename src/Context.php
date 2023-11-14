@@ -9,11 +9,12 @@ declare(strict_types=1);
 
 namespace DecodeLabs\Dictum;
 
+use DecodeLabs\Dictum;
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
 
-use DecodeLabs\Exceptional;
 
+use DecodeLabs\Veneer;
 use DecodeLabs\Veneer\LazyLoad;
 use DecodeLabs\Veneer\Plugin;
 
@@ -518,96 +519,6 @@ class Context
         return $text->alphaToNumeric();
     }
 
-    /**
-     * Convert between any base from 2 to 62
-     *
-     * @phpstan-return ($input is null ? null : string)
-     */
-    public function baseConvert(
-        string|Stringable|int|float|null $input,
-        int $fromBase,
-        int $toBase,
-        int $pad = 1
-    ): ?string {
-        if ($input === null) {
-            return null;
-        }
-
-        if (
-            $fromBase < 2 ||
-            $fromBase > 62 ||
-            $toBase < 2 ||
-            $toBase > 62
-        ) {
-            throw Exceptional::Overflow('Base must be between 2 and 62');
-        }
-
-        if (!is_string($input)) {
-            $input = sprintf('%0.0F', $input);
-        }
-
-
-        if (extension_loaded('gmp')) {
-            $output = gmp_strval(gmp_init($input, $fromBase), $toBase);
-
-            if ($pad > 1) {
-                $output = str_pad($output, $pad, '0', STR_PAD_LEFT);
-            }
-
-            return $output;
-        }
-
-
-        $digitChars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $inDigits = [];
-        $outChars = '';
-
-        $input = strtolower($input);
-        $length = strlen($input);
-
-
-        for ($i = 0; $i < $length; $i++) {
-            $digit = ord($input[$i]) - 48;
-
-            if ($digit > 9) {
-                $digit -= 39;
-            }
-
-            if ($digit > $fromBase) {
-                throw Exceptional::Overflow('Digit as exceeded base: ' . $fromBase);
-            }
-
-            $inDigits[] = $digit;
-        }
-
-
-        while (!empty($inDigits)) {
-            $work = 0;
-            $workDigits = [];
-
-            foreach ($inDigits as $digit) {
-                $work *= $fromBase;
-                $work += $digit;
-
-
-                if ($work < $toBase) {
-                    if (!empty($workDigits)) {
-                        $workDigits[] = 0;
-                    }
-                } else {
-                    $workDigits[] = (int)($work / $toBase);
-                    $work %= $toBase;
-                }
-            }
-
-            $outChars = $digitChars[$work] . $outChars;
-            $inDigits = $workDigits;
-        }
-
-        return str_pad($outChars, $pad, '0', STR_PAD_LEFT);
-    }
-
-
 
 
     /**
@@ -749,3 +660,7 @@ class Context
         return $text->countWords();
     }
 }
+
+
+// Register the Veneer facade
+Veneer::register(Context::class, Dictum::class);

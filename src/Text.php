@@ -102,8 +102,9 @@ class Text implements
     /**
      * Convert encoding
      */
-    public function convertEncoding(string $encoding): static
-    {
+    public function convertEncoding(
+        string $encoding
+    ): static {
         if ($encoding === $this->encoding) {
             return $this;
         }
@@ -128,16 +129,19 @@ class Text implements
     /**
      * Get a single char at index
      */
-    public function getChar(int $index): static
-    {
+    public function getChar(
+        int $index
+    ): static {
         return $this->slice($index, 1);
     }
 
     /**
      * Replace a single char
      */
-    public function replaceChar(int $index, string $char): static
-    {
+    public function replaceChar(
+        int $index,
+        string $char
+    ): static {
         $output = '';
 
         if ($index !== 0) {
@@ -156,8 +160,10 @@ class Text implements
     /**
      * Insert a string into the text
      */
-    public function insert(int $index, string $string): static
-    {
+    public function insert(
+        int $index,
+        string $string
+    ): static {
         $output = '';
 
         if ($index !== 0) {
@@ -173,8 +179,9 @@ class Text implements
     /**
      * Remove a single char
      */
-    public function removeChar(int $index): static
-    {
+    public function removeChar(
+        int $index
+    ): static {
         $output = '';
 
         if ($index !== 0) {
@@ -191,8 +198,9 @@ class Text implements
     /**
      * Check char index
      */
-    public function hasCharAt(int $index): bool
-    {
+    public function hasCharAt(
+        int $index
+    ): bool {
         return mb_substr($this->text, $index, 1, $this->encoding) !== '';
     }
 
@@ -202,8 +210,9 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetGet(mixed $index): static
-    {
+    public function offsetGet(
+        mixed $index
+    ): static {
         return $this->slice($index, 1);
     }
 
@@ -227,8 +236,9 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetExists(mixed $index): bool
-    {
+    public function offsetExists(
+        mixed $index
+    ): bool {
         return $this->hasCharAt($index);
     }
 
@@ -237,8 +247,9 @@ class Text implements
      *
      * @param int $index
      */
-    public function offsetUnset(mixed $index): void
-    {
+    public function offsetUnset(
+        mixed $index
+    ): void {
         throw Exceptional::Implementation(
             'Immutable DecodeLabs\\Dictum\\Text does not support array-access unset'
         );
@@ -308,8 +319,9 @@ class Text implements
     /**
      * Is $needle in text?
      */
-    public function contains(string ...$needles): bool
-    {
+    public function contains(
+        string ...$needles
+    ): bool {
         foreach ($needles as $needle) {
             if (false !== mb_strpos($this->text, $needle, 0, $this->encoding)) {
                 return true;
@@ -322,8 +334,9 @@ class Text implements
     /**
      * Is $needle in text? Case insensitive
      */
-    public function containsCi(string ...$needles): bool
-    {
+    public function containsCi(
+        string ...$needles
+    ): bool {
         foreach ($needles as $needle) {
             if (false !== mb_stripos($this->text, $needle, 0, $this->encoding)) {
                 return true;
@@ -336,8 +349,9 @@ class Text implements
     /**
      * Are all $needles in text?
      */
-    public function containsAll(string ...$needles): bool
-    {
+    public function containsAll(
+        string ...$needles
+    ): bool {
         foreach ($needles as $needle) {
             if (false === mb_strpos($this->text, $needle, 0, $this->encoding)) {
                 return false;
@@ -350,8 +364,9 @@ class Text implements
     /**
      * Are all $needles in text? Case insensitive
      */
-    public function containsAllCi(string ...$needles): bool
-    {
+    public function containsAllCi(
+        string ...$needles
+    ): bool {
         foreach ($needles as $needle) {
             if (false === mb_stripos($this->text, $needle, 0, $this->encoding)) {
                 return false;
@@ -366,8 +381,9 @@ class Text implements
     /**
      * Does the end of the text match $start?
      */
-    public function beginsWith(string ...$starts): bool
-    {
+    public function beginsWith(
+        string ...$starts
+    ): bool {
         foreach ($starts as $start) {
             if (mb_substr(
                 $this->text,
@@ -385,8 +401,9 @@ class Text implements
     /**
      * Does the end of the text match $start?
      */
-    public function beginsWithCi(string ...$starts): bool
-    {
+    public function beginsWithCi(
+        string ...$starts
+    ): bool {
         foreach ($starts as $start) {
             if (mb_strtolower(
                 mb_substr(
@@ -407,8 +424,9 @@ class Text implements
     /**
      * Does the end of the text match $end?
      */
-    public function endsWith(string ...$ends): bool
-    {
+    public function endsWith(
+        string ...$ends
+    ): bool {
         foreach ($ends as $end) {
             if (mb_substr(
                 $this->text,
@@ -426,8 +444,9 @@ class Text implements
     /**
      * Does the end of the text match $end?
      */
-    public function endsWithCi(string ...$ends): bool
-    {
+    public function endsWithCi(
+        string ...$ends
+    ): bool {
         foreach ($ends as $end) {
             if (mb_strtolower(
                 mb_substr(
@@ -503,16 +522,18 @@ class Text implements
     /**
      * Count instances of $string
      */
-    public function countInstances(string $string): int
-    {
+    public function countInstances(
+        string $string
+    ): int {
         return mb_substr_count($this->text, $string, $this->encoding);
     }
 
     /**
      * Count case insensitive instances of $string
      */
-    public function countInstancesCi(string $string): int
-    {
+    public function countInstancesCi(
+        string $string
+    ): int {
         return mb_substr_count(
             mb_strtolower($this->text, $this->encoding),
             mb_strtolower($string, $this->encoding),
@@ -550,8 +571,9 @@ class Text implements
     /**
      * Get random slice
      */
-    public function sliceRandom(int $length): static
-    {
+    public function sliceRandom(
+        int $length
+    ): static {
         $total = $this->getLength();
 
         if ($length >= $total) {
@@ -786,8 +808,9 @@ class Text implements
     /**
      * Replace whitespace with $delimiter, all lowercase
      */
-    public function delimit(string $delimiter): static
-    {
+    public function delimit(
+        string $delimiter
+    ): static {
         $encoding = mb_regex_encoding();
         mb_regex_encoding($this->encoding);
 
@@ -806,8 +829,9 @@ class Text implements
     /**
      * Trim left and right
      */
-    public function trim(string $chars = null): static
-    {
+    public function trim(
+        string $chars = null
+    ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+|[' . $chars . ']+$', '');
     }
@@ -815,8 +839,9 @@ class Text implements
     /**
      * Trim left
      */
-    public function trimLeft(string $chars = null): static
-    {
+    public function trimLeft(
+        string $chars = null
+    ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+', '');
     }
@@ -824,8 +849,9 @@ class Text implements
     /**
      * Trim right
      */
-    public function trimRight(string $chars = null): static
-    {
+    public function trimRight(
+        string $chars = null
+    ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('[' . $chars . ']+$', '');
     }
@@ -1046,8 +1072,9 @@ class Text implements
     /**
      * Convert text value to boolean
      */
-    public function toBoolean(?bool $default = null): bool
-    {
+    public function toBoolean(
+        ?bool $default = null
+    ): bool {
         switch ($text = strtolower(trim($this->text))) {
             case 'false':
             case '0':
@@ -1081,8 +1108,9 @@ class Text implements
     /**
      * Convert tabs to spaces
      */
-    public function tabsToSpaces(int $tabLength = 4): static
-    {
+    public function tabsToSpaces(
+        int $tabLength = 4
+    ): static {
         return new static(
             str_replace("\t", str_repeat(' ', $tabLength), $this->text),
             $this->encoding
@@ -1092,8 +1120,9 @@ class Text implements
     /**
      * Convert spaces to tabs
      */
-    public function spacesToTabs(int $tabLength): static
-    {
+    public function spacesToTabs(
+        int $tabLength
+    ): static {
         return new static(
             str_replace(str_repeat(' ', $tabLength), "\t", $this->text),
             $this->encoding
@@ -1104,8 +1133,9 @@ class Text implements
     /**
      * Convert numerics to alpha characters
      */
-    public static function numericToAlpha(int $number): static
-    {
+    public static function numericToAlpha(
+        int $number
+    ): static {
         static $alphabet = 'abcdefghijklmnopqrstuvwxyz';
         $output = '';
 
@@ -1154,8 +1184,9 @@ class Text implements
     /**
      * Encode for HTML
      */
-    public function htmlEncode(int $flags = ENT_COMPAT): static
-    {
+    public function htmlEncode(
+        int $flags = ENT_COMPAT
+    ): static {
         return new static(
             htmlentities($this->text, $flags, $this->encoding),
             $this->encoding
@@ -1165,8 +1196,9 @@ class Text implements
     /**
      * Decode from HTML
      */
-    public function htmlDecode(int $flags = ENT_COMPAT): static
-    {
+    public function htmlDecode(
+        int $flags = ENT_COMPAT
+    ): static {
         return new static(
             html_entity_decode($this->text, $flags, $this->encoding),
             $this->encoding
@@ -1177,8 +1209,9 @@ class Text implements
     /**
      * Remove html tags
      */
-    public function stripTags(string $allowableTags = null): static
-    {
+    public function stripTags(
+        string $allowableTags = null
+    ): static {
         if ($allowableTags !== null) {
             $output = strip_tags($this->text, $allowableTags);
         } else {
@@ -1284,6 +1317,7 @@ class Text implements
                 break;
             }
 
+            /** @phpstan-ignore-next-line */
             if (false === ($result = mb_ereg_search_getregs())) {
                 throw Exceptional::InvalidArgument('Unable to complete mb regex with: ' . $pattern);
             }

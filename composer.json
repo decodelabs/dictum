@@ -2,14 +2,14 @@
     "name": "decodelabs/dictum",
     "description": "Text formatting tools",
     "type": "library",
-    "keywords": ["text", "format"],
+    "keywords": [ "text", "format" ],
     "license": "MIT",
-    "authors": [{
-        "name": "Tom Wright",
-        "email": "tom@inflatablecookie.com"
-    }],
+    "authors": [ {
+            "name": "Tom Wright",
+            "email": "tom@inflatablecookie.com"
+        } ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "symfony/polyfill-mbstring": "^1.7",
 
         "decodelabs/cosmos": "^0.1.2",
@@ -25,15 +25,15 @@
     },
     "autoload": {
         "psr-4": {
-            "DecodeLabs\\Dictum\\": "src/Dictum"
+            "DecodeLabs\\Dictum\\": "src/"
         },
         "files": [
-            "src/global.php"
+            "src/Context.php"
         ]
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "0.5.x-dev"
+            "dev-develop": "0.6.x-dev"
         }
     }
 }

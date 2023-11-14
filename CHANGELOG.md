@@ -1,3 +1,8 @@
+## v0.6.0 (2023-11-14)
+* Removed baseConvert()
+* Made PHP8.1 minimum version
+* Refactored package file structure
+
 ## v0.5.1 (2023-09-26)
 * Converted phpstan doc comments to generic
 
