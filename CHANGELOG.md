@@ -1,3 +1,6 @@
+## v0.6.1 (2024-04-24)
+* Updated Carbon dependency
+
 ## v0.6.0 (2023-11-14)
 * Removed baseConvert()
 * Made PHP8.1 minimum version
