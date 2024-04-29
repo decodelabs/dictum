@@ -1,3 +1,6 @@
+## v0.6.2 (2024-04-29)
+* Fixed Veneer stubs in gitattributes
+
 ## v0.6.1 (2024-04-24)
 * Updated Carbon dependency
 
