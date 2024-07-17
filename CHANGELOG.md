@@ -1,3 +1,4 @@
+## v0.6.3 (2024-07-17)
 * Updated Veneer dependency
 
 ## v0.6.2 (2024-04-29)
