@@ -12,8 +12,6 @@ namespace DecodeLabs\Dictum;
 use DecodeLabs\Dictum;
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
-
-
 use DecodeLabs\Veneer;
 use DecodeLabs\Veneer\LazyLoad;
 use DecodeLabs\Veneer\Plugin;
@@ -125,7 +123,13 @@ class Context
         $output = $name
             ->toUtf8()
             ->replace(['-', '_'], ' ')
-            ->regexReplace('[^A-Za-z0-9\s]', '')
+            ->regexReplace('[^A-Za-z0-9\s]', '');
+
+        if ($output->contains(' ')) {
+            $output = $output->toTitleCase();
+        }
+
+        $output = $output
             ->regexReplace('([^ ])([A-Z])', '\\1 \\2')
             ->toTitleCase()
             ->regexReplace('[^A-Z0-9]', '');
