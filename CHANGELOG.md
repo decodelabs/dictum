@@ -1,3 +1,5 @@
+* Fixed initials algorithm for all caps names
+
 ## v0.6.3 (2024-07-17)
 * Updated Veneer dependency
 
