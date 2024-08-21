@@ -11,11 +11,9 @@ namespace DecodeLabs\Dictum;
 
 use ArrayAccess;
 use Countable;
-
 use DecodeLabs\Exceptional;
 use DecodeLabs\Fluidity\ThenTrait;
 use DecodeLabs\Glitch\Dumpable;
-
 use Iterator;
 use Stringable;
 
@@ -1050,15 +1048,15 @@ class Text implements
     ): static {
         $output = $this->text;
 
-        if (isset(static::LANGUAGE_ASCII_CHARS[$language])) {
+        if (isset(static::LanguageAsciiChars[$language])) {
             $output = str_replace(
-                static::LANGUAGE_ASCII_CHARS[$language][0],
-                static::LANGUAGE_ASCII_CHARS[$language][1],
+                static::LanguageAsciiChars[$language][0],
+                static::LanguageAsciiChars[$language][1],
                 $output
             );
         }
 
-        foreach (static::ASCII_CHARS as $key => $value) {
+        foreach (static::AsciiChars as $key => $value) {
             $output = str_replace($value, (string)$key, $output);
         }
 
@@ -1443,7 +1441,7 @@ class Text implements
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
      */
-    public const ASCII_CHARS = [
+    public const AsciiChars = [
         '0' => ['°', '₀', '۰', '０'],  // @ignore-non-ascii
         '1' => ['¹', '₁', '۱', '１'],  // @ignore-non-ascii
         '2' => ['²', '₂', '۲', '２'],  // @ignore-non-ascii
@@ -1612,7 +1610,7 @@ class Text implements
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
      */
-    public const LANGUAGE_ASCII_CHARS = [
+    protected const LanguageAsciiChars = [
         'de' => [
             ['ä',  'ö',  'ü',  'Ä',  'Ö',  'Ü' ], // @ignore-non-ascii
             ['ae', 'oe', 'ue', 'AE', 'OE', 'UE'], // @ignore-non-ascii
