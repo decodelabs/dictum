@@ -18,8 +18,8 @@ class Dictum implements Proxy
 {
     use ProxyTrait;
 
-    const VENEER = 'DecodeLabs\\Dictum';
-    const VENEER_TARGET = Inst::class;
+    const Veneer = 'DecodeLabs\\Dictum';
+    const VeneerTarget = Inst::class;
 
     public static Inst $instance;
     /** @var NumberPlugin|PluginWrapper<NumberPlugin> $number */

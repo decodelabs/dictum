@@ -1,3 +1,5 @@
+* Updated Veneer dependency and Stub
+
 ## v0.6.4 (2024-8-12)
 * Fixed initials algorithm for all caps names
 
