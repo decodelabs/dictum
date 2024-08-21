@@ -1,7 +1,8 @@
+## v0.6.5 (2024-08-21)
 * Converted consts to protected PascalCase
 * Updated Veneer dependency and Stub
 
-## v0.6.4 (2024-8-12)
+## v0.6.4 (2024-08-12)
 * Fixed initials algorithm for all caps names
 
 ## v0.6.3 (2024-07-17)
