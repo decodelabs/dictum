@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace DecodeLabs\Dictum\Plugins;
 
 use DateInterval;
-use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use DecodeLabs\Cosmos\Extension\Time as TimePlugin;
 use DecodeLabs\Cosmos\Extension\TimeTrait as TimePluginTrait;
@@ -44,7 +44,7 @@ class Time implements TimePlugin
      * Custom format a date
      */
     public function format(
-        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeInterface|DateInterval|string|Stringable|int|null $date,
         string $format,
         DateTimeZone|string|Stringable|bool|null $timezone = true
     ): ?string {
@@ -59,7 +59,7 @@ class Time implements TimePlugin
      * Custom format a date without time
      */
     public function formatDate(
-        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeInterface|DateInterval|string|Stringable|int|null $date,
         string $format
     ): ?string {
         if (!$date = $this->prepare($date, false, true)) {
@@ -73,7 +73,7 @@ class Time implements TimePlugin
      * Custom locale format a date with ICU and wrap it
      */
     public function pattern(
-        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeInterface|DateInterval|string|Stringable|int|null $date,
         string $pattern,
         DateTimeZone|string|Stringable|bool|null $timezone = true,
         string|Locale|null $locale = null
@@ -85,7 +85,7 @@ class Time implements TimePlugin
      * Format date according to locale
      */
     public function locale(
-        DateTime|DateInterval|string|Stringable|int|null $date,
+        DateTimeInterface|DateInterval|string|Stringable|int|null $date,
         string|int|bool|null $dateSize = true,
         string|int|bool|null $timeSize = true,
         DateTimeZone|string|Stringable|bool|null $timezone = true,
