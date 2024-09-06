@@ -1,3 +1,5 @@
+* Updated Cosmos extension intefaces
+
 ## v0.6.5 (2024-08-21)
 * Converted consts to protected PascalCase
 * Updated Veneer dependency and Stub
