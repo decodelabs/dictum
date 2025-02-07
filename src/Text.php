@@ -48,7 +48,7 @@ class Text implements
      */
     final public function __construct(
         ?string $text = '',
-        string $encoding = null
+        ?string $encoding = null
     ) {
         $this->text = (string)$text;
         $this->encoding = $encoding ?: mb_internal_encoding();
@@ -560,7 +560,7 @@ class Text implements
      */
     public function slice(
         int $start,
-        int $length = null
+        ?int $length = null
     ): static {
         $output = mb_substr($this->text, $start, $length, $this->encoding);
         return new static($output, $this->encoding);
@@ -646,7 +646,7 @@ class Text implements
      */
     public function truncate(
         int $length,
-        string $cap = null
+        ?string $cap = null
     ): static {
         if ($length > $this->getLength()) {
             return $this;
@@ -828,7 +828,7 @@ class Text implements
      * Trim left and right
      */
     public function trim(
-        string $chars = null
+        ?string $chars = null
     ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+|[' . $chars . ']+$', '');
@@ -838,7 +838,7 @@ class Text implements
      * Trim left
      */
     public function trimLeft(
-        string $chars = null
+        ?string $chars = null
     ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('^[' . $chars . ']+', '');
@@ -848,7 +848,7 @@ class Text implements
      * Trim right
      */
     public function trimRight(
-        string $chars = null
+        ?string $chars = null
     ): static {
         $chars = $chars ? preg_quote($chars) : '[:space:]';
         return $this->regexReplace('[' . $chars . ']+$', '');
@@ -1208,7 +1208,7 @@ class Text implements
      * Remove html tags
      */
     public function stripTags(
-        string $allowableTags = null
+        ?string $allowableTags = null
     ): static {
         if ($allowableTags !== null) {
             $output = strip_tags($this->text, $allowableTags);
@@ -1270,7 +1270,7 @@ class Text implements
      */
     public function scanMatches(
         string $pattern,
-        int $limit = null,
+        ?int $limit = null,
         bool $yieldMatch = false,
         string $options = 'msr'
     ): iterable {
@@ -1360,7 +1360,7 @@ class Text implements
      */
     public function searchAll(
         string $pattern,
-        int $limit = null,
+        ?int $limit = null,
         string $options = 'msr'
     ): iterable {
         if ($pattern === '') {

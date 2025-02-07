@@ -1,3 +1,6 @@
+## v0.6.7 (2025-02-07)
+* Fixed implicit nullable arguments
+
 ## v0.6.6 (2024-09-06)
 * Updated Cosmos extension intefaces
 
