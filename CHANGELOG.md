@@ -1,3 +1,7 @@
+## v0.6.8 (2025-02-09)
+* Fixed Fluidity Then interface requirement
+* Added PHP8.4 to CI workflow
+
 ## v0.6.7 (2025-02-07)
 * Fixed implicit nullable arguments
 
