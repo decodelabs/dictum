@@ -12,6 +12,7 @@ namespace DecodeLabs\Dictum;
 use ArrayAccess;
 use Countable;
 use DecodeLabs\Exceptional;
+use DecodeLabs\Fluidity\Then;
 use DecodeLabs\Fluidity\ThenTrait;
 use DecodeLabs\Glitch\Dumpable;
 use Iterator;
@@ -21,6 +22,7 @@ use Stringable;
  * @implements ArrayAccess<int, static>
  */
 class Text implements
+    Then,
     ArrayAccess,
     Countable,
     Stringable,
