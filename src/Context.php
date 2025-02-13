@@ -13,19 +13,16 @@ use DecodeLabs\Dictum;
 use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
 use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
 use DecodeLabs\Veneer;
-use DecodeLabs\Veneer\LazyLoad;
 use DecodeLabs\Veneer\Plugin;
 
 use Stringable;
 
 class Context
 {
-    #[Plugin]
-    #[LazyLoad]
+    #[Plugin(lazy: true)]
     public NumberPlugin $number;
 
-    #[Plugin]
-    #[LazyLoad]
+    #[Plugin(lazy: true)]
     public TimePlugin $time;
 
 
@@ -553,7 +550,10 @@ class Context
         $string1 = $this->text($string1);
         $string2 = $this->text($string2);
 
-        if ($string1 === null || $string2 === null) {
+        if (
+            $string1 === null ||
+            $string2 === null
+        ) {
             return $string1 === $string2;
         }
 
@@ -667,4 +667,7 @@ class Context
 
 
 // Register the Veneer facade
-Veneer::register(Context::class, Dictum::class);
+Veneer\Manager::getGlobalManager()->register(
+    Context::class,
+    Dictum::class
+);

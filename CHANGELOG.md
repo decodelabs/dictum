@@ -1,3 +1,10 @@
+## v0.6.9 (2025-02-13)
+* Fixed scanMatches()
+* Tidied boolean logic
+* Fixed Exceptional syntax
+* Upgraded PHPStan to v2
+* Made PHP8.4 minimum version
+
 ## v0.6.8 (2025-02-09)
 * Fixed Fluidity Then interface requirement
 * Added PHP8.4 to CI workflow

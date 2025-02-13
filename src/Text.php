@@ -30,8 +30,8 @@ class Text implements
 {
     use ThenTrait;
 
-    protected string $encoding;
-    protected string $text;
+    protected(set) string $encoding;
+    protected(set) string $text;
 
 
     /**
@@ -227,7 +227,7 @@ class Text implements
         mixed $value
     ): void {
         throw Exceptional::Implementation(
-            'Immutable DecodeLabs\\Dictum\\Text does not support array-access setting'
+            message: 'Immutable DecodeLabs\\Dictum\\Text does not support array-access setting'
         );
     }
 
@@ -251,7 +251,7 @@ class Text implements
         mixed $index
     ): void {
         throw Exceptional::Implementation(
-            'Immutable DecodeLabs\\Dictum\\Text does not support array-access unset'
+            message: 'Immutable DecodeLabs\\Dictum\\Text does not support array-access unset'
         );
     }
 
@@ -703,7 +703,7 @@ class Text implements
     /**
      * Regex match
      *
-     * @return array<string>|null
+     * @return ?list<string>
      */
     public function match(
         string $pattern,
@@ -719,14 +719,16 @@ class Text implements
 
         mb_regex_set_options($oldOptions);
         mb_regex_encoding($encoding);
+
+        /** @var ?list<string> */
         return $output;
     }
 
     /**
      * Replace a chunk
      *
-     * @param array<string>|string $search
-     * @param array<string>|string $replace
+     * @param list<string>|string $search
+     * @param list<string>|string $replace
      */
     public function replace(
         array|string $search,
@@ -756,11 +758,15 @@ class Text implements
         } elseif (is_callable($replacement)) {
             $output = mb_ereg_replace_callback($pattern, $replacement, $this->text, $options);
         } else {
-            throw Exceptional::InvalidArgument('Replacement must be string or callable');
+            throw Exceptional::InvalidArgument(
+                message: 'Replacement must be string or callable'
+            );
         }
 
         if ($output === false) {
-            throw Exceptional::Runtime('Unable to complete mb regex');
+            throw Exceptional::Runtime(
+                message: 'Unable to complete mb regex'
+            );
         }
 
         mb_regex_encoding($encoding);
@@ -796,7 +802,9 @@ class Text implements
         int $limit = -1
     ): array {
         if (false === ($parts = mb_split($pattern, $this->text, $limit))) {
-            throw Exceptional::Runtime('Unable to split text with: ' . $pattern);
+            throw Exceptional::Runtime(
+                message: 'Unable to split text with: ' . $pattern
+            );
         }
 
         return array_map(function ($part) {
@@ -1050,15 +1058,15 @@ class Text implements
     ): static {
         $output = $this->text;
 
-        if (isset(static::LanguageAsciiChars[$language])) {
+        if (isset(self::LanguageAsciiChars[$language])) {
             $output = str_replace(
-                static::LanguageAsciiChars[$language][0],
-                static::LanguageAsciiChars[$language][1],
+                self::LanguageAsciiChars[$language][0],
+                self::LanguageAsciiChars[$language][1],
                 $output
             );
         }
 
-        foreach (static::AsciiChars as $key => $value) {
+        foreach (self::AsciiChars as $key => $value) {
             $output = str_replace($value, (string)$key, $output);
         }
 
@@ -1136,12 +1144,11 @@ class Text implements
     public static function numericToAlpha(
         int $number
     ): static {
-        static $alphabet = 'abcdefghijklmnopqrstuvwxyz';
         $output = '';
 
         while ($number >= 0) {
             $key = $number % 26;
-            $output = $alphabet[$key] . $output;
+            $output = self::Alphabet[$key] . $output;
             $number = (($number - $key) / 26) - 1;
         }
 
@@ -1167,12 +1174,6 @@ class Text implements
 
         if ($output === -1) {
             return null;
-        }
-
-        if (!is_int($output)) {
-            throw Exceptional::Range(
-                'Alpha to numeric string overflowed int max'
-            );
         }
 
         return $output;
@@ -1268,7 +1269,7 @@ class Text implements
     /**
      * Iterate over all split instances
      *
-     * @return iterable<int, static>
+     * @return iterable<int,static>
      */
     public function scanMatches(
         string $pattern,
@@ -1291,12 +1292,16 @@ class Text implements
 
         $count = 0;
         $pos = 0;
+        $result = mb_ereg_search_getregs();
 
-        if (false === ($result = mb_ereg_search_getregs())) {
-            throw Exceptional::InvalidArgument('Unable to complete mb regex with: ' . $pattern);
+        if ($result === false) {
+            throw Exceptional::InvalidArgument(
+                message: 'Unable to complete mb regex with: ' . $pattern
+            );
         }
 
         do {
+            /** @var list<string> $result */
             $rPos = mb_ereg_search_getpos();
             $key = $count;
 
@@ -1310,21 +1315,21 @@ class Text implements
                 yield $count => new static($result[0], $this->encoding);
             }
 
-            $pos += $rPos - $pos;
+            $pos = $rPos;
             $count++;
 
-            if ($limit !== null && $count == $limit) {
+            if (
+                $limit !== null &&
+                $count == $limit
+            ) {
                 break;
             }
 
-            /** @phpstan-ignore-next-line */
-            if (false === ($result = mb_ereg_search_getregs())) {
-                throw Exceptional::InvalidArgument('Unable to complete mb regex with: ' . $pattern);
-            }
+            $result = mb_ereg_search_regs();
         } while ($result);
 
         if ($pos < strlen($this->text)) {
-            yield $key => new static(
+            yield $count => new static(
                 substr($this->text, $pos),
                 $this->encoding
             );
@@ -1358,7 +1363,7 @@ class Text implements
     /**
      * Iterate over all split instances
      *
-     * @return iterable<int, array<static>>
+     * @return iterable<int,list<static>>
      */
     public function searchAll(
         string $pattern,
@@ -1386,14 +1391,19 @@ class Text implements
         $count = 0;
 
         do {
+            /** @var list<string> $result */
             foreach ($result as $key => $value) {
                 $result[$key] = new static($value, $this->encoding);
             }
 
+            /** @var list<static> $result */
             yield $result;
             $count++;
 
-            if ($limit !== null && $count == $limit) {
+            if (
+                $limit !== null &&
+                $count == $limit
+            ) {
                 break;
             }
 
@@ -1438,12 +1448,17 @@ class Text implements
     }
 
 
+    protected const Alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+
     /**
      * Note: Adapted from Stringy\Stringy.
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
+     *
+     * @var array<string|int,list<string>>
      */
-    public const AsciiChars = [
+    protected const AsciiChars = [
         '0' => ['°', '₀', '۰', '０'],  // @ignore-non-ascii
         '1' => ['¹', '₁', '۱', '１'],  // @ignore-non-ascii
         '2' => ['²', '₂', '۲', '２'],  // @ignore-non-ascii
@@ -1611,6 +1626,8 @@ class Text implements
      * Note: Adapted from Stringy\Stringy.
      *
      * @see https://github.com/danielstjules/Stringy/blob/3.1.0/LICENSE.txt
+     *
+     * @var array<string,array<list<string>>>
      */
     protected const LanguageAsciiChars = [
         'de' => [
