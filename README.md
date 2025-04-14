@@ -11,8 +11,6 @@
 
 Dictum provides a collection of commonly required text parsing and processing features.
 
-_Get news and updates on the [DecodeLabs blog](https://blog.decodelabs.com)._
-
 ---
 
 ## Installation
