@@ -110,7 +110,7 @@ class Text implements
         }
 
         return new static(
-            mb_convert_encoding($this->text, $encoding, $this->encoding),
+            (string)mb_convert_encoding($this->text, $encoding, $this->encoding),
             $encoding
         );
     }
