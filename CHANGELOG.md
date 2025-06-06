@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Unreleased
 - Fixed PHPStan issue with mb_convert_encoding() return
+- Switched to Nuance for dump handling
+- Upgraded Exceptional to v0.6
 
 ---
 

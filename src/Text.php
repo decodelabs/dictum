@@ -14,8 +14,8 @@ use Countable;
 use DecodeLabs\Exceptional;
 use DecodeLabs\Fluidity\Then;
 use DecodeLabs\Fluidity\ThenTrait;
-use DecodeLabs\Glitch\Dumpable;
-use Iterator;
+use DecodeLabs\Nuance\Dumpable;
+use DecodeLabs\Nuance\Entity\NativeObject as NuanceEntity;
 use Stringable;
 
 /**
@@ -1663,16 +1663,23 @@ class Text implements
     }
 
 
-
-    /**
-     * Export for dump inspection
-     */
-    public function glitchDump(): iterable
+    public function toNuanceEntity(): NuanceEntity
     {
-        yield 'metaList' => [
-            'encoding' => $this->encoding
-        ];
+        $entity = new NuanceEntity($this);
 
-        yield 'text' => mb_convert_encoding($this->text, 'UTF-8', $this->encoding);
+        $text = mb_convert_encoding(
+            $this->text,
+            'UTF-8',
+            $this->encoding
+        );
+
+        if($text === false) {
+            $text = $this->text;
+        }
+
+        $entity->text = $text;
+
+        $entity->meta['encoding'] = $this->encoding;
+        return $entity;
     }
 }
