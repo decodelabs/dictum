@@ -30,8 +30,8 @@ class Text implements
 {
     use ThenTrait;
 
-    protected(set) string $encoding;
-    protected(set) string $text;
+    public protected(set) string $encoding;
+    public protected(set) string $text;
 
 
     /**
@@ -1673,7 +1673,7 @@ class Text implements
             $this->encoding
         );
 
-        if($text === false) {
+        if ($text === false) {
             $text = $this->text;
         }
 
