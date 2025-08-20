@@ -7,49 +7,37 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Dictum\Plugins;
+namespace DecodeLabs\Dictum;
 
-use DecodeLabs\Cosmos\Extension\Number as NumberPlugin;
-use DecodeLabs\Cosmos\Extension\NumberTrait as NumberPluginTrait;
+use DecodeLabs\Cosmos\Extension\Number as NumberExtension;
+use DecodeLabs\Cosmos\Extension\NumberTrait as NumberExtensionTrait;
 use DecodeLabs\Cosmos\Locale;
-use DecodeLabs\Dictum\Context;
 
 /**
- * @implements NumberPlugin<string>
+ * @implements NumberExtension<string>
  */
-class Number implements NumberPlugin
+class Number implements NumberExtension
 {
     /**
-     * @use NumberPluginTrait<string>
+     * @use NumberExtensionTrait<string>
      */
-    use NumberPluginTrait;
-
-    protected Context $context;
-
-    /**
-     * Init with parent Context
-     */
-    public function __construct(
-        Context $context
-    ) {
-        $this->context = $context;
-    }
+    use NumberExtensionTrait;
 
     /**
      * Format a generic number
      */
-    public function format(
+    public static function format(
         int|float|string|null $value,
         ?string $unit = null,
         string|Locale|null $locale = null
     ): ?string {
-        $this->expandStringUnitValue($value, $unit);
+        static::expandStringUnitValue($value, $unit);
 
-        if (null === ($value = $this->normalizeNumeric($value, true))) {
+        if (null === ($value = static::normalizeNumeric($value, true))) {
             return null;
         }
 
-        $output = $this->formatRawDecimal($value, null, $locale);
+        $output = static::formatRawDecimal($value, null, $locale);
 
         if ($unit !== null) {
             $output .= ' ' . $unit;
@@ -61,123 +49,123 @@ class Number implements NumberPlugin
     /**
      * Format according to pattern and wrap
      */
-    public function pattern(
+    public static function pattern(
         int|float|string|null $value,
         string $pattern,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($value = $this->normalizeNumeric($value))) {
+        if (null === ($value = static::normalizeNumeric($value))) {
             return null;
         }
 
-        return $this->formatRawPatternDecimal($value, $pattern, $locale);
+        return static::formatRawPatternDecimal($value, $pattern, $locale);
     }
 
     /**
      * Format and render a decimal
      */
-    public function decimal(
+    public static function decimal(
         int|float|string|null $value,
         ?int $precision = null,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($value = $this->normalizeNumeric($value))) {
+        if (null === ($value = static::normalizeNumeric($value))) {
             return null;
         }
 
-        return $this->formatRawDecimal($value, $precision, $locale);
+        return static::formatRawDecimal($value, $precision, $locale);
     }
 
     /**
      * Format and wrap currency
      */
-    public function currency(
+    public static function currency(
         int|float|string|null $value,
         ?string $code,
         ?bool $rounded = null,
         string|Locale|null $locale = null
     ): ?string {
         if (
-            null === ($value = $this->normalizeNumeric($value)) ||
+            null === ($value = static::normalizeNumeric($value)) ||
             $code === null
         ) {
             return null;
         }
 
-        return $this->formatRawCurrency($value, $code, $rounded, $locale);
+        return static::formatRawCurrency($value, $code, $rounded, $locale);
     }
 
     /**
      * Format and render a percentage
      */
-    public function percent(
+    public static function percent(
         int|float|string|null $value,
         float $total = 100.0,
         int $decimals = 0,
         string|Locale|null $locale = null
     ): ?string {
         if (
-            null === ($value = $this->normalizeNumeric($value, true)) ||
+            null === ($value = static::normalizeNumeric($value, true)) ||
             $total <= 0
         ) {
             return null;
         }
 
-        return $this->formatRawPercent($value, $total, $decimals, $locale);
+        return static::formatRawPercent($value, $total, $decimals, $locale);
     }
 
     /**
      * Format and render a scientific number
      */
-    public function scientific(
+    public static function scientific(
         int|float|string|null $value,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($value = $this->normalizeNumeric($value))) {
+        if (null === ($value = static::normalizeNumeric($value))) {
             return null;
         }
 
-        return $this->formatRawScientific($value, $locale);
+        return static::formatRawScientific($value, $locale);
     }
 
     /**
      * Format and render a number as words
      */
-    public function spellout(
+    public static function spellout(
         int|float|string|null $value,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($value = $this->normalizeNumeric($value))) {
+        if (null === ($value = static::normalizeNumeric($value))) {
             return null;
         }
 
-        return $this->formatRawSpellout($value, $locale);
+        return static::formatRawSpellout($value, $locale);
     }
 
     /**
      * Format and render a number as ordinal
      */
-    public function ordinal(
+    public static function ordinal(
         int|float|string|null $value,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($value = $this->normalizeNumeric($value))) {
+        if (null === ($value = static::normalizeNumeric($value))) {
             return null;
         }
 
-        return $this->formatRawOrdinal($value, $locale);
+        return static::formatRawOrdinal($value, $locale);
     }
 
 
     /**
      * Render difference of number from 0
      */
-    public function diff(
+    public static function diff(
         int|float|string|null $diff,
         ?bool $invert = false,
         string|Locale|null $locale = null
     ): ?string {
-        if (null === ($diff = $this->normalizeNumeric($diff))) {
+        if (null === ($diff = static::normalizeNumeric($diff))) {
             return null;
         }
 
@@ -187,8 +175,8 @@ class Number implements NumberPlugin
             $diff *= -1;
         }
 
-        $output = $this->getDiffArrow($diff) . ' ';
-        $output .= $this->format(abs($diff), null, $locale);
+        $output = static::getDiffArrow($diff) . ' ';
+        $output .= static::format(abs($diff), null, $locale);
 
         return $output;
     }
@@ -199,7 +187,7 @@ class Number implements NumberPlugin
     /**
      * Format filesize
      */
-    public function fileSize(
+    public static function fileSize(
         ?int $bytes,
         string|Locale|null $locale = null
     ): ?string {
@@ -207,13 +195,13 @@ class Number implements NumberPlugin
             return null;
         }
 
-        return $this->formatRawFileSize($bytes, $locale);
+        return static::formatRawFileSize($bytes, $locale);
     }
 
     /**
      * Format filesize as decimal
      */
-    public function fileSizeDec(
+    public static function fileSizeDec(
         ?int $bytes,
         string|Locale|null $locale = null
     ): ?string {
@@ -221,6 +209,6 @@ class Number implements NumberPlugin
             return null;
         }
 
-        return $this->formatRawFileSizeDec($bytes, $locale);
+        return static::formatRawFileSizeDec($bytes, $locale);
     }
 }

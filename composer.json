@@ -10,25 +10,25 @@
         } ],
     "require": {
         "php": "^8.4",
-        "symfony/polyfill-mbstring": "^1.7",
+        "symfony/polyfill-mbstring": "^1.33",
 
-        "decodelabs/cosmos": "^0.2",
-        "decodelabs/exceptional": "^0.6",
-        "decodelabs/fluidity": "^0.3",
-        "decodelabs/nuance": "^0.1",
-        "decodelabs/veneer": "^0.12.1"
+        "decodelabs/cosmos": "^0.3",
+        "decodelabs/exceptional": "^0.6.3",
+        "decodelabs/fluidity": "^0.3.7",
+        "decodelabs/kingdom": "^0.1",
+        "decodelabs/nuance": "^0.1.9"
     },
     "require-dev": {
         "decodelabs/phpstan-decodelabs": "^0.7",
 
-        "nesbot/carbon": "^3"
+        "nesbot/carbon": "^3.10.2"
     },
     "autoload": {
         "psr-4": {
-            "DecodeLabs\\Dictum\\": "src/"
+            "DecodeLabs\\Dictum\\": "src/Dictum/"
         },
-        "files": [
-            "src/Context.php"
+        "classmap": [
+            "src/Dictum.php"
         ]
     },
     "extra": {

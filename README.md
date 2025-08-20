@@ -115,52 +115,53 @@ echo (new Text($id))
 Note, regexes are based off the mb_ereg functions and as such do not use delimiters in their patterns.
 
 
-## Plugins
+## Cosmos extensions
 
-Dictum provides generic interfaces for defining locale-aware formatter plugins that can be implemented by different output generators.
+Cosmos provides generic interfaces for defining locale-aware formatter extensions that can be implemented by different output generators.
 
 Currently, Time and Number are available, defining predictable methods for formatting dates and various forms of number.
 
 Dictum offers a plain text version of these interfaces:
 
 ```php
-use DecodeLabs\Dictum;
+use DecodeLabs\Dictum\Number;
+use DecodeLabs\Dictum\Time;
 
 // Custom format
-Dictum::$time->format('now', 'd/m/Y', 'Europe/London');
+Time::format('now', 'd/m/Y', 'Europe/London');
 
 // Locale format
-// When timezone is true it is fetched from Cosmos::$timezone
-Dictum::$time->locale('now', 'long', 'long', true);
+// When timezone is true it is fetched from Cosmos
+Time::locale('now', 'long', 'long', true);
 
 // Locale shortcuts
-Dictum::$time->dateTime('tomorrow'); // medium
-Dictum::$time->longTime('yesterday');
-Dictum::$time->shortDate('yesterday');
+Time::dateTime('tomorrow'); // medium
+Time::longTime('yesterday');
+Time::shortDate('yesterday');
 // ...etc
 
 
 // Intervals
-Dictum::$time->since('yesterday'); // 1 day ago
-Dictum::$time->until('tomorrow'); // 1 day from now
-Dictum::$time->sinceAbs('yesterday'); // 1 day
-Dictum::$time->untilAbs('yesterday'); // -1 day
-Dictum::$time->between('yesterday', 'tomorrow'); // 1 day
+Time::since('yesterday'); // 1 day ago
+Time::until('tomorrow'); // 1 day from now
+Time::sinceAbs('yesterday'); // 1 day
+Time::untilAbs('yesterday'); // -1 day
+Time::between('yesterday', 'tomorrow'); // 1 day
 
 
 
 // Numbers
-Dictum::$number->format(16.5, 'px'); // 16.5 px
-Dictum::$number->format(16.5, 'px', 'de'); // 16,5 px
-Dictum::$number->decimal(16.534643, 2); // 16.53
-Dictum::$number->currency(16.534643, 'GBP'); // £16.53
-Dictum::$number->percent(16.534643, 50, 2); // 33.07%
-Dictum::$number->scientific(16.534643); // 1.6534643E1
-Dictum::$number->spellout(16.534643); // sixteen point five three four six four three
-Dictum::$number->ordinal(16.534643); // 17th
-Dictum::$number->diff(16.534643); // ⬆ 16.535
-Dictum::$number->fileSize(16534643); // 15.77 MiB
-Dictum::$number->fileSizeDec(16534643); // 16.53 MB
+Number::format(16.5, 'px'); // 16.5 px
+Number::format(16.5, 'px', 'de'); // 16,5 px
+Number::decimal(16.534643, 2); // 16.53
+Number::currency(16.534643, 'GBP'); // £16.53
+Number::percent(16.534643, 50, 2); // 33.07%
+Number::scientific(16.534643); // 1.6534643E1
+Number::spellout(16.534643); // sixteen point five three four six four three
+Number::ordinal(16.534643); // 17th
+Number::diff(16.534643); // ⬆ 16.535
+Number::fileSize(16534643); // 15.77 MiB
+Number::fileSizeDec(16534643); // 16.53 MB
 ```
 
 See [Tagged](https://github.com/decodelabs/tagged) for equivalent HTML implementations of these interfaces.

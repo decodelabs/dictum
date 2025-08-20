@@ -7,32 +7,22 @@
 
 declare(strict_types=1);
 
-namespace DecodeLabs\Dictum;
+namespace DecodeLabs;
 
-use DecodeLabs\Dictum;
-use DecodeLabs\Dictum\Plugins\Number as NumberPlugin;
-use DecodeLabs\Dictum\Plugins\Time as TimePlugin;
-use DecodeLabs\Veneer;
-use DecodeLabs\Veneer\Plugin;
-
+use DecodeLabs\Dictum\Text;
+use DecodeLabs\Kingdom\Service;
+use DecodeLabs\Kingdom\ServiceTrait;
 use Stringable;
 
-class Context
+class Dictum implements Service
 {
-    #[Plugin(lazy: true)]
-    public NumberPlugin $number;
-
-    #[Plugin(lazy: true)]
-    public TimePlugin $time;
-
+    use ServiceTrait;
 
 
     /**
-     * Create Text buffer
-     *
-     * @phpstan-return ($text is null ? null : Text)
+     * @return ($text is null ? null : Text)
      */
-    public function text(
+    public static function text(
         string|Stringable|int|float|null $text,
         ?string $encoding = null
     ): ?Text {
@@ -48,15 +38,13 @@ class Context
 
 
     /**
-     * Normalize words, convert words to upper
-     *
-     * @phpstan-return ($name is null ? null : string)
+     * @return ($name is null ? null : string)
      */
-    public function name(
+    public static function name(
         string|Stringable|int|float|null $name,
         ?string $encoding = null
     ): ?string {
-        if (null === ($name = $this->text($name, $encoding))) {
+        if (null === ($name = static::text($name, $encoding))) {
             return null;
         }
 
@@ -70,11 +58,9 @@ class Context
     }
 
     /**
-     * Get first name from full name
-     *
-     * @phpstan-return ($fullName is null ? null : string)
+     * @return ($fullName is null ? null : string)
      */
-    public function firstName(
+    public static function firstName(
         string|Stringable|int|float|null $fullName,
         ?string $encoding = null
     ): ?string {
@@ -104,16 +90,14 @@ class Context
     }
 
     /**
-     * Initialise name
-     *
-     * @phpstan-return ($name is null ? null : string)
+     * @return ($name is null ? null : string)
      */
-    public function initials(
+    public static function initials(
         string|Stringable|int|float|null $name,
         bool $extendShort = true,
         ?string $encoding = null
     ): ?string {
-        if (null === ($name = $this->text($name, $encoding))) {
+        if (null === ($name = static::text($name, $encoding))) {
             return null;
         }
 
@@ -147,11 +131,9 @@ class Context
     }
 
     /**
-     * Get initials and surname
-     *
-     * @phpstan-return ($name is null ? null : string)
+     * @return ($name is null ? null : string)
      */
-    public function initialsAndSurname(
+    public static function initialsAndSurname(
         string|Stringable|int|float|null $name,
         ?string $encoding = null
     ): ?string {
@@ -166,7 +148,7 @@ class Context
             array_shift($parts);
         }
 
-        $output = $this->initials(implode(' ', $parts), false);
+        $output = static::initials(implode(' ', $parts), false);
 
         return (new Text($surname, $encoding))
             ->toUtf8()
@@ -176,11 +158,9 @@ class Context
     }
 
     /**
-     * Shorten middle names
-     *
-     * @phpstan-return ($name is null ? null : string)
+     * @return ($name is null ? null : string)
      */
-    public function initialMiddleNames(
+    public static function initialMiddleNames(
         string|Stringable|int|float|null $name,
         ?string $encoding = null
     ): ?string {
@@ -206,7 +186,7 @@ class Context
         if (!empty($parts)) {
             $output = $output
                 ->append(
-                    $this->initials(implode(' ', $parts), false, $encoding)
+                    static::initials(implode(' ', $parts), false, $encoding)
                 )
                 ->append(' ');
         }
@@ -221,15 +201,13 @@ class Context
     }
 
     /**
-     * Strip vowels from text
-     *
-     * @phpstan-return ($text is null ? null : string)
+     * @return ($text is null ? null : string)
      */
-    public function consonants(
+    public static function consonants(
         string|Stringable|int|float|null $text,
         ?string $encoding = null
     ): ?string {
-        if (null === ($text = $this->text($text, $encoding))) {
+        if (null === ($text = static::text($text, $encoding))) {
             return null;
         }
 
@@ -241,15 +219,13 @@ class Context
     }
 
     /**
-     * Uppercase first, to ASCII, strip some chars
-     *
-     * @phpstan-return ($label is null ? null : string)
+     * @return ($label is null ? null : string)
      */
-    public function label(
+    public static function label(
         string|Stringable|int|float|null $label,
         ?string $encoding = null
     ): ?string {
-        if (null === ($label = $this->text($label, $encoding))) {
+        if (null === ($label = static::text($label, $encoding))) {
             return null;
         }
 
@@ -264,15 +240,13 @@ class Context
     }
 
     /**
-     * Convert to Id
-     *
-     * @phpstan-return ($id is null ? null : string)
+     * @return ($id is null ? null : string)
      */
-    public function id(
+    public static function id(
         string|Stringable|int|float|null $id,
         ?string $encoding = null
     ): ?string {
-        if (null === ($id = $this->text($id, $encoding))) {
+        if (null === ($id = static::text($id, $encoding))) {
             return null;
         }
 
@@ -288,15 +262,13 @@ class Context
     }
 
     /**
-     * Convert to camelCase
-     *
-     * @phpstan-return ($id is null ? null : string)
+     * @return ($id is null ? null : string)
      */
-    public function camel(
+    public static function camel(
         string|Stringable|int|float|null $id,
         ?string $encoding = null
     ): ?string {
-        if (null === ($id = $this->text($id, $encoding))) {
+        if (null === ($id = static::text($id, $encoding))) {
             return null;
         }
 
@@ -313,15 +285,13 @@ class Context
     }
 
     /**
-     * Format as PHP_CONSTANT
-     *
-     * @phpstan-return ($constant is null ? null : string)
+     * @return ($constant is null ? null : string)
      */
-    public function constant(
+    public static function constant(
         string|Stringable|int|float|null $constant,
         ?string $encoding = null
     ): ?string {
-        if (null === ($constant = $this->text($constant, $encoding))) {
+        if (null === ($constant = static::text($constant, $encoding))) {
             return null;
         }
 
@@ -339,16 +309,14 @@ class Context
     }
 
     /**
-     * Convert to slug
-     *
-     * @phpstan-return ($slug is null ? null : string)
+     * @return ($slug is null ? null : string)
      */
-    public function slug(
+    public static function slug(
         string|Stringable|int|float|null $slug,
         string $allowedChars = '',
         ?string $encoding = null
     ): ?string {
-        if (null === ($slug = $this->text($slug, $encoding))) {
+        if (null === ($slug = static::text($slug, $encoding))) {
             return null;
         }
 
@@ -365,11 +333,9 @@ class Context
     }
 
     /**
-     * Convert to path format slug
-     *
-     * @phpstan-return ($slug is null ? null : string)
+     * @return ($slug is null ? null : string)
      */
-    public function pathSlug(
+    public static function pathSlug(
         string|Stringable|int|float|null $slug,
         string $allowedChars = '',
         ?string $encoding = null
@@ -384,7 +350,7 @@ class Context
         $parts = explode('/', $slug);
 
         foreach ($parts as $i => $part) {
-            $part = $this->slug($part, $allowedChars, $encoding);
+            $part = static::slug($part, $allowedChars, $encoding);
 
             if (!strlen($part)) {
                 unset($parts[$i]);
@@ -400,15 +366,13 @@ class Context
     }
 
     /**
-     * Convert to URL action slug
-     *
-     * @phpstan-return ($slug is null ? null : string)
+     * @return ($slug is null ? null : string)
      */
-    public function actionSlug(
+    public static function actionSlug(
         string|Stringable|int|float|null $slug,
         ?string $encoding = null
     ): ?string {
-        if (null === ($slug = $this->text($slug, $encoding))) {
+        if (null === ($slug = static::text($slug, $encoding))) {
             return null;
         }
 
@@ -424,16 +388,14 @@ class Context
     }
 
     /**
-     * Remove non-filesystem compatible chars
-     *
-     * @phpstan-return ($fileName is null ? null : string)
+     * @return ($fileName is null ? null : string)
      */
-    public function fileName(
+    public static function fileName(
         string|Stringable|int|float|null $fileName,
         bool $allowSpaces = false,
         ?string $encoding = null
     ): ?string {
-        if (null === ($fileName = $this->text($fileName, $encoding))) {
+        if (null === ($fileName = static::text($fileName, $encoding))) {
             return null;
         }
 
@@ -452,17 +414,15 @@ class Context
     }
 
     /**
-     * Cap length of string, add ellipsis if needed
-     *
-     * @phpstan-return ($text is null ? null : string)
+     * @return ($text is null ? null : string)
      */
-    public function shorten(
+    public static function shorten(
         string|Stringable|int|float|null $text,
         int $length,
         bool $rtl = false,
         ?string $encoding = null
     ): ?string {
-        if (null === ($text = $this->text($text, $encoding))) {
+        if (null === ($text = static::text($text, $encoding))) {
             return null;
         }
 
@@ -488,11 +448,9 @@ class Context
     }
 
     /**
-     * Wrapper around Text::numericToAlpha
-     *
-     * @phpstan-return ($number is null ? null : string)
+     * @return ($number is null ? null : string)
      */
-    public function numericToAlpha(
+    public static function numericToAlpha(
         ?int $number,
         ?string $encoding = null
     ): ?string {
@@ -505,15 +463,13 @@ class Context
     }
 
     /**
-     * Wrapper around alphaToNumeric
-     *
-     * @phpstan-return ($text is null ? null : int)
+     * @return ($text is null ? null : int)
      */
-    public function alphaToNumeric(
+    public static function alphaToNumeric(
         string|Stringable|int|float|null $text,
         ?string $encoding = null
     ): ?int {
-        if (null === ($text = $this->text($text, $encoding))) {
+        if (null === ($text = static::text($text, $encoding))) {
             return null;
         }
 
@@ -522,10 +478,7 @@ class Context
 
 
 
-    /**
-     * String to boolean
-     */
-    public function toBoolean(
+    public static function toBoolean(
         string|Stringable|int|float|null $text,
         ?string $encoding = null
     ): bool {
@@ -533,22 +486,19 @@ class Context
             return (bool)$text;
         }
 
-        if (null === ($text = $this->text($text, $encoding))) {
+        if (null === ($text = static::text($text, $encoding))) {
             return false;
         }
 
         return $text->toBoolean();
     }
 
-    /**
-     * Compare two strings
-     */
-    public function compare(
+    public static function compare(
         string|Stringable|int|float|null $string1,
         string|Stringable|int|float|null $string2
     ): bool {
-        $string1 = $this->text($string1);
-        $string2 = $this->text($string2);
+        $string1 = static::text($string1);
+        $string2 = static::text($string2);
 
         if (
             $string1 === null ||
@@ -570,104 +520,73 @@ class Context
         return $string1 === $string2;
     }
 
-
-    /**
-     * Only contains alpha characters
-     */
-    public function isAlpha(
+    public static function isAlpha(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return false;
         }
 
         return $text->isAlpha();
     }
 
-    /**
-     * Only contains alpha numeric characters
-     */
-    public function isAlphaNumeric(
+    public static function isAlphaNumeric(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return false;
         }
 
         return $text->isAlphaNumeric();
     }
 
-    /**
-     * Only contains digits
-     */
-    public function isDigit(
+    public static function isDigit(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return false;
         }
 
         return $text->isDigit();
     }
 
-
-    /**
-     * Only contains whitespace
-     */
-    public function isWhitespace(
+    public static function isWhitespace(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return false;
         }
 
         return $text->isWhitespace();
     }
 
-    /**
-     * Only contains whitespace or empty
-     */
-    public function isBlank(
+    public static function isBlank(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return true;
         }
 
         return $text->isBlank();
     }
 
-    /**
-     * Only contains hex
-     */
-    public function isHex(
+    public static function isHex(
         string|Stringable|int|float|null $text
     ): bool {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return false;
         }
 
         return $text->isHex();
     }
 
-
-    /**
-     * Count number of whole words
-     */
-    public function countWords(
+    public static function countWords(
         string|Stringable|int|float|null $text
     ): int {
-        if (null === ($text = $this->text($text))) {
+        if (null === ($text = static::text($text))) {
             return 0;
         }
 
         return $text->countWords();
     }
 }
-
-
-// Register the Veneer facade
-Veneer\Manager::getGlobalManager()->register(
-    Context::class,
-    Dictum::class
-);
