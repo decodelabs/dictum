@@ -23,14 +23,9 @@ composer require decodelabs/dictum
 
 ## Usage
 
-### Importing
-
-Dictum uses [Veneer](https://github.com/decodelabs/veneer) to provide a unified frontage under <code>DecodeLabs\Dictum</code>.
-You can access all the primary functionality via this static frontage without compromising testing and dependency injection.
-
 ### Formatters
 
-The main Veneer frontage of Dictum exposes a set of predictable text / key formatters which can be used to quickly prepare strings for specific actions.
+The root Dictum class exposes a set of predictable text / key formatters which can be used to quickly prepare strings for specific actions.
 
 ```php
 use DecodeLabs\Dictum;
