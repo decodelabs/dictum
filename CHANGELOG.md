@@ -5,8 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Unreleased
+--
+
+---
+
+### [v0.7.2](https://github.com/decodelabs/dictum/commits/v0.7.2) - 18th September 2025
+
 - Ported Lucid constraints
 - Simplified CI workflow
+
+[Full list of changes](https://github.com/decodelabs/dictum/compare/v0.7.1...v0.7.2)
 
 ---
 
