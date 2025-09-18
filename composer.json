@@ -19,9 +19,13 @@
         "decodelabs/nuance": "^0.1.9"
     },
     "require-dev": {
+        "decodelabs/lucid": "^0.7",
         "decodelabs/phpstan-decodelabs": "^0.7",
 
         "nesbot/carbon": "^3.10.2"
+    },
+    "conflict": {
+        "decodelabs/lucid": "<0.6"
     },
     "autoload": {
         "psr-4": {
