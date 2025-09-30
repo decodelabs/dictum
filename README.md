@@ -15,6 +15,8 @@ Dictum provides a collection of commonly required text parsing and processing fe
 
 ## Installation
 
+This package requires PHP 8.4 or higher.
+
 Install via Composer:
 
 ```bash
