@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @package Dictum
- * @license http://opensource.org/licenses/MIT
+ * Dictum
+ * @license https://opensource.org/licenses/MIT
  */
 
 declare(strict_types=1);
